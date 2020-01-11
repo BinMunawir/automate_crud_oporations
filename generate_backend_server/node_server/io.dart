@@ -9,27 +9,31 @@ import 'dart:io';
 // }
 
 class IO {
-  String _ioPath = './';
 
   void createDir(String path) {
-    Directory dir = Directory(this._ioPath + this._ioPath + path);
+    Directory dir = Directory(path);
     if (dir.existsSync()) dir.deleteSync(recursive: true);
     dir.createSync(recursive: true);
   }
 
   void createFile(String path) {
-    File file = File(this._ioPath + path);
+    File file = File(path);
     if (file.existsSync()) file.deleteSync();
     file.createSync();
   }
 
   String readFile(String path) {
-    File file = File(this._ioPath + path);
+    File file = File(path);
     return file.readAsStringSync();
   }
 
   void writeFile(String path, String content) {
-    File file = File(this._ioPath + path);
+    File file = File(path);
     return file.writeAsStringSync(content);
+  }
+
+  void copyFile(String source, String path) {
+    createFile(path);
+    writeFile(path, readFile(source));
   }
 }
