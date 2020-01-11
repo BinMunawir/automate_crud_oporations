@@ -15,11 +15,11 @@ class Essentials {
   void _provideEssentialFiles() {
     _io.createDir(_root);
     _io.createDir(_root+'public');
-    _io.copyFile('./essentialFiles/README.rm', this._root + 'README.rm');
-    _io.copyFile('./essentialFiles/.env', this._root + '.env');
-    _io.copyFile('./essentialFiles/.gitignore', this._root + '.gitignore');
+    _io.copyFile('./essentials/README.rm', this._root + 'README.rm');
+    _io.copyFile('./inputs/.env', this._root + '.env');
+    _io.copyFile('./essentials/.gitignore', this._root + '.gitignore');
     _io.copyFile(
-        './essentialFiles/tsconfig.json', this._root + 'tsconfig.json');
+        './essentials/tsconfig.json', this._root + 'tsconfig.json');
   }
 
   void _generatePackage() {

@@ -1,0 +1,85 @@
+GET		/Users
+userID
+password
+_____
+
+
+POST		/Users
+userID
+password
+_____
+
+
+GET		/Users/:userID
+userID
+password
+_____
+
+
+PUT		/Users/:userID
+userID
+password
+_____
+
+
+DELETE		/Users/:userID
+_____
+
+
+GET		/Users/:userID/Orders
+orderID
+userID
+_____
+
+
+POST		/Users/:userID/Orders
+orderID
+userID
+_____
+
+
+GET		/Users/:userID/Orders/:orderID
+orderID
+userID
+_____
+
+
+PUT		/Users/:userID/Orders/:orderID
+orderID
+userID
+_____
+
+
+DELETE		/Users/:userID/Orders/:orderID
+_____
+
+
+GET		/Users/:userID/Orders/:orderID/OrderImages
+orderImageID
+userID
+orderID
+_____
+
+
+POST		/Users/:userID/Orders/:orderID/OrderImages
+orderImageID
+userID
+orderID
+_____
+
+
+GET		/Users/:userID/Orders/:orderID/OrderImages/:orderImageID
+orderImageID
+userID
+orderID
+_____
+
+
+PUT		/Users/:userID/Orders/:orderID/OrderImages/:orderImageID
+orderImageID
+userID
+orderID
+_____
+
+
+DELETE		/Users/:userID/Orders/:orderID/OrderImages/:orderImageID

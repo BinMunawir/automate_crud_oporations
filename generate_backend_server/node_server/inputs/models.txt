@@ -1,0 +1,17 @@
+Users:
+userID, VARCHAR(20), p
+;
+password, INT,
+_____
+
+
+Orders:
+orderID, ,p;
+userID, , Users
+_____
+
+
+OrderImages:
+orderImageID, ,p;
+userID, , Users;
+orderID, , Orders
