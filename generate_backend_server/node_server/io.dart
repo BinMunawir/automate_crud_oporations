@@ -1,8 +1,11 @@
 import 'dart:io';
 
-
 // main(List<String> args) {
 //   IO io = IO();
+//   List<Endpoint> l = io.getEndpoints();
+//   print(l[14].method);
+//   print(l[14].path);
+//   print(l[14].params);
 // }
 
 class IO {
@@ -49,10 +52,32 @@ class IO {
     });
     return tables;
   }
+
+  List<Endpoint> getEndpoints() {
+    String content = readFile('./inputs/endpoints.txt');
+    List<Endpoint> endpoints = [];
+    content.split('_____').forEach((e) {
+      List<String> ee = e.split('%');
+      List<String> params = [];
+      ee[2].trim().split(',').forEach((p) {
+        params.add(p.trim());
+      });
+      endpoints.add(Endpoint(ee[0].trim(), ee[1].trim(), params: params));
+    });
+    return endpoints;
+  }
 }
 
 class Table {
   String name;
   List<List<String>> params;
   Table(this.name, this.params);
+}
+
+class Endpoint {
+  String method;
+  String path;
+  List<String> params;
+
+  Endpoint(this.method, this.path, {this.params});
 }

@@ -12,7 +12,8 @@ class Generators {
     List<Endpoint> tableEndpoints = [];
 
     String parentPath = this._getParentPath(t.params);
-    String collectionPath = parentPath + '/' + t.name;
+    String collectionPath =
+        parentPath + '/' + t.name[0].toLowerCase() + t.name.substring(1);
     String instancePath = collectionPath + '/:' + this._getID(t.params);
 
     List<String> params = this._getParamsName(t.params);
@@ -47,7 +48,7 @@ class Generators {
     params.forEach((p) {
       if (p[2].isEmpty) return;
       if (p[2].length == 1) return;
-      String collection = p[2];
+      String collection = p[2][0].toLowerCase() + p[2].substring(1);
       String instance = p[0];
       parentPath += '/' + collection + '/:' + instance;
     });
