@@ -1,9 +1,10 @@
-import 'generateEssentials.dart';
+import 'essentials.dart';
+import 'utilities.dart';
 
 void main() {
-  Essentials essentials = Essentials('y');
-  essentials.provideEssentialFiles();
-  essentials.generatePackage();
+  String root = './y/';
+  Essentials(root).generate();
+  Utilities(root).generate();
 }
 
 
