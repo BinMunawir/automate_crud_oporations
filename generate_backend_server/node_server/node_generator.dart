@@ -3,6 +3,7 @@ import 'essentials.dart';
 import 'facades.dart';
 import 'middlewares.dart';
 import 'models.dart';
+import 'routers.dart';
 import 'utilities.dart';
 
 void main() {
@@ -14,4 +15,5 @@ void main() {
   Facades(root).generate();
   Config(root).generate();
   Models(root).generate();
+  Routers(root).generate();
 }
