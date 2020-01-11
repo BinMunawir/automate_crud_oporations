@@ -2,9 +2,9 @@
     import http from "http";
     import express from "express";
     import { applyMiddleware, applyRoutes } from "./utilities";
-    import commonMiddelwares from "./middleware/common";
-    import staticsResources from "./middleware/statics";
-    import errorsHandlers from "./middleware/errorHandlers";
+    import commonMiddelwares from "./middlewares/common";
+    import staticsResources from "./middlewares/statics";
+    import errorsHandlers from "./middlewares/errorHandlers";
     import routes from "./routes";
     const sqlStorage = require('sql_storage_system')
 

@@ -14,6 +14,7 @@ class Essentials {
 
   void _provideEssentialFiles() {
     _io.createDir(_root);
+    _io.createDir(_root+'public');
     _io.copyFile('./essentialFiles/README.rm', this._root + 'README.rm');
     _io.copyFile('./essentialFiles/.env', this._root + '.env');
     _io.copyFile('./essentialFiles/.gitignore', this._root + '.gitignore');
@@ -67,9 +68,9 @@ class Essentials {
     import http from "http";
     import express from "express";
     import { applyMiddleware, applyRoutes } from "./utilities";
-    import commonMiddelwares from "./middleware/common";
-    import staticsResources from "./middleware/statics";
-    import errorsHandlers from "./middleware/errorHandlers";
+    import commonMiddelwares from "./middlewares/common";
+    import staticsResources from "./middlewares/statics";
+    import errorsHandlers from "./middlewares/errorHandlers";
     import routes from "./routes";
     const sqlStorage = require('sql_storage_system')
 
