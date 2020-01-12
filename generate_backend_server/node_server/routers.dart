@@ -6,7 +6,7 @@ class Routers {
   String _dir;
 
   Routers(this._root) {
-    this._dir = this._root + 'src/routers/';
+    this._dir = this._root + 'src/routes/';
     _io.createDir(this._dir);
   }
 
@@ -61,9 +61,12 @@ class Routers {
           name = name[0].toUpperCase() + name.substring(1);
         if (e.method == "GET")
           func = 'get' + name;
-        else if (e.method == "POST")
-          func = 'create' + name;
-        else if (e.method == "PUT")
+        else if (e.method == "POST") {
+          e.params.forEach((p) {
+            if (p.contains('ID')) name = p.substring(0, p.indexOf('ID'));
+          });
+          func = 'create' + name[0].toUpperCase() + name.substring(1);
+        } else if (e.method == "PUT")
           func = 'update' + name;
         else if (e.method == "DELETE") func = 'delete' + name;
         return func + '';
@@ -74,7 +77,7 @@ class Routers {
       content.add(e.method);
       content.add(e.path);
       content.add(_getFunName());
-      
+
       if (routes[r] == null) routes[r] = [];
       routes[r].add(content);
     });
@@ -120,7 +123,7 @@ class Routers {
         v.forEach((r) {
           content += '''
           {
-            path: "/api/''' +
+            path: "''' +
               r[1] +
               '''",
             method: "''' +

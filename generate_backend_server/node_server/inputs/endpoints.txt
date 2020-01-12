@@ -1,85 +1,85 @@
-GET%		/users%
+GET%		/api/users%
 userID,
 password
 _____
 
 
-POST%		/users%
+POST%		/api/users%
 userID,
 password
 _____
 
 
-GET%		/users/:userID%
+GET%		/api/users/:userID%
 userID,
 password
 _____
 
 
-PUT%		/users/:userID%
+PUT%		/api/users/:userID%
 userID,
 password
 _____
 
 
-DELETE%		/users/:userID%
+DELETE%		/api/users/:userID%
 _____
 
 
-GET%		/users/:userID/orders%
+GET%		/api/users/:userID/orders%
 orderID,
 userID
 _____
 
 
-POST%		/users/:userID/orders%
+POST%		/api/users/:userID/orders%
 orderID,
 userID
 _____
 
 
-GET%		/users/:userID/orders/:orderID%
+GET%		/api/users/:userID/orders/:orderID%
 orderID,
 userID
 _____
 
 
-PUT%		/users/:userID/orders/:orderID%
+PUT%		/api/users/:userID/orders/:orderID%
 orderID,
 userID
 _____
 
 
-DELETE%		/users/:userID/orders/:orderID%
+DELETE%		/api/users/:userID/orders/:orderID%
 _____
 
 
-GET%		/users/:userID/orders/:orderID/orderImages%
+GET%		/api/users/:userID/orders/:orderID/orderImages%
 orderImageID,
 userID,
 orderID
 _____
 
 
-POST%		/users/:userID/orders/:orderID/orderImages%
+POST%		/api/users/:userID/orders/:orderID/orderImages%
 orderImageID,
 userID,
 orderID
 _____
 
 
-GET%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+GET%		/api/users/:userID/orders/:orderID/orderImages/:orderImageID%
 orderImageID,
 userID,
 orderID
 _____
 
 
-PUT%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+PUT%		/api/users/:userID/orders/:orderID/orderImages/:orderImageID%
 orderImageID,
 userID,
 orderID
 _____
 
 
-DELETE%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+DELETE%		/api/users/:userID/orders/:orderID/orderImages/:orderImageID%
