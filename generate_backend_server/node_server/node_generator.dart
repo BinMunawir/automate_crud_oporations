@@ -4,6 +4,7 @@ import 'facades.dart';
 import 'middlewares.dart';
 import 'models.dart';
 import 'routers.dart';
+import 'services.dart';
 import 'utilities.dart';
 
 void main() {
@@ -16,4 +17,5 @@ void main() {
   Config(root).generate();
   Models(root).generate();
   Routers(root).generate();
+  Services(root).generate();
 }

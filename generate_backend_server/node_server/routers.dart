@@ -62,9 +62,7 @@ class Routers {
         if (e.method == "GET")
           func = 'get' + name;
         else if (e.method == "POST") {
-          e.params.forEach((p) {
-            if (p.contains('ID')) name = p.substring(0, p.indexOf('ID'));
-          });
+          name = e.params[0].substring(0, e.params[0].indexOf('ID'));
           func = 'create' + name[0].toUpperCase() + name.substring(1);
         } else if (e.method == "PUT")
           func = 'update' + name;
@@ -157,8 +155,8 @@ class Routers {
           '''
       ];
       ''';
-      _io.createFile(this._dir + k + '.route.ts');
-      _io.writeFile(this._dir + k + '.route.ts', content);
+      _io.createFile(this._dir + k + '.routes.ts');
+      _io.writeFile(this._dir + k + '.routes.ts', content);
     });
     this._generateRouterIndex(routes.keys.toList());
   }
