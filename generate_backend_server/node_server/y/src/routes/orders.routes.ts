@@ -4,7 +4,7 @@
       export default [ 
                   {
             path: "/api/users/:userID/orders",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getOrders(req.params, req.query, req.headers);
@@ -15,7 +15,7 @@
 
                     {
             path: "/api/users/:userID/orders",
-            method: "POST",
+            method: "post",
             handler: [
               async (req: Request, res: Response) => {
                           await createOrder(req.params, req.query, req.headers, req.body);
@@ -26,7 +26,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getOrder(req.params, req.query, req.headers);
@@ -37,7 +37,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID",
-            method: "PUT",
+            method: "put",
             handler: [
               async (req: Request, res: Response) => {
                           await updateOrder(req.params, req.query, req.headers, req.body);
@@ -48,7 +48,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID",
-            method: "DELETE",
+            method: "delete",
             handler: [
               async (req: Request, res: Response) => {
                           await deleteOrder(req.params, req.query, req.headers);

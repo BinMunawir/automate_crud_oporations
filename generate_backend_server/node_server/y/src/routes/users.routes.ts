@@ -4,7 +4,7 @@
       export default [ 
                   {
             path: "/api/users",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getUsers(req.params, req.query, req.headers);
@@ -15,7 +15,7 @@
 
                     {
             path: "/api/users",
-            method: "POST",
+            method: "post",
             handler: [
               async (req: Request, res: Response) => {
                           await createUser(req.params, req.query, req.headers, req.body);
@@ -26,7 +26,7 @@
 
                     {
             path: "/api/users/:userID",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getUser(req.params, req.query, req.headers);
@@ -37,7 +37,7 @@
 
                     {
             path: "/api/users/:userID",
-            method: "PUT",
+            method: "put",
             handler: [
               async (req: Request, res: Response) => {
                           await updateUser(req.params, req.query, req.headers, req.body);
@@ -48,7 +48,7 @@
 
                     {
             path: "/api/users/:userID",
-            method: "DELETE",
+            method: "delete",
             handler: [
               async (req: Request, res: Response) => {
                           await deleteUser(req.params, req.query, req.headers);

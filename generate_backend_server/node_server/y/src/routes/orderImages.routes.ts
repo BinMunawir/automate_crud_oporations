@@ -4,7 +4,7 @@
       export default [ 
                   {
             path: "/api/users/:userID/orders/:orderID/orderImages",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getOrderImages(req.params, req.query, req.headers);
@@ -15,7 +15,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID/orderImages",
-            method: "POST",
+            method: "post",
             handler: [
               async (req: Request, res: Response) => {
                           await createOrderImage(req.params, req.query, req.headers, req.body);
@@ -26,7 +26,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
-            method: "GET",
+            method: "get",
             handler: [
               async (req: Request, res: Response) => {
                           let data = await getOrderImage(req.params, req.query, req.headers);
@@ -37,7 +37,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
-            method: "PUT",
+            method: "put",
             handler: [
               async (req: Request, res: Response) => {
                           await updateOrderImage(req.params, req.query, req.headers, req.body);
@@ -48,7 +48,7 @@
 
                     {
             path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
-            method: "DELETE",
+            method: "delete",
             handler: [
               async (req: Request, res: Response) => {
                           await deleteOrderImage(req.params, req.query, req.headers);

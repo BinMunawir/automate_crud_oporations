@@ -125,7 +125,7 @@ class Routers {
               r[1] +
               '''",
             method: "''' +
-              r[0] +
+              r[0].toLowerCase() +
               '''",
             handler: [
               async (req: Request, res: Response) => {
