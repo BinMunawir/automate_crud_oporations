@@ -12,6 +12,7 @@ class Config {
 
   void generate() {
     this._generateConfig();
+    this._generateSqlTable();
   }
 
   void _generateConfig() {
@@ -21,5 +22,18 @@ class Config {
 
     _io.createFile(this._dir + 'swagger.json');
     _io.writeFile(this._dir + 'swagger.json', content);
+  }
+
+  void _generateSqlTable() {
+    String content = '''
+    export const tables = `
+    ''' +
+        this._io.readFile('./docs/sqlTables.txt') +
+        '''
+    `;
+    ''';
+
+    _io.createFile(this._dir + 'sqlTables.ts');
+    _io.writeFile(this._dir + 'sqlTables.ts', content);
   }
 }

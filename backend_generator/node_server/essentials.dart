@@ -29,39 +29,39 @@ class Essentials {
   void _generatePackage() {
     String projectName = this._io.getConfig()[0][1];
     String content = '''
-    {
-  "name": "''' +
+        {
+      "name": "''' +
         projectName +
         '''",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "tsc-watch --onSuccess \\"node ./dist/server.js\\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@types/compression": "^1.0.1",
-    "@types/cors": "^2.8.6",
-    "@types/express": "^4.17.2",
-    "@types/node": "^12.12.20",
-    "@types/swagger-ui-express": "^4.1.0",
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^5.0.0-alpha.7",
-    "express-fileupload": "^1.1.6",
-    "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.17.1",
-    "sql_storage_system": "0.0.17",
-    "swagger-ui-express": "^4.1.2",
-    "tsc-watch": "^4.0.0",
-    "typescript": "^3.7.3"
-  }
-}
-    ''';
+      "version": "0.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "dev": "tsc-watch --onSuccess \\"node ./dist/server.js\\""
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "dependencies": {
+        "@types/compression": "^1.0.1",
+        "@types/cors": "^2.8.6",
+        "@types/express": "^4.17.2",
+        "@types/node": "^12.12.20",
+        "@types/swagger-ui-express": "^4.1.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^5.0.0-alpha.7",
+        "express-fileupload": "^1.1.6",
+        "jsonwebtoken": "^8.5.1",
+        "mysql": "^2.17.1",
+        "sql_storage_system": "0.0.28",
+        "swagger-ui-express": "^4.1.2",
+        "tsc-watch": "^4.0.0",
+        "typescript": "^3.7.3"
+      }
+    }
+        ''';
     _io.createFile(this._root + 'package.json');
     _io.writeFile(this._root + 'package.json', content);
   }
@@ -69,33 +69,36 @@ class Essentials {
   void _generateServer() {
     _io.createDir(_root + 'src/');
     String content = '''
-    require('dotenv').config()
-    import http from "http";
-    import express from "express";
-    import { applyMiddleware, applyRoutes } from "./utilities";
-    import commonMiddelwares from "./middlewares/common";
-    import staticsResources from "./middlewares/statics";
-    import errorsHandlers from "./middlewares/errorHandlers";
-    import routes from "./routes";
-    const sqlStorage = require('sql_storage_system')
-
-
-    const router = express();
-    applyMiddleware(commonMiddelwares, router);
-    applyRoutes(routes, router);
-    applyMiddleware(staticsResources, router);
-    applyMiddleware(errorsHandlers, router);
-
-    sqlStorage.sqlSetup(process.env.dbHost, process.env.dbUser, process.env.dbPassword, process.env.dbName);
-    const { hostname = 'localhost' } = process.env;
-    const { port = 3030 } = process.env;
-    const server = http.createServer(router);
-
-    server.listen(port, () =>
-      console.log(`Server is running \${hostname}:\${port}...`)
-    );
-
-    ''';
+        require('dotenv').config()
+        import http from "http";
+        import express from "express";
+        import { applyMiddleware, applyRoutes } from "./utilities";
+        import commonMiddelwares from "./middlewares/common";
+        import staticsResources from "./middlewares/statics";
+        import errorsHandlers from "./middlewares/errorHandlers";
+        import routes from "./routes";
+        import { tables } from "./config/sqlTables";
+        const sqlStorage = require('sql_storage_system')
+    
+    
+        const router = express();
+        applyMiddleware(commonMiddelwares, router);
+        applyRoutes(routes, router);
+        applyMiddleware(staticsResources, router);
+        applyMiddleware(errorsHandlers, router);
+    
+        
+        sqlStorage.sqlSetup(process.env.dbHost, process.env.dbUser, 
+          process.env.dbPassword, process.env.dbName, tables);
+        const { hostname = 'localhost' } = process.env;
+        const { port = 3030 } = process.env;
+        const server = http.createServer(router);
+    
+        server.listen(port, () =>
+          console.log(`Server is running \${hostname}:\${port}...`)
+        );
+    
+        ''';
     _io.createFile(this._root + 'src/' + 'server.ts');
     _io.writeFile(this._root + 'src/' + 'server.ts', content);
   }

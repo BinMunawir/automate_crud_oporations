@@ -5,4 +5,4 @@ secretKey=abdullahInnosoft,
 dbHost=localhost,
 dbUser=root,
 dbPassword=123456789,
-dbName=x
+dbName=hiDB
