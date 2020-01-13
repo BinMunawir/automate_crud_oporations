@@ -1,3 +1,4 @@
+import '../../io.dart';
 import 'config.dart';
 import 'essentials.dart';
 import 'facades.dart';
@@ -8,7 +9,9 @@ import 'services.dart';
 import 'utilities.dart';
 
 void main() {
-  String root = './y/';
+  IO io = IO();
+
+  String root = './docs/' + io.getConfig()[0][1] + '/';
 
   Essentials(root).generate();
   Utilities(root).generate();

@@ -1,8 +1,10 @@
-class Generators {
+import '../io.dart';
+
+class EndpointsGenerators {
   List<Table> _tables;
   List<Endpoint> endpoints = [];
 
-  Generators(this._tables);
+  EndpointsGenerators(this._tables);
 
   String generate() {
     _tables.forEach((t) => this._tableEndpoints(t));
@@ -54,18 +56,4 @@ class Generators {
     });
     return parentPath;
   }
-}
-
-class Table {
-  String name;
-  List<List<String>> params;
-  Table(this.name, this.params);
-}
-
-class Endpoint {
-  String method;
-  String path;
-  List<String> params;
-
-  Endpoint(this.method, this.path, {this.params});
 }

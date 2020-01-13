@@ -1,5 +1,5 @@
-{
-  "name": "y",
+    {
+  "name": "hi",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -28,3 +28,4 @@
     "typescript": "^3.7.3"
   }
 }
+    

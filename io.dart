@@ -1,12 +1,15 @@
 import 'dart:io';
 
-// main(List<String> args) {
-//   IO io = IO();
-//   List<Endpoint> l = io.getEndpoints();
-//   print(l[14].method);
-//   print(l[14].path);
-//   print(l[14].params);
-// }
+main(List<String> args) {
+  IO io = IO();
+  print(io.getConfig());
+//   List<Table> tables = io.getTables();
+//   print(tables[0].name);
+  // List<Endpoint> l = io.getEndpoints();
+  // print(l[14].method);
+  // print(l[14].path);
+  // print(l[14].params);
+}
 
 class IO {
   void createDir(String path) {
@@ -37,7 +40,7 @@ class IO {
   }
 
   List<Table> getTables() {
-    String content = readFile('./inputs/models.txt');
+    String content = readFile('./docs/models.txt');
     List<Table> tables = [];
     content.split('_____').forEach((t) {
       List<String> tContent = t.split(':');
@@ -54,7 +57,7 @@ class IO {
   }
 
   List<Endpoint> getEndpoints() {
-    String content = readFile('./inputs/endpoints.txt');
+    String content = readFile('./docs/endpoints.txt');
     List<Endpoint> endpoints = [];
     content.split('_____').forEach((e) {
       List<String> ee = e.split('%');
@@ -65,6 +68,15 @@ class IO {
       endpoints.add(Endpoint(ee[0].trim(), ee[1].trim(), params: params));
     });
     return endpoints;
+  }
+
+  List<List<String>> getConfig() {
+    String content = readFile('./docs/config.txt');
+    List<List<String>> config = [];
+    content.split(',').forEach((e) {
+      config.add(e.trim().split('='));
+    });
+    return config;
   }
 }
 

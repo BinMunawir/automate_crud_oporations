@@ -3,7 +3,7 @@
 
       export default [ 
                   {
-            path: "/api/users/:userID/orders",
+            path: "/users/:userID/orders",
             method: "get",
             handler: [
               async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@
           },
 
                     {
-            path: "/api/users/:userID/orders",
+            path: "/users/:userID/orders",
             method: "post",
             handler: [
               async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID",
+            path: "/users/:userID/orders/:orderID",
             method: "get",
             handler: [
               async (req: Request, res: Response) => {
@@ -36,7 +36,7 @@
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID",
+            path: "/users/:userID/orders/:orderID",
             method: "put",
             handler: [
               async (req: Request, res: Response) => {
@@ -47,7 +47,7 @@
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID",
+            path: "/users/:userID/orders/:orderID",
             method: "delete",
             handler: [
               async (req: Request, res: Response) => {

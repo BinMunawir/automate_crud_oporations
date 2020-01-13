@@ -1,4 +1,4 @@
-import 'io.dart';
+import '../../io.dart';
 
 class Config {
   IO _io = IO();

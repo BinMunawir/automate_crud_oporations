@@ -1,4 +1,4 @@
-import 'io.dart';
+import '../../io.dart';
 
 class MiddleWares {
   IO _io = IO();

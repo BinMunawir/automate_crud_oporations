@@ -1,57 +1,57 @@
       import { Request, Response } from "express";
-      import { getOrderImages, createOrderImage, getOrderImage, updateOrderImage, deleteOrderImage,  } from "../services/orderImages.service";
+      import { getUsers, createUser, getUser, updateUser, deleteUser,  } from "../services/users.service";
 
       export default [ 
                   {
-            path: "/api/users/:userID/orders/:orderID/orderImages",
+            path: "/users",
             method: "get",
             handler: [
               async (req: Request, res: Response) => {
-                          let data = await getOrderImages(req.params, req.query, req.headers);
+                          let data = await getUsers(req.params, req.query, req.headers);
           res.status(200).send(data);
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID/orderImages",
+            path: "/users",
             method: "post",
             handler: [
               async (req: Request, res: Response) => {
-                          await createOrderImage(req.params, req.query, req.headers, req.body);
+                          await createUser(req.params, req.query, req.headers, req.body);
           res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
+            path: "/users/:userID",
             method: "get",
             handler: [
               async (req: Request, res: Response) => {
-                          let data = await getOrderImage(req.params, req.query, req.headers);
+                          let data = await getUser(req.params, req.query, req.headers);
           res.status(200).send(data);
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
+            path: "/users/:userID",
             method: "put",
             handler: [
               async (req: Request, res: Response) => {
-                          await updateOrderImage(req.params, req.query, req.headers, req.body);
+                          await updateUser(req.params, req.query, req.headers, req.body);
           res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/orders/:orderID/orderImages/:orderImageID",
+            path: "/users/:userID",
             method: "delete",
             handler: [
               async (req: Request, res: Response) => {
-                          await deleteOrderImage(req.params, req.query, req.headers);
+                          await deleteUser(req.params, req.query, req.headers);
           res.status(200).send();
                         }
             ]

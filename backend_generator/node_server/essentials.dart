@@ -1,4 +1,6 @@
-import 'io.dart';
+import 'dart:io';
+
+import '../../io.dart';
 
 class Essentials {
   IO _io = IO();
@@ -9,24 +11,27 @@ class Essentials {
   void generate() {
     _provideEssentialFiles();
     _generatePackage();
+    _generateEnv();
     _generateServer();
   }
 
   void _provideEssentialFiles() {
     _io.createDir(_root);
-    _io.createDir(_root+'public');
-    _io.copyFile('./essentials/README.rm', this._root + 'README.rm');
-    _io.copyFile('./inputs/.env', this._root + '.env');
-    _io.copyFile('./essentials/.gitignore', this._root + '.gitignore');
-    _io.copyFile(
-        './essentials/tsconfig.json', this._root + 'tsconfig.json');
+    _io.createDir(_root + 'public');
+    _io.copyFile('./backend_generator/node_server/essentials/README.rm',
+        this._root + 'README.rm');
+    _io.copyFile('./backend_generator/node_server/essentials/.gitignore',
+        this._root + '.gitignore');
+    _io.copyFile('./backend_generator/node_server/essentials/tsconfig.json',
+        this._root + 'tsconfig.json');
   }
 
   void _generatePackage() {
+    String projectName = this._io.getConfig()[0][1];
     String content = '''
     {
   "name": "''' +
-        this._root.split('/')[this._root.split('/').length - 2] +
+        projectName +
         '''",
   "version": "0.0.1",
   "description": "",
@@ -93,5 +98,23 @@ class Essentials {
     ''';
     _io.createFile(this._root + 'src/' + 'server.ts');
     _io.writeFile(this._root + 'src/' + 'server.ts', content);
+  }
+
+  void _generateEnv() {
+    List<List<String>> config = this._io.getConfig();
+    String content = '';
+
+    config.forEach((g) {
+      if (g[0] == 'hostname' ||
+          g[0] == 'port' ||
+          g[0] == 'secretKey' ||
+          g[0] == 'dbHost' ||
+          g[0] == 'dbUser' ||
+          g[0] == 'dbPassword' ||
+          g[0] == 'dbName') content += g[0] + '=' + g[1] + '\n';
+    });
+
+    _io.createFile(this._root + '.env');
+    _io.writeFile(this._root + '.env', content);
   }
 }

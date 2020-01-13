@@ -1,4 +1,4 @@
-import 'io.dart';
+import '../../io.dart';
 
 class Models {
   IO _io = IO();

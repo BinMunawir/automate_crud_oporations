@@ -1,21 +1,3 @@
-import 'io.dart';
-
-class Utilities {
-  IO _io = IO();
-  String _root;
-  String _dir;
-
-  Utilities(this._root) {
-    this._dir = this._root + 'src/utilities/';
-    _io.createDir(this._dir);
-  }
-
-  void generate() {
-    this._generateUtilities();
-  }
-
-  void _generateUtilities() {
-    String content = '''
       import { Router, Request, Response, NextFunction } from "express";
       const jwt = require('jsonwebtoken')
 
@@ -116,9 +98,4 @@ class Utilities {
         }
         return preventBody;
       }
-    ''';
-
-    _io.createFile(this._dir + 'index.ts');
-    _io.writeFile(this._dir + 'index.ts', content);
-  }
-}
+    
