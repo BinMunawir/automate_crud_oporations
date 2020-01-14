@@ -1,7 +1,8 @@
 Users:
 userID, VARCHAR(20), p
 ;
-password, INT,
+password, INT,;
+name,,
 _____
 
 

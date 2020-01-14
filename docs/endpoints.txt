@@ -1,0 +1,95 @@
+POST%		/api/auth/signup%
+userID,
+password,
+name
+_____
+
+
+POST%		/api/auth/login%
+userID,
+password
+_____
+
+
+GET%		/users%
+userID,
+password,
+name
+_____
+
+
+GET%		/users/:userID%
+userID,
+password,
+name
+_____
+
+
+PUT%		/users/:userID%
+userID,
+password,
+name
+_____
+
+
+DELETE%		/users/:userID%
+_____
+
+
+GET%		/users/:userID/orders%
+orderID,
+userID
+_____
+
+
+POST%		/users/:userID/orders%
+orderID,
+userID
+_____
+
+
+GET%		/users/:userID/orders/:orderID%
+orderID,
+userID
+_____
+
+
+PUT%		/users/:userID/orders/:orderID%
+orderID,
+userID
+_____
+
+
+DELETE%		/users/:userID/orders/:orderID%
+_____
+
+
+GET%		/users/:userID/orders/:orderID/orderImages%
+orderImageID,
+userID,
+orderID
+_____
+
+
+POST%		/users/:userID/orders/:orderID/orderImages%
+orderImageID,
+userID,
+orderID
+_____
+
+
+GET%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+orderImageID,
+userID,
+orderID
+_____
+
+
+PUT%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+orderImageID,
+userID,
+orderID
+_____
+
+
+DELETE%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
