@@ -1,8 +1,8 @@
-projectName=hi,
+projectName=z,
 hostname=localhost,
 port=3030,
 secretKey=abdullahInnosoft,
 dbHost=localhost,
 dbUser=root,
 dbPassword=123456789,
-dbName=hiDB
+dbName=zDB
