@@ -63,10 +63,10 @@ class EndpointsGenerators {
     this._tables.forEach((t) {
       if (t.name == 'Users') {
         String signupMethod = 'POST';
-        String signupPath = '/api/auth/signup';
+        String signupPath = '/auth/signup';
         List<String> signupParams = this._getParamsName(t.params);
         String loginMethod = 'POST';
-        String loginPath = '/api/auth/login';
+        String loginPath = '/auth/login';
         List<String> loginParams = ['userID', 'password'];
 
         this

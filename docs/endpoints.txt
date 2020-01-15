@@ -1,7 +1,10 @@
 POST%		/api/auth/signup%
 userID,
 password,
-name
+name,
+email,
+workPlace,
+position
 _____
 
 
@@ -11,85 +14,154 @@ password
 _____
 
 
-GET%		/users%
+GET%		/api/users%
 userID,
 password,
-name
+name,
+email,
+workPlace,
+position
 _____
 
 
-GET%		/users/:userID%
+GET%		/api/users/:userID%
 userID,
 password,
-name
+name,
+email,
+workPlace,
+position
 _____
 
 
-PUT%		/users/:userID%
+PUT%		/api/users/:userID%
 userID,
 password,
-name
+name,
+email,
+workPlace,
+position
 _____
 
 
-DELETE%		/users/:userID%
+DELETE%		/api/users/:userID%
 _____
 
 
-GET%		/users/:userID/orders%
-orderID,
-userID
+GET%		/api/drugs%
+drugID,
+dosegeForm,
+streangth
 _____
 
 
-POST%		/users/:userID/orders%
-orderID,
-userID
+POST%		/api/drugs%
+drugID,
+dosegeForm,
+streangth
 _____
 
 
-GET%		/users/:userID/orders/:orderID%
-orderID,
-userID
+GET%		/api/drugs/:drugID%
+drugID,
+dosegeForm,
+streangth
 _____
 
 
-PUT%		/users/:userID/orders/:orderID%
-orderID,
-userID
+PUT%		/api/drugs/:drugID%
+drugID,
+dosegeForm,
+streangth
 _____
 
 
-DELETE%		/users/:userID/orders/:orderID%
+DELETE%		/api/drugs/:drugID%
 _____
 
 
-GET%		/users/:userID/orders/:orderID/orderImages%
-orderImageID,
-userID,
-orderID
+GET%		/api/drugs/:drugID/stocks%
+stockID,
+drugID,
+date,
+expiredAt,
+quantity,
+hospital,
+city
 _____
 
 
-POST%		/users/:userID/orders/:orderID/orderImages%
-orderImageID,
-userID,
-orderID
+POST%		/api/drugs/:drugID/stocks%
+stockID,
+drugID,
+date,
+expiredAt,
+quantity,
+hospital,
+city
 _____
 
 
-GET%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
-orderImageID,
-userID,
-orderID
+GET%		/api/drugs/:drugID/stocks/:stockID%
+stockID,
+drugID,
+date,
+expiredAt,
+quantity,
+hospital,
+city
 _____
 
 
-PUT%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
-orderImageID,
-userID,
-orderID
+PUT%		/api/drugs/:drugID/stocks/:stockID%
+stockID,
+drugID,
+date,
+expiredAt,
+quantity,
+hospital,
+city
 _____
 
 
-DELETE%		/users/:userID/orders/:orderID/orderImages/:orderImageID%
+DELETE%		/api/drugs/:drugID/stocks/:stockID%
+_____
+
+
+GET%		/api/drugs/:drugID/requests%
+requestID,
+drugID,
+date,
+hospital,
+city
+_____
+
+
+POST%		/api/drugs/:drugID/requests%
+requestID,
+drugID,
+date,
+hospital,
+city
+_____
+
+
+GET%		/api/drugs/:drugID/requests/:requestID%
+requestID,
+drugID,
+date,
+hospital,
+city
+_____
+
+
+PUT%		/api/drugs/:drugID/requests/:requestID%
+requestID,
+drugID,
+date,
+hospital,
+city
+_____
+
+
+DELETE%		/api/drugs/:drugID/requests/:requestID%

@@ -29,7 +29,9 @@ class Services {
       String _getFuncName() {
         String func;
         String name = e.path.split('/')[e.path.split('/').length - 1];
-        if (name.contains(':'))
+        if (e.path.contains('auth'))
+          return name;
+        else if (name.contains(':'))
           name = name[1].toUpperCase() + name.substring(2, name.indexOf('ID'));
         else
           name = name[0].toUpperCase() + name.substring(1);
@@ -46,23 +48,81 @@ class Services {
         return func + '';
       }
 
-      String s = _getService();
+      String s = e.path.contains('auth') ? 'auth' : _getService();
       if (services[s] == null) services[s] = [];
       services[s].add(_getFuncName());
     });
 
     services.forEach((k, v) {
       String _getFunctions() {
+        String _getAuth() {
+          return '''
+    if(params.userID != null) {
+      try {
+          verifyToken(params.userID, headers.auth)
+      } catch (e) {
+          throw new HTTP400Error(101, "error: you are not authorized to this endpoint")
+      }
+    }
+
+          ''';
+        }
+
         String tableName = k[0].toUpperCase() + k.substring(1);
         String content = '';
         v.forEach((f) {
-          if (f.contains('get')) {
+          if (f == 'signup') {
+            content += """
+export async function """ +
+                f +
+                """(headers: any, body: any) {
+    if (body.userID == null || body.password == null)
+        throw new HTTP400Error(105, 'userID and password are required');
+    try {
+        let d = await facade.sqlStorage.sqlCreate('Users', body)
+        return JSON.stringify(d);
+    } catch (e) {
+        if (e.message.includes('Duplicate entry'))
+            throw new HTTP400Error(104, 'error: the user already exist in the database')
+        throw e;
+    }
+}
+            """;
+          } else if (f == 'login') {
+            content += """
+export async function """ +
+                f +
+                """(headers: any, body: any) {
+    if (body.userID == null || body.password == null)
+        throw new HTTP400Error(105, 'userID and password are required');
+    body = { userID: body.userID, password: body.password }
+    try {
+        let d = await facade.sqlStorage.sqlRead('Users', body)
+        if (d.length == 0)
+            throw new Error('no user by that id')
+        let token = getToken(body.userID);
+        d = {
+            token: token,
+            profile: d
+        }
+        return JSON.stringify(d);
+    } catch (e) {
+        if (e.message.includes('no user'))
+            throw new HTTP400Error(107, 'username or password are incorrect')
+        throw e;
+    }
+}
+            """;
+          } else if (f.contains('get')) {
             if (f == 'get' + tableName)
               content += """
               export async function """ +
                   f +
                   """(params: any, query: any, headers: any) {
 
+                  """ +
+                  _getAuth() +
+                  """
                   try {
                       let dbQuery = { ...params, ...query };
                       let d = await facade.sqlStorage.sqlRead('""" +
@@ -81,12 +141,15 @@ class Services {
                   f +
                   """(params: any, query: any, headers: any) {
 
+                """ +
+                  _getAuth() +
+                  """
                 try {
                     let dbQuery = { ...params, ...query };
                     let d = await facade.sqlStorage.sqlRead('""" +
                   tableName +
                   """', dbQuery)
-                    if (d.length() == 0)
+                    if (d.length == 0)
                         throw new Error('error: there is no data by that id')
                     return JSON.stringify(d[0]);
                 } catch (e) {
@@ -102,6 +165,9 @@ class Services {
               export async function """ +
                 f +
                 """(params: any, query: any, headers: any, body: any) {
+                  """ +
+                _getAuth() +
+                """
                   try {
                       let d = await facade.sqlStorage.sqlCreate('""" +
                 tableName +
@@ -118,6 +184,9 @@ class Services {
               export async function """ +
                 f +
                 """(params: any, query: any, headers: any, body: any) {
+                  """ +
+                _getAuth() +
+                """
                   try {
                     let dbQuery = { ...params, ...query };
                     let d = await facade.sqlStorage.sqlUpdate('""" +
@@ -135,6 +204,9 @@ class Services {
               export async function """ +
                 f +
                 """(params: any, query: any, headers: any) {
+                """ +
+                _getAuth() +
+                """
                 try {
                     let dbQuery = { ...params, ...query };
                     let d = await facade.sqlStorage.sqlDelete('""" +
@@ -153,7 +225,7 @@ class Services {
       }
 
       String content = '''
-        import { } from "../utilities";
+        import { getToken, verifyToken, storeImage, checkBody, checkQuery, preventBody } from "../utilities";
         import { HTTP400Error } from "../models/http400error";
         import facade from "../facades";
 

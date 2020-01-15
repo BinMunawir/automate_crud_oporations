@@ -1,15 +1,9 @@
 import 'dart:io';
 
-// main(List<String> args) {
-//   IO io = IO();
-//   print(io.getSqlTable());
-//   List<Table> tables = io.getTables();
-//   print(tables[0].name);
-  // List<Endpoint> l = io.getEndpoints();
-  // print(l[14].method);
-  // print(l[14].path);
-  // print(l[14].params);
-// }
+main(List<String> args) {
+  IO io = IO();
+  print(io.getTables());
+}
 
 class IO {
   void createDir(String path) {

@@ -55,10 +55,13 @@ class Routers {
       String _getFunName() {
         String func;
         String name = e.path.split('/')[e.path.split('/').length - 1];
-        if (name.contains(':'))
+        if (e.path.contains('auth'))
+          return name;
+        else if (name.contains(':'))
           name = name[1].toUpperCase() + name.substring(2, name.indexOf('ID'));
         else
           name = name[0].toUpperCase() + name.substring(1);
+
         if (e.method == "GET")
           func = 'get' + name;
         else if (e.method == "POST") {
@@ -70,7 +73,7 @@ class Routers {
         return func + '';
       }
 
-      String r = _getRoute();
+      String r = e.path.contains('auth') ? 'auth' : _getRoute();
       List<String> content = [];
       content.add(e.method);
       content.add(e.path);
@@ -91,7 +94,22 @@ class Routers {
 
       String _getFunContent(String func) {
         String content;
-        if (func.contains('get')) {
+        if (func == 'signup') {
+          content = '''
+          await ''' +
+              func +
+              '''(req.headers, req.body);
+          res.status(200).send();
+          ''';
+        }
+        else if(func == 'login') {
+          content = '''
+          let data = await ''' +
+              func +
+              '''(req.headers, req.body);
+          res.status(200).send(data);
+          ''';
+        } else if (func.contains('get')) {
           content = '''
           let data = await ''' +
               func +

@@ -19,7 +19,7 @@ void main(List<String> args) {
 String formatOutput(endpoints) {
   String api = '';
   endpoints.forEach((e) {
-    api += (e.method + '%\t\t' + e.path + '%\n');
+    api += (e.method + '%\t\t/api' + e.path + '%\n');
     e.params?.forEach((p) {
       api += (p);
       if (p != e.params[e.params.length - 1]) api += ',';
