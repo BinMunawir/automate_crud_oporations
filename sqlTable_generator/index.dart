@@ -33,7 +33,10 @@ String getSqlContent(List<List<String>> params) {
   params.forEach((p) {
     String c = '';
     c += p[0] + '\t\t';
-    c += p[1].isEmpty ? 'VARCHAR(255)' : p[1];
+    if (p[1].contains('CHAR') || p[1].contains('INT'))
+      c += p[1];
+    else
+      c += 'VARCHAR(255)';
     c += ',\n';
     content += c;
     if (p[2] == 'p') {

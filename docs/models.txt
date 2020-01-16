@@ -1,33 +1,14 @@
 Users:
-userID, VARCHAR(20), p;
+userID,, p;
 password,,;
 name,,;
-email,,;
-workPlace,,;
-position,,
+data, INT,;
+avatar, image,
 _____
 
-
-Drugs:
-drugID,,p;
-dosegeForm,,;
-streangth,,
-_____
-
-Stocks:
-stockID,,p;
-drugID,,Drugs;
-date,,;
-expiredAt,,;
-quantity,INT,;
-hospital,,;
-city,,
-
-_____
-
-Requests:
-requestID,,p;
-drugID,,Drugs;
-date,,;
-hospital,,;
-city,,
+Notes:
+noteID,,p;
+userID,,Users;
+title,,;
+data, INT,;
+image, image,
