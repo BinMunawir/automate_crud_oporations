@@ -2,7 +2,7 @@ import 'dart:io';
 
 main(List<String> args) {
   IO io = IO();
-  print(io.getTables()[1].params);
+  print(io.getEndpoints()[10].params);
 }
 
 class IO {

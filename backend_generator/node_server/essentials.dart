@@ -55,7 +55,7 @@ class Essentials {
         "express-fileupload": "^1.1.6",
         "jsonwebtoken": "^8.5.1",
         "mysql": "^2.17.1",
-        "sql_storage_system": "0.0.28",
+        "sql_storage_system": "0.0.35",
         "swagger-ui-express": "^4.1.2",
         "tsc-watch": "^4.0.0",
         "typescript": "^3.7.3"

@@ -42,7 +42,7 @@ class Routers {
 
   void _generateRouters() {
     List<Endpoint> endpoints = this._io.getEndpoints();
-    Map<String, List<List<String>>> routes = Map();
+    Map<String, List<Map<List<String>, List<String>>>> routes = Map();
 
     endpoints.forEach((e) {
       String _getRoute() {
@@ -80,55 +80,116 @@ class Routers {
       content.add(_getFunName());
 
       if (routes[r] == null) routes[r] = [];
-      routes[r].add(content);
+      routes[r].add({e.params: content});
     });
 
-    routes.forEach((k, v) {
+    routes.forEach((k, r) {
       String _getFunctions() {
         String content = '';
-        v.forEach((r) {
-          content += r[2] + ', ';
+        r.forEach((f) {
+          f.forEach((p, c) => {content += c[2] + ', '});
         });
         return content;
       }
 
-      String _getFunContent(String func) {
+      String _getModel() {
+        String content = '';
+        this._io.getTables().forEach((t) {
+          String model;
+          Map<String, dynamic> params = Map();
+          if (t.name.toLowerCase() == 'users' && k == 'auth') {
+            model = 'auth';
+            t.params.forEach((p) {
+              if (p[1].contains('INT'))
+                params.addAll({p[0]: 0});
+              else if (!p[1].contains('CHAR') && p[1].length > 0)
+                params.addAll({p[0]: "{mimetype: '" + p[1] + "',}"});
+              else
+                params.addAll({p[0]: "''"});
+            });
+            content += """
+            let type: UserModel = 
+              """ +
+                params.toString() +
+                """
+            """;
+          }
+          if (t.name.toLowerCase() == k) {
+            model = t.params[0][0][0].toUpperCase() +
+                t.params[0][0].substring(1, t.params[0][0].indexOf('ID'));
+            t.params.forEach((p) {
+              if (p[1].contains('INT'))
+                params.addAll({p[0]: 0});
+              else if (!p[1].contains('CHAR') && p[1].length > 0)
+                params.addAll({p[0]: "{mimetype: '" + p[1] + "',}"});
+              else
+                params.addAll({p[0]: "''"});
+            });
+            content += """
+            let type: """ +
+                model +
+                """Model = 
+              """ +
+                params.toString() +
+                """
+            """;
+          }
+        });
+        return content;
+      }
+
+      String _getFunContent(List<String> p, String func) {
+        String _getParameters(List<String> p) {
+          String content = "";
+          p.forEach((s) => content += "'" + s + "', ");
+          return content;
+        }
+
         String content;
         if (func == 'signup') {
           content = '''
-          await ''' +
-              func +
-              '''(req.headers, req.body);
-          res.status(200).send();
+        let accepted: string[] = [''' +
+              _getParameters(p) +
+              ''']
+        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        await signup(body);
+        res.status(200).send();
           ''';
-        }
-        else if(func == 'login') {
+        } else if (func == 'login') {
           content = '''
-          let data = await ''' +
-              func +
-              '''(req.headers, req.body);
-          res.status(200).send(data);
+        let accepted: string[] = [''' +
+              _getParameters(p) +
+              ''']
+        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        let data = await login(body);
+        res.status(200).send(data);
           ''';
         } else if (func.contains('get')) {
           content = '''
-          let data = await ''' +
+        let query = { ...req.params, ...checkQuery(req.query, type) };
+        let accepted: string[] = [''' +
+              _getParameters(p) +
+              '''];
+        let data = await ''' +
               func +
-              '''(req.params, req.query, req.headers);
-          res.status(200).send(data);
+              '''(query, accepted);
+        res.status(200).send(JSON.stringify(data));
           ''';
         } else if (func.contains('delete')) {
           content = '''
-          await ''' +
-              func +
-              '''(req.params, req.query, req.headers);
-          res.status(200).send();
+          // TODO: implementation
           ''';
         } else {
           content = '''
-          await ''' +
+        let query = { ...req.params, ...checkQuery(req.query, type) };
+        let accepted: string[] = [''' +
+              _getParameters(p) +
+              ''']
+        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        await ''' +
               func +
-              '''(req.params, req.query, req.headers, req.body);
-          res.status(200).send();
+              '''(query, body);
+        res.status(200).send();
           ''';
         }
         return content + '';
@@ -136,36 +197,42 @@ class Routers {
 
       String _getRoutes() {
         String content = '';
-        v.forEach((r) {
-          content += '''
+        r.forEach((f) {
+          f.forEach((p, c) => {
+                content += '''
           {
             path: "''' +
-              r[1] +
-              '''",
+                    c[1] +
+                    '''",
             method: "''' +
-              r[0].toLowerCase() +
-              '''",
+                    c[0].toLowerCase() +
+                    '''",
             handler: [
-              async (req: Request, res: Response) => {
+              async (req: any, res: any) => {
                 ''' +
-              _getFunContent(r[2]) +
-              '''
+                    _getFunContent(p, c[2]) +
+                    '''
               }
             ]
           },
 
-          ''';
+          '''
+              });
         });
         return content;
       }
 
       String content = '''
-      import { Request, Response } from "express";
+import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
       import { ''' +
           _getFunctions() +
           ''' } from "../services/''' +
           k +
           '''.service";
+
+          ''' +
+          _getModel() +
+          '''
 
       export default [ 
         ''' +

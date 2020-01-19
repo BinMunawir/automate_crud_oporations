@@ -49,8 +49,13 @@ class Models {
     String _getParams(List<List<String>> params) {
       String content = '';
       params.forEach((p) {
-        String type = 'string';
-        if (p[1].contains('INT')) type = 'number';
+        String type = '';
+        if (p[1].contains('INT'))
+          type = 'number';
+        else if (p[1].contains('CHAR'))
+          type = 'string';
+        else
+          type = 'string | {}';
         content += (p[0] + '?: ' + type + ' | null;\n');
       });
       return content;

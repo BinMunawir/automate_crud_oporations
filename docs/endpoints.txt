@@ -1,0 +1,83 @@
+POST%		/api/auth/signup%
+userID,
+password,
+name,
+data,
+avatar
+_____
+
+
+POST%		/api/auth/login%
+userID,
+password
+_____
+
+
+GET%		/api/users%
+userID,
+password,
+name,
+data,
+avatar
+_____
+
+
+GET%		/api/users/:userID%
+userID,
+password,
+name,
+data,
+avatar
+_____
+
+
+PUT%		/api/users/:userID%
+userID,
+password,
+name,
+data,
+avatar
+_____
+
+
+DELETE%		/api/users/:userID%
+_____
+
+
+GET%		/api/users/:userID/notes%
+noteID,
+userID,
+title,
+data,
+image
+_____
+
+
+POST%		/api/users/:userID/notes%
+noteID,
+userID,
+title,
+data,
+image
+_____
+
+
+GET%		/api/users/:userID/notes/:noteID%
+noteID,
+userID,
+title,
+data,
+image
+_____
+
+
+PUT%		/api/users/:userID/notes/:noteID%
+noteID,
+userID,
+title,
+data,
+image
+_____
+
+
+DELETE%		/api/users/:userID/notes/:noteID%
