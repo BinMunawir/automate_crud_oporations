@@ -2,7 +2,7 @@ POST%		/api/auth/signup%
 userID,
 password,
 name,
-data,
+date,
 avatar
 _____
 
@@ -17,7 +17,7 @@ GET%		/api/users%
 userID,
 password,
 name,
-data,
+date,
 avatar
 _____
 
@@ -26,7 +26,7 @@ GET%		/api/users/:userID%
 userID,
 password,
 name,
-data,
+date,
 avatar
 _____
 
@@ -35,7 +35,7 @@ PUT%		/api/users/:userID%
 userID,
 password,
 name,
-data,
+date,
 avatar
 _____
 
@@ -48,7 +48,7 @@ GET%		/api/users/:userID/notes%
 noteID,
 userID,
 title,
-data,
+date,
 image
 _____
 
@@ -57,7 +57,7 @@ POST%		/api/users/:userID/notes%
 noteID,
 userID,
 title,
-data,
+date,
 image
 _____
 
@@ -66,7 +66,7 @@ GET%		/api/users/:userID/notes/:noteID%
 noteID,
 userID,
 title,
-data,
+date,
 image
 _____
 
@@ -75,9 +75,41 @@ PUT%		/api/users/:userID/notes/:noteID%
 noteID,
 userID,
 title,
-data,
+date,
 image
 _____
 
 
 DELETE%		/api/users/:userID/notes/:noteID%
+_____
+
+
+GET%		/api/offers%
+offerID,
+title,
+number
+_____
+
+
+POST%		/api/offers%
+offerID,
+title,
+number
+_____
+
+
+GET%		/api/offers/:offerID%
+offerID,
+title,
+number
+_____
+
+
+PUT%		/api/offers/:offerID%
+offerID,
+title,
+number
+_____
+
+
+DELETE%		/api/offers/:offerID%

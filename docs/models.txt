@@ -2,7 +2,7 @@ Users:
 userID,, p;
 password,,;
 name,,;
-data, INT,;
+date, INT,;
 avatar, image,
 _____
 
@@ -10,5 +10,12 @@ Notes:
 noteID,,p;
 userID,,Users;
 title,,;
-data, INT,;
-image, image,
+date, INT,;
+image, text,
+
+_____
+
+Offers:
+offerID,,p;
+title,,;
+number,INT,

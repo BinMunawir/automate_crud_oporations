@@ -1,8 +1,8 @@
-    interface noteModel {
+    interface NoteModel {
       noteID?: string | {} | null;
 userID?: string | {} | null;
 title?: string | {} | null;
-data?: number | null;
+date?: number | null;
 image?: string | {} | null;
 }
     

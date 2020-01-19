@@ -90,6 +90,10 @@ export async function checkBody(body: any, type: any, params: any = null) {
       const b: any = Object.entries(body)[ii];
       for (const i in Object.entries(type)) {
         let t: any = Object.entries(type)[i];
+                if (b[0] == t[0] && '' + (typeof t[1]) == 'number') {
+          let n = parseInt(b[1])
+          if (n.toString() != 'NaN') b[1] = n;
+        }
         if (b[0] == t[0] &&
           typeof b[1] == typeof t[1] &&
           b[1] != null &&
@@ -97,8 +101,9 @@ export async function checkBody(body: any, type: any, params: any = null) {
           if ((typeof b[1]).toString() == 'object') {
             if (!b[1].mimetype.includes(t[1].mimetype)) continue;
             let id = '';
+            if (params)
             Object.entries(params).forEach(p => {
-              id += (p[1] + '-')
+              if (p[0].includes('ID')) id += (p[1] + '-');
             })
             b[1].name = id + b[0] + '.' + b[1].mimetype.substring(b[1].mimetype.indexOf('/') + 1);
             b[1] = await storeFile(b[1]);

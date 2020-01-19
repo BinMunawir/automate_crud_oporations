@@ -3,7 +3,7 @@
         userID		VARCHAR(255),
 password		VARCHAR(255),
 name		VARCHAR(255),
-data		INT,
+date		INT,
 avatar		VARCHAR(255),
 PRIMARY KEY (userID)
               );
@@ -11,10 +11,16 @@ PRIMARY KEY (userID)
         noteID		VARCHAR(255),
 userID		VARCHAR(255),
 title		VARCHAR(255),
-data		INT,
+date		INT,
 image		VARCHAR(255),
 PRIMARY KEY (noteID, userID)
 , FOREIGN KEY (userID) REFERENCES Users (userID)
+              );
+                  CREATE TABLE Offers (
+        offerID		VARCHAR(255),
+title		VARCHAR(255),
+number		INT,
+PRIMARY KEY (offerID)
               );
                 `;
     

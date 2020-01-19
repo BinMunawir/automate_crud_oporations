@@ -10,10 +10,20 @@ import facade from "../facades";
     }
 }
 
-            // TODO: implementation
+            export async function createNote(data: any) {
+    try {
+        await facade.sqlStorage.sqlCreate('Notes', data)
+    } catch (e) {
+        if (e.message.includes('Duplicate entry'))
+            throw new HTTP400Error(104, 'error: the user already exist in the database')
+        throw e;
+    }
+}
             export async function getNote(query: any, requestedData: any[]) {
     try {
-        return (await facade.sqlStorage.sqlRead('Notes', query, requestedData))[0];
+        let d = (await facade.sqlStorage.sqlRead('Notes', query, requestedData));
+                  if(d.length == 0) throw new HTTP400Error(5642, 'there is no data by that id');
+                  return d[0]
     } catch (e) {
         throw e;
     }
@@ -26,5 +36,11 @@ import facade from "../facades";
         throw e;
     }
 }
-            // TODO: implementation
+            export async function deleteNote(query: any) {
+    try {
+        await facade.sqlStorage.sqlDelete('Notes', query);
+    } catch (e) {
+        throw e;
+    }
+}
                   

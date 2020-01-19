@@ -151,7 +151,7 @@ class Routers {
         let accepted: string[] = [''' +
               _getParameters(p) +
               ''']
-        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.body));
         await signup(body);
         res.status(200).send();
           ''';
@@ -160,7 +160,7 @@ class Routers {
         let accepted: string[] = [''' +
               _getParameters(p) +
               ''']
-        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type));
         let data = await login(body);
         res.status(200).send(data);
           ''';
@@ -177,9 +177,24 @@ class Routers {
           ''';
         } else if (func.contains('delete')) {
           content = '''
-          // TODO: implementation
+        let query = { ...req.params};
+        await ''' +
+              func +
+              '''(query);
+        res.status(200).send();
           ''';
-        } else {
+        } else if (func.contains('create')) {
+          content = '''
+        let accepted: string[] = [''' +
+              _getParameters(p) +
+              ''']
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, {...req.params, ...req.body}));
+        await ''' +
+              func +
+              '''(body);
+        res.status(200).send();
+          ''';
+        } else if (func.contains('update')) {
           content = '''
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
         let accepted: string[] = [''' +
@@ -210,6 +225,9 @@ class Routers {
             handler: [
               async (req: any, res: any) => {
                 ''' +
+                    (c[1].contains('userID')
+                        ? 'utilities.verifyToken(req.params.userID, req.headers.auth)\n'
+                        : '') +
                     _getFunContent(p, c[2]) +
                     '''
               }

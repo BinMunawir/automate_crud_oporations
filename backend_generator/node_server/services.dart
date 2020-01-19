@@ -120,9 +120,11 @@ export async function """ +
                   f +
                   """(query: any, requestedData: any[]) {
     try {
-        return (await facade.sqlStorage.sqlRead('""" +
+        let d = (await facade.sqlStorage.sqlRead('""" +
                   tableName +
-                  """', query, requestedData))[0];
+                  """', query, requestedData));
+                  if(d.length == 0) throw new HTTP400Error(5642, 'there is no data by that id');
+                  return d[0]
     } catch (e) {
         throw e;
     }
@@ -131,7 +133,19 @@ export async function """ +
             """;
           } else if (f.contains('create')) {
             content += """
-// TODO: implementation
+export async function """ +
+                f +
+                """(data: any) {
+    try {
+        await facade.sqlStorage.sqlCreate('""" +
+                tableName +
+                """', data)
+    } catch (e) {
+        if (e.message.includes('Duplicate entry'))
+            throw new HTTP400Error(104, 'error: the user already exist in the database')
+        throw e;
+    }
+}
             """;
           } else if (f.contains('update')) {
             content += """
@@ -149,7 +163,17 @@ export async function """ +
             """;
           } else if (f.contains('delete')) {
             content += """
-// TODO: implementation
+export async function """ +
+                f +
+                """(query: any) {
+    try {
+        await facade.sqlStorage.sqlDelete('""" +
+                tableName +
+                """', query);
+    } catch (e) {
+        throw e;
+    }
+}
             """;
           }
         });

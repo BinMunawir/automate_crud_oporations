@@ -41,7 +41,8 @@ class Models {
       String key;
       params.forEach((p) {
         if (p[2] == null) return;
-        if (p[2].length == 1) key = p[0].substring(0, p[0].indexOf('ID'));
+        if (p[2].length == 1)
+          key = p[0][0].toUpperCase() + p[0].substring(1, p[0].indexOf('ID'));
       });
       return key;
     }
