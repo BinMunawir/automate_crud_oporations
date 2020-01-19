@@ -55,33 +55,20 @@ class Services {
 
     services.forEach((k, v) {
       String _getFunctions() {
-        String _getAuth() {
-          return '''
-    if(params.userID != null) {
-      try {
-          verifyToken(params.userID, headers.auth)
-      } catch (e) {
-          throw new HTTP400Error(101, "error: you are not authorized to this endpoint")
-      }
-    }
-
-          ''';
-        }
-
         String tableName = k[0].toUpperCase() + k.substring(1);
         String content = '';
         v.forEach((f) {
           if (f == 'signup') {
             content += """
-export async function """ +
-                f +
-                """(headers: any, body: any) {
-    if (body.userID == null || body.password == null)
+export async function signup(data: any) {
+    if (data.userID == null || data.password == null)
         throw new HTTP400Error(105, 'userID and password are required');
+
     try {
-        let d = await facade.sqlStorage.sqlCreate('Users', body)
-        return JSON.stringify(d);
+        await facade.sqlStorage.sqlCreate('Users', data)
     } catch (e) {
+        if (e.message.includes('image upload failed'))
+            throw new HTTP400Error(103, 'error: image upload failed')
         if (e.message.includes('Duplicate entry'))
             throw new HTTP400Error(104, 'error: the user already exist in the database')
         throw e;
@@ -90,22 +77,20 @@ export async function """ +
             """;
           } else if (f == 'login') {
             content += """
-export async function """ +
-                f +
-                """(headers: any, body: any) {
-    if (body.userID == null || body.password == null)
+export async function login(query: any) {
+    if (query.userID == null || query.password == null)
         throw new HTTP400Error(105, 'userID and password are required');
-    body = { userID: body.userID, password: body.password }
+    query = { userID: query.userID, password: query.password }
     try {
-        let d = await facade.sqlStorage.sqlRead('Users', body)
+        let d = await facade.sqlStorage.sqlRead('Users', query)
         if (d.length == 0)
             throw new Error('no user by that id')
-        let token = getToken(body.userID);
+        let token = utilities.getToken(query.userID);
         d = {
             token: token,
             profile: d
         }
-        return JSON.stringify(d);
+        return d;
     } catch (e) {
         if (e.message.includes('no user'))
             throw new HTTP400Error(107, 'username or password are incorrect')
@@ -116,108 +101,55 @@ export async function """ +
           } else if (f.contains('get')) {
             if (f == 'get' + tableName)
               content += """
-              export async function """ +
+export async function """ +
                   f +
-                  """(params: any, query: any, headers: any) {
-
-                  """ +
-                  _getAuth() +
-                  """
-                  try {
-                      let dbQuery = { ...params, ...query };
-                      let d = await facade.sqlStorage.sqlRead('""" +
+                  """(query: any, requestedData: any[]) {
+    try {
+        return await facade.sqlStorage.sqlRead('""" +
                   tableName +
-                  """', dbQuery)
-                      return JSON.stringify(d);
-                  } catch (e) {
-                      throw e;
-                  }
-              }
+                  """', query, requestedData);
+    } catch (e) {
+        throw e;
+    }
+}
 
             """;
             else
               content += """
-              export async function """ +
+export async function """ +
                   f +
-                  """(params: any, query: any, headers: any) {
-
-                """ +
-                  _getAuth() +
-                  """
-                try {
-                    let dbQuery = { ...params, ...query };
-                    let d = await facade.sqlStorage.sqlRead('""" +
+                  """(query: any, requestedData: any[]) {
+    try {
+        return (await facade.sqlStorage.sqlRead('""" +
                   tableName +
-                  """', dbQuery)
-                    if (d.length == 0)
-                        throw new Error('error: there is no data by that id')
-                    return JSON.stringify(d[0]);
-                } catch (e) {
-                    if (e.message.includes("there is no data by that id"))
-                        throw new HTTP400Error(102, e.message);
-                    throw e;
-                }
-              }
+                  """', query, requestedData))[0];
+    } catch (e) {
+        throw e;
+    }
+}
 
             """;
           } else if (f.contains('create')) {
             content += """
-              export async function """ +
-                f +
-                """(params: any, query: any, headers: any, body: any) {
-                  """ +
-                _getAuth() +
-                """
-                  try {
-                      let d = await facade.sqlStorage.sqlCreate('""" +
-                tableName +
-                """', body)
-                      return JSON.stringify(d);
-                  } catch (e) {
-                      throw e;
-                  }
-              }
-
+// TODO: implementation
             """;
           } else if (f.contains('update')) {
             content += """
-              export async function """ +
+export async function """ +
                 f +
-                """(params: any, query: any, headers: any, body: any) {
-                  """ +
-                _getAuth() +
-                """
-                  try {
-                    let dbQuery = { ...params, ...query };
-                    let d = await facade.sqlStorage.sqlUpdate('""" +
+                """(query: any, data: any) {
+    try {
+        await facade.sqlStorage.sqlUpdate('""" +
                 tableName +
-                """', body, dbQuery)
-                      return JSON.stringify(d);
-                  } catch (e) {
-                      throw e;
-                  }
-              }
-              
+                """', query, data);
+    } catch (e) {
+        throw e;
+    }
+}
             """;
           } else if (f.contains('delete')) {
             content += """
-              export async function """ +
-                f +
-                """(params: any, query: any, headers: any) {
-                """ +
-                _getAuth() +
-                """
-                try {
-                    let dbQuery = { ...params, ...query };
-                    let d = await facade.sqlStorage.sqlDelete('""" +
-                tableName +
-                """', dbQuery)
-                      return JSON.stringify(d);
-                  } catch (e) {
-                      throw e;
-                  }
-              }
-              
+// TODO: implementation
             """;
           }
         });
@@ -225,9 +157,9 @@ export async function """ +
       }
 
       String content = '''
-        import { getToken, verifyToken, storeImage, checkBody, checkQuery, preventBody } from "../utilities";
-        import { HTTP400Error } from "../models/http400error";
-        import facade from "../facades";
+import { HTTP400Error } from "../models/http400error";
+import * as utilities from "../utilities";
+import facade from "../facades";
 
         ''' +
           _getFunctions() +

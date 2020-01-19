@@ -151,7 +151,7 @@ class Routers {
         let accepted: string[] = [''' +
               _getParameters(p) +
               ''']
-        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         await signup(body);
         res.status(200).send();
           ''';
@@ -160,13 +160,13 @@ class Routers {
         let accepted: string[] = [''' +
               _getParameters(p) +
               ''']
-        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         let data = await login(body);
         res.status(200).send(data);
           ''';
         } else if (func.contains('get')) {
           content = '''
-        let query = { ...req.params, ...checkQuery(req.query, type) };
+        let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
         let accepted: string[] = [''' +
               _getParameters(p) +
               '''];
@@ -181,11 +181,11 @@ class Routers {
           ''';
         } else {
           content = '''
-        let query = { ...req.params, ...checkQuery(req.query, type) };
+        let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
         let accepted: string[] = [''' +
               _getParameters(p) +
               ''']
-        let body = acceptedBody(accepted, await checkBody(req.body, type, req.params));
+        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         await ''' +
               func +
               '''(query, body);
@@ -223,7 +223,7 @@ class Routers {
       }
 
       String content = '''
-import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
+import * as utilities from "../utilities";
       import { ''' +
           _getFunctions() +
           ''' } from "../services/''' +
