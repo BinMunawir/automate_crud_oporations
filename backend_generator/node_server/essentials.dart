@@ -17,7 +17,10 @@ class Essentials {
 
   void _provideEssentialFiles() {
     _io.createDir(_root);
+    _io.createDir(_root + 'public/general');
     _io.createDir(_root + 'public/images');
+    _io.createDir(_root + 'public/pdfs');
+    _io.createDir(_root + 'public/texts');
     _io.copyFile('./backend_generator/node_server/essentials/README.rm',
         this._root + 'README.rm');
     _io.copyFile('./backend_generator/node_server/essentials/.gitignore',
@@ -113,6 +116,7 @@ class Essentials {
           g[0] == 'secretKey' ||
           g[0] == 'dbHost' ||
           g[0] == 'dbUser' ||
+          g[0] == 'storageHost' ||
           g[0] == 'dbPassword' ||
           g[0] == 'dbName') content += g[0] + '=' + g[1] + '\n';
     });

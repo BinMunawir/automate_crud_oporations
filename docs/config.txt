@@ -5,4 +5,5 @@ secretKey=abdullahInnosoft,
 dbHost=localhost,
 dbUser=root,
 dbPassword=123456789,
-dbName=zDB
+dbName=zDB,
+storageHost=localhost:3030

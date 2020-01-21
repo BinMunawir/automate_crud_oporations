@@ -1,6 +1,13 @@
 POST%		/api/auth/signup%
 userID,
-password
+password,
+name,
+date,
+pdf,
+text,
+zip,
+md,
+avatar
 _____
 
 
@@ -15,6 +22,10 @@ userID,
 password,
 name,
 date,
+pdf,
+text,
+zip,
+md,
 avatar
 _____
 
@@ -24,6 +35,10 @@ userID,
 password,
 name,
 date,
+pdf,
+text,
+zip,
+md,
 avatar
 _____
 
@@ -33,6 +48,10 @@ userID,
 password,
 name,
 date,
+pdf,
+text,
+zip,
+md,
 avatar
 _____
 
@@ -46,7 +65,7 @@ noteID,
 userID,
 title,
 date,
-image
+content
 _____
 
 
@@ -55,7 +74,7 @@ noteID,
 userID,
 title,
 date,
-image
+content
 _____
 
 
@@ -64,7 +83,7 @@ noteID,
 userID,
 title,
 date,
-image
+content
 _____
 
 
@@ -73,7 +92,7 @@ noteID,
 userID,
 title,
 date,
-image
+content
 _____
 
 

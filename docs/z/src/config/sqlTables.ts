@@ -4,6 +4,10 @@
 password		VARCHAR(255),
 name		VARCHAR(255),
 date		INT,
+pdf		VARCHAR(255),
+text		VARCHAR(255),
+zip		VARCHAR(255),
+md		VARCHAR(255),
 avatar		VARCHAR(255),
 PRIMARY KEY (userID)
               );
@@ -12,7 +16,7 @@ PRIMARY KEY (userID)
 userID		VARCHAR(255),
 title		VARCHAR(255),
 date		INT,
-image		VARCHAR(255),
+content		VARCHAR(255),
 PRIMARY KEY (noteID, userID)
 , FOREIGN KEY (userID) REFERENCES Users (userID)
               );

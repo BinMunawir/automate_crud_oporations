@@ -2,7 +2,7 @@ import * as utilities from "../utilities";
       import { getNotes, createNote, getNote, updateNote, deleteNote,  } from "../services/notes.service";
 
                       let type: NoteModel = 
-              {noteID: '', userID: '', title: '', date: 0, image: {mimetype: 'text',}}            
+              {noteID: '', userID: '', title: '', date: 0, content: {mimetype: 'text',}}            
       export default [ 
                   {
             path: "/api/users/:userID/notes",
@@ -11,7 +11,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'image', ];
+        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'content', ];
         let data = await getNotes(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
@@ -24,7 +24,7 @@ import * as utilities from "../utilities";
             handler: [
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
-        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'image', ]
+        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'content', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, {...req.params, ...req.body}));
         await createNote(body);
         res.status(200).send();
@@ -39,7 +39,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'image', ];
+        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'content', ];
         let data = await getNote(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
@@ -53,7 +53,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'image', ]
+        let accepted: string[] = ['noteID', 'userID', 'title', 'date', 'content', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         await updateNote(query, body);
         res.status(200).send();

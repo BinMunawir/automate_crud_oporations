@@ -3,6 +3,10 @@ userID,, p;
 password,,;
 name,,;
 date, INT,;
+pdf, pdf,;
+text, text,;
+zip, zip,;
+md, markdown,;
 avatar, image,
 _____
 
@@ -11,7 +15,7 @@ noteID,,p;
 userID,,Users;
 title,,;
 date, INT,;
-image, text,
+content, text,
 
 _____
 

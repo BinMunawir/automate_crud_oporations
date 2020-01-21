@@ -3,6 +3,6 @@
 userID?: string | {} | null;
 title?: string | {} | null;
 date?: number | null;
-image?: string | {} | null;
+content?: string | {} | null;
 }
     
