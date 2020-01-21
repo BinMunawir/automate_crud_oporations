@@ -1,9 +1,6 @@
 POST%		/api/auth/signup%
 userID,
-password,
-name,
-date,
-avatar
+password
 _____
 
 

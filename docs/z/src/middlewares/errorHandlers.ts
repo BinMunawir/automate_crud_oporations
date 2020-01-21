@@ -2,8 +2,11 @@
       import { HTTP400Error } from "../models/http400error";
 
       const handle404Error = (router: Router) => {
-          router.use((req: Request, res: Response) => {
-              res.setHeader('content-type', 'application/json')
+          router.use((req: Request, res: Response, next: NextFunction) => {
+            if (req.url == '/api/' || req.url == '/api' || req.url.includes('swagger') || req.url.includes('/public')) {
+            next();
+            return;
+        }
               res.status(404).send("Source not found");
           });
       };

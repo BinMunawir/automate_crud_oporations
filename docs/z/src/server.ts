@@ -13,8 +13,8 @@
         const router = express();
         applyMiddleware(commonMiddelwares, router);
         applyRoutes(routes, router);
-        applyMiddleware(staticsResources, router);
         applyMiddleware(errorsHandlers, router);
+        applyMiddleware(staticsResources, router);
     
         
         sqlStorage.sqlSetup(process.env.dbHost, process.env.dbUser, 
