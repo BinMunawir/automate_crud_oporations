@@ -1,7 +1,6 @@
 POST%		/api/auth/signup%
-userID,
 password,
-name,
+phone,
 date,
 book,
 avatar
@@ -10,14 +9,18 @@ _____
 
 POST%		/api/auth/login%
 userID,
-password
+password,
+phone,
+date,
+book,
+avatar
 _____
 
 
 GET%		/api/users%
 userID,
 password,
-name,
+phone,
 date,
 book,
 avatar
@@ -27,7 +30,7 @@ _____
 GET%		/api/users/:userID%
 userID,
 password,
-name,
+phone,
 date,
 book,
 avatar
@@ -35,9 +38,8 @@ _____
 
 
 PUT%		/api/users/:userID%
-userID,
 password,
-name,
+phone,
 date,
 book,
 avatar
@@ -56,8 +58,6 @@ _____
 
 
 POST%		/api/users/:userID/notes%
-noteID,
-userID,
 title
 _____
 
@@ -70,8 +70,6 @@ _____
 
 
 PUT%		/api/users/:userID/notes/:noteID%
-noteID,
-userID,
 title
 _____
 
@@ -90,9 +88,6 @@ _____
 
 
 POST%		/api/users/:userID/notes/:noteID/noteImages%
-noteImageID,
-userID,
-noteID,
 content,
 cover
 _____
@@ -108,9 +103,6 @@ _____
 
 
 PUT%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
-noteImageID,
-userID,
-noteID,
 content,
 cover
 _____

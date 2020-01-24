@@ -2,7 +2,7 @@ import * as utilities from "../utilities";
       import { getUsers, getUser, updateUser, deleteUser,  } from "../services/users.service";
 
                       let type: UserModel = 
-              {userID: '', password: '', name: '', date: 0, book: {mimetype: 'pdf',}, avatar: {mimetype: 'image',}}            
+              {userID: '', password: '', phone: '', date: 0, book: {mimetype: 'pdf',}, avatar: {mimetype: 'image',}}            
       export default [ 
                   {
             path: "/api/users",
@@ -10,7 +10,7 @@ import * as utilities from "../utilities";
             handler: [
               async (req: any, res: any) => {
                         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['userID', 'password', 'name', 'date', 'book', 'avatar', ];
+        let accepted: string[] = ['userID', 'password', 'phone', 'date', 'book', 'avatar', ];
         let data = await getUsers(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
@@ -24,7 +24,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['userID', 'password', 'name', 'date', 'book', 'avatar', ];
+        let accepted: string[] = ['userID', 'password', 'phone', 'date', 'book', 'avatar', ];
         let data = await getUser(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
@@ -38,7 +38,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['userID', 'password', 'name', 'date', 'book', 'avatar', ]
+        let accepted: string[] = ['password', 'phone', 'date', 'book', 'avatar', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         await updateUser(query, body);
         res.status(200).send();

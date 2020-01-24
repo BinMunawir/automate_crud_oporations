@@ -65,8 +65,8 @@ class Routers {
         if (e.method == "GET")
           func = 'get' + name;
         else if (e.method == "POST") {
-          name = e.params[0].substring(0, e.params[0].indexOf('ID'));
-          func = 'create' + name[0].toUpperCase() + name.substring(1);
+          // name = e.params[0].substring(0, e.params[0].indexOf('ID'));
+          func = 'create' + name; // name[0].toUpperCase() + name.substring(1);
         } else if (e.method == "PUT")
           func = 'update' + name;
         else if (e.method == "DELETE") func = 'delete' + name;

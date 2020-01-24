@@ -1,7 +1,7 @@
 Users:
 userID,, p;
 password,,;
-name,,;
+phone,,u;
 date, INT,;
 book, pdf,;
 avatar, image,

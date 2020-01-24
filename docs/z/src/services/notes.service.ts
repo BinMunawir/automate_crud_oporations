@@ -10,7 +10,7 @@ import facade from "../facades";
     }
 }
 
-            export async function createNote(data: any) {
+            export async function createNotes(data: any) {
     try {
         await facade.sqlStorage.sqlCreate('Notes', data)
     } catch (e) {

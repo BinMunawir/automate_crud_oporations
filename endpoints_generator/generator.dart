@@ -19,21 +19,27 @@ class EndpointsGenerators {
         parentPath + '/' + t.name[0].toLowerCase() + t.name.substring(1);
     String instancePath = collectionPath + '/:' + this._getID(t.params);
 
-    List<String> params = this._getParamsName(t.params);
-    tableEndpoints.add(Endpoint('GET', collectionPath, params: params));
+    tableEndpoints.add(Endpoint('GET', collectionPath,
+        params: this._getParamsName(t.params, 'GET')));
     if (t.name != 'Users')
-      tableEndpoints.add(Endpoint('POST', collectionPath, params: params));
-    tableEndpoints.add(Endpoint('GET', instancePath, params: params));
-    tableEndpoints.add(Endpoint('PUT', instancePath, params: params));
+      tableEndpoints.add(Endpoint('POST', collectionPath,
+          params: this._getParamsName(t.params, 'POST')));
+    tableEndpoints.add(Endpoint('GET', instancePath,
+        params: this._getParamsName(t.params, 'GET')));
+    tableEndpoints.add(Endpoint('PUT', instancePath,
+        params: this._getParamsName(t.params, 'PUT')));
     tableEndpoints.add(Endpoint('DELETE', instancePath));
 
     tableEndpoints.forEach((e) => endpoints.add(e));
   }
 
-  List<String> _getParamsName(List<List<String>> params) {
+  List<String> _getParamsName(List<List<String>> params, String method) {
     List<String> r = [];
-    params.forEach((param) {
-      r.add(param[0]);
+    params.forEach((p) {
+      if (method == 'POST' || method == 'PUT') {
+        if (p[0].contains('ID')) return;
+      }
+      r.add(p[0]);
     });
     return r;
   }
@@ -41,8 +47,7 @@ class EndpointsGenerators {
   String _getID(List<List<String>> params) {
     String key;
     params.forEach((p) {
-      if (p[2] == null) return;
-      if (p[2].length == 1) key = p[0];
+      if (p[2] == 'p') key = p[0];
     });
     return key;
   }
@@ -64,11 +69,10 @@ class EndpointsGenerators {
       if (t.name == 'Users') {
         String signupMethod = 'POST';
         String signupPath = '/auth/signup';
-        List<String> signupParams = this._getParamsName(t.params);
+        List<String> signupParams = this._getParamsName(t.params, 'POST');
         String loginMethod = 'POST';
         String loginPath = '/auth/login';
-        List<String> loginParams = ['userID', 'password'];
-
+        List<String> loginParams = this._getParamsName(t.params, 'GET');
         this
             .endpoints
             .add(Endpoint(signupMethod, signupPath, params: signupParams));

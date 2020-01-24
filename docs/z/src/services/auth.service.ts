@@ -2,9 +2,9 @@ import { HTTP400Error } from "../models/http400error";
 import * as utilities from "../utilities";
 import facade from "../facades";
 
-        export async function signup(data: any) {
-    if (data.userID == null || data.password == null)
-        throw new HTTP400Error(105, 'userID and password are required');
+export async function signup(data: any) {
+    if (data.password == null)
+        throw new HTTP400Error(105, 'password is required');
 
     try {
         await facade.sqlStorage.sqlCreate('Users', data)
@@ -16,10 +16,9 @@ import facade from "../facades";
         throw e;
     }
 }
-            export async function login(query: any) {
-    if (query.userID == null || query.password == null)
-        throw new HTTP400Error(105, 'userID and password are required');
-    query = { userID: query.userID, password: query.password }
+export async function login(query: any) {
+    if (query.phone == null || query.password == null)
+        throw new HTTP400Error(105, 'phone and password are required');
     try {
         let d = await facade.sqlStorage.sqlRead('Users', query)
         if (d.length == 0)
@@ -36,4 +35,3 @@ import facade from "../facades";
         throw e;
     }
 }
-                  

@@ -40,8 +40,7 @@ class Models {
     String _getInstance(List<List<String>> params) {
       String key;
       params.forEach((p) {
-        if (p[2] == null) return;
-        if (p[2].length == 1)
+        if (p[2] == 'p')
           key = p[0][0].toUpperCase() + p[0].substring(1, p[0].indexOf('ID'));
       });
       return key;

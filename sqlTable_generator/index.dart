@@ -11,16 +11,16 @@ void main(List<String> args) {
 
 String formatOutput(List<Table> tables) {
   String sql = '';
-  tables.forEach((e) {
-    sql += '''
-      CREATE TABLE ''' +
-        e.name +
+  tables.forEach((t) {
+    sql += '''\n
+CREATE TABLE ''' +
+        t.name +
         ''' (
-        ''' +
-        getSqlContent(e.params) +
+''' +
+        getSqlContent(t.params) +
         '''
-              );
-            ''';
+);
+''';
   });
   return sql;
 }
@@ -31,17 +31,24 @@ String getSqlContent(List<List<String>> params) {
   String content = '';
 
   params.forEach((p) {
-    String c = '';
-    c += p[0] + '\t\t';
-    if (p[1].contains('CHAR') || p[1].contains('INT'))
+    String c = '\t';
+    c += p[0] + '\t\t\t';
+    if (p[2] == 'p')
+      c += 'INT NOT NULL AUTO_INCREMENT';
+    else if (p[2].length > 1)
+      c += 'INT';
+    else if (p[1].contains('CHAR') || p[1].contains('INT'))
       c += p[1];
     else
       c += 'VARCHAR(255)';
+    if (p[2] == 'u') c += ' NOT NULL UNIQUE';
     c += ',\n';
     content += c;
     if (p[2] == 'p') {
       primaries.add(p[0]);
-    } else if (p[2].isNotEmpty) {
+    } else if (p[2] == 'u')
+      ;
+    else if (p[2].isNotEmpty) {
       primaries.add(p[0]);
       foriens.add(p[2]);
     }

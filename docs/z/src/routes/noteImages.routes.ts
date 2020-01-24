@@ -1,5 +1,5 @@
 import * as utilities from "../utilities";
-      import { getNoteImages, createNoteImage, getNoteImage, updateNoteImage, deleteNoteImage,  } from "../services/noteImages.service";
+      import { getNoteImages, createNoteImages, getNoteImage, updateNoteImage, deleteNoteImage,  } from "../services/noteImages.service";
 
                       let type: NoteImageModel = 
               {noteImageID: '', userID: '', noteID: '', content: {mimetype: 'pdf',}, cover: {mimetype: 'image',}}            
@@ -24,9 +24,9 @@ import * as utilities from "../utilities";
             handler: [
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ]
+        let accepted: string[] = ['content', 'cover', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, {...req.params, ...req.body}));
-        await createNoteImage(body);
+        await createNoteImages(body);
         res.status(200).send();
                         }
             ]
@@ -53,7 +53,7 @@ import * as utilities from "../utilities";
               async (req: any, res: any) => {
                 utilities.verifyToken(req.params.userID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ]
+        let accepted: string[] = ['content', 'cover', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
         await updateNoteImage(query, body);
         res.status(200).send();
