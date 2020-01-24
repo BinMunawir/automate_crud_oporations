@@ -107,8 +107,13 @@ export async function checkBody(body: any, type: any, params: any = null) {
             let id = '';
             if (params)
               Object.entries(params).forEach(p => {
-                if (p[0].includes('ID')) id += (p[1] + '-');
-              })
+                if (p[0].includes('ID'))
+                  Object.entries(type).forEach(t => {
+                    if (t[0] == p[0]) {
+                      id += (p[1] + '-');
+                    }
+                  })
+                })
             let extention = b[1].name.substring(b[1].name.lastIndexOf('.') + 1);
             b[1].name = id + b[0] + '.' + extention;
             b[1] = await storeFile(b[1]);

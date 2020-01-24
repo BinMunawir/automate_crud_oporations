@@ -3,23 +3,20 @@ userID,, p;
 password,,;
 name,,;
 date, INT,;
-pdf, pdf,;
-text, text,;
-zip, zip,;
-md, markdown,;
+book, pdf,;
 avatar, image,
 _____
 
 Notes:
 noteID,,p;
 userID,,Users;
-title,,;
-date, INT,;
-content, text,
+title,,
 
 _____
 
-Offers:
-offerID,,p;
-title,,;
-number,INT,
+NoteImages:
+noteImageID,,p;
+userID,,Users;
+noteID,,Notes;
+content, pdf,;
+cover,image,

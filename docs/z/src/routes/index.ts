@@ -1,7 +1,7 @@
           import auth from "./auth.routes";
 import users from "./users.routes";
 import notes from "./notes.routes";
-import offers from "./offers.routes";
+import noteImages from "./noteImages.routes";
 
 
-export default [...auth, ...users, ...notes, ...offers, ];        
+export default [...auth, ...users, ...notes, ...noteImages, ];        

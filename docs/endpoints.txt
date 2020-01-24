@@ -3,10 +3,7 @@ userID,
 password,
 name,
 date,
-pdf,
-text,
-zip,
-md,
+book,
 avatar
 _____
 
@@ -22,10 +19,7 @@ userID,
 password,
 name,
 date,
-pdf,
-text,
-zip,
-md,
+book,
 avatar
 _____
 
@@ -35,10 +29,7 @@ userID,
 password,
 name,
 date,
-pdf,
-text,
-zip,
-md,
+book,
 avatar
 _____
 
@@ -48,10 +39,7 @@ userID,
 password,
 name,
 date,
-pdf,
-text,
-zip,
-md,
+book,
 avatar
 _____
 
@@ -63,36 +51,28 @@ _____
 GET%		/api/users/:userID/notes%
 noteID,
 userID,
-title,
-date,
-content
+title
 _____
 
 
 POST%		/api/users/:userID/notes%
 noteID,
 userID,
-title,
-date,
-content
+title
 _____
 
 
 GET%		/api/users/:userID/notes/:noteID%
 noteID,
 userID,
-title,
-date,
-content
+title
 _____
 
 
 PUT%		/api/users/:userID/notes/:noteID%
 noteID,
 userID,
-title,
-date,
-content
+title
 _____
 
 
@@ -100,32 +80,40 @@ DELETE%		/api/users/:userID/notes/:noteID%
 _____
 
 
-GET%		/api/offers%
-offerID,
-title,
-number
+GET%		/api/users/:userID/notes/:noteID/noteImages%
+noteImageID,
+userID,
+noteID,
+content,
+cover
 _____
 
 
-POST%		/api/offers%
-offerID,
-title,
-number
+POST%		/api/users/:userID/notes/:noteID/noteImages%
+noteImageID,
+userID,
+noteID,
+content,
+cover
 _____
 
 
-GET%		/api/offers/:offerID%
-offerID,
-title,
-number
+GET%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
+noteImageID,
+userID,
+noteID,
+content,
+cover
 _____
 
 
-PUT%		/api/offers/:offerID%
-offerID,
-title,
-number
+PUT%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
+noteImageID,
+userID,
+noteID,
+content,
+cover
 _____
 
 
-DELETE%		/api/offers/:offerID%
+DELETE%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%

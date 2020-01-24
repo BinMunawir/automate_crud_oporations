@@ -114,7 +114,7 @@ class Routers {
                 """
             """;
           }
-          if (t.name.toLowerCase() == k) {
+          if (t.name[0].toLowerCase() + t.name.substring(1) == k) {
             model = t.params[0][0][0].toUpperCase() +
                 t.params[0][0].substring(1, t.params[0][0].indexOf('ID'));
             t.params.forEach((p) {
