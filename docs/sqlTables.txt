@@ -3,11 +3,16 @@
 CREATE TABLE Users (
 	userID			INT NOT NULL AUTO_INCREMENT,
 	password			VARCHAR(255),
-	phone			VARCHAR(255) NOT NULL UNIQUE,
-	date			INT,
-	book			VARCHAR(255),
-	avatar			VARCHAR(255),
+	username			VARCHAR(255) NOT NULL UNIQUE,
 PRIMARY KEY (userID)
+);
+
+
+CREATE TABLE Companies (
+	companyID			INT NOT NULL AUTO_INCREMENT,
+	password			VARCHAR(255),
+	email			VARCHAR(255) NOT NULL UNIQUE,
+PRIMARY KEY (companyID)
 );
 
 

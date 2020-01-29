@@ -1,10 +1,13 @@
 Users:
 userID,, p;
 password,,;
-phone,,u;
-date, INT,;
-book, pdf,;
-avatar, image,
+username,,u
+_____
+
+Companies:
+companyID,, p;
+password,,;
+email,,u
 _____
 
 Notes:

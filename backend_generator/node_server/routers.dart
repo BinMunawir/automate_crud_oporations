@@ -97,23 +97,6 @@ class Routers {
         this._io.getTables().forEach((t) {
           String model;
           Map<String, dynamic> params = Map();
-          if (t.name.toLowerCase() == 'users' && k == 'auth') {
-            model = 'auth';
-            t.params.forEach((p) {
-              if (p[1].contains('INT'))
-                params.addAll({p[0]: 0});
-              else if (!p[1].contains('CHAR') && p[1].length > 0)
-                params.addAll({p[0]: "{mimetype: '" + p[1] + "',}"});
-              else
-                params.addAll({p[0]: "''"});
-            });
-            content += """
-            let type: UserModel = 
-              """ +
-                params.toString() +
-                """
-            """;
-          }
           if (t.name[0].toLowerCase() + t.name.substring(1) == k) {
             model = t.params[0][0][0].toUpperCase() +
                 t.params[0][0].substring(1, t.params[0][0].indexOf('ID'));
@@ -244,9 +227,9 @@ class Routers {
 import * as utilities from "../utilities";
       import { ''' +
           _getFunctions() +
-          ''' } from "../services/''' +
+          ''' } from "../controllers/''' +
           k +
-          '''.service";
+          '''.controller";
 
           ''' +
           _getModel() +

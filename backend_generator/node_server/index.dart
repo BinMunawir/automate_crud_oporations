@@ -1,7 +1,7 @@
 import '../../io.dart';
 import 'config.dart';
 import 'essentials.dart';
-import 'facades.dart';
+import 'controllers.dart';
 import 'middlewares.dart';
 import 'models.dart';
 import 'routers.dart';
@@ -16,9 +16,9 @@ void main() {
   Essentials(root).generate();
   Utilities(root).generate();
   MiddleWares(root).generate();
-  Facades(root).generate();
+  Services(root).generate();
   Config(root).generate();
   Models(root).generate();
   Routers(root).generate();
-  Services(root).generate();
+  Controllers(root).generate();
 }

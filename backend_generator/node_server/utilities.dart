@@ -70,18 +70,14 @@ export function verifyToken(userID: any, token: string) {
 
 export async function storeFile(file: any) {
   try {
-    let fileDir = 'general/';
-    if (file.mimetype.includes('image')) fileDir = 'images/';
-    else if (file.mimetype.includes('pdf')) fileDir = 'pdfs/';
-    else if (file.mimetype.includes('text')) fileDir = 'texts/';
-
+    let fileType = file.mimetype.includes('image') ? 'images/' : '';
     await new Promise((resolve, reject) => {
-      file.mv(process.cwd() + '/public/' + fileDir + file.name, async (err: any) => {
+      file.mv(process.cwd() + '/public/' + fileType + file.name, async (err: any) => {
         if (err) reject(new Error('file upload failed'))
         resolve()
       })
     })
-    return process.env.storageHost + '/public/' + fileDir + file.name;
+    return process.env.hostname + '/public/' + fileType + file.name;
   } catch (e) {
     throw new HTTP400Error(1, 'file upload is failed');
   }
@@ -94,10 +90,6 @@ export async function checkBody(body: any, type: any, params: any = null) {
       const b: any = Object.entries(body)[ii];
       for (const i in Object.entries(type)) {
         let t: any = Object.entries(type)[i];
-        if (b[0] == t[0] && '' + (typeof t[1]) == 'number') {
-          let n = parseInt(b[1])
-          if (n.toString() != 'NaN') b[1] = n;
-        }
         if (b[0] == t[0] &&
           typeof b[1] == typeof t[1] &&
           b[1] != null &&
@@ -105,17 +97,11 @@ export async function checkBody(body: any, type: any, params: any = null) {
           if ((typeof b[1]).toString() == 'object') {
             if (!b[1].mimetype.includes(t[1].mimetype)) continue;
             let id = '';
-            if (params)
-              Object.entries(params).forEach(p => {
-                if (p[0].includes('ID'))
-                  Object.entries(type).forEach(t => {
-                    if (t[0] == p[0]) {
-                      id += (p[1] + '-');
-                    }
-                  })
-                })
-            let extention = b[1].name.substring(b[1].name.lastIndexOf('.') + 1);
-            b[1].name = id + b[0] + '.' + extention;
+            Object.entries(params).forEach(p => {
+              if (p[0].includes('ID'))
+                id += (p[1] + '-')
+            })
+            b[1].name = id + b[0] + '.' + b[1].mimetype.substring(b[1].mimetype.indexOf('/') + 1);
             b[1] = await storeFile(b[1]);
           }
           dbBody[b[0]] = b[1];
@@ -126,6 +112,7 @@ export async function checkBody(body: any, type: any, params: any = null) {
   }
   return dbBody;
 }
+
 export function checkQuery(query: any, type: any) {
   let dbQuery: any = {}
   Object.entries(query).forEach((q: any) => {
@@ -169,6 +156,7 @@ export function checkQuery(query: any, type: any) {
   })
   return dbQuery;
 }
+
 export function acceptedBody(acceptedBody: any[], body: any) {
   let newBody: any = {};
   for (const i in Object.entries(body)) {
@@ -186,7 +174,6 @@ export function acceptedBody(acceptedBody: any[], body: any) {
   }
   return newBody;
 }
-
     ''';
 
     _io.createFile(this._dir + 'index.ts');

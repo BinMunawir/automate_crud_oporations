@@ -52,7 +52,7 @@ class Models {
         String type = '';
         if (p[1].contains('INT'))
           type = 'number';
-        else if (p[1].contains('CHAR'))
+        else if (p[1].contains('CHAR') || p[1].trim().isEmpty)
           type = 'string';
         else
           type = 'string | {}';
@@ -60,8 +60,6 @@ class Models {
       });
       return content;
     }
-
-    this._io.createFile(this._dir + _getInstance(t.params) + '.model.ts');
 
     String content = '''
     interface ''' +
@@ -71,9 +69,15 @@ class Models {
         _getParams(t.params) +
         '''}
     ''';
-    this._io.createFile(this._dir + _getInstance(t.params) + '.model.ts');
-    this
-        ._io
-        .writeFile(this._dir + _getInstance(t.params) + '.model.ts', content);
+    this._io.createFile(this._dir +
+        _getInstance(t.params)[0].toLowerCase() +
+        _getInstance(t.params).substring(1) +
+        '.model.ts');
+    this._io.writeFile(
+        this._dir +
+            _getInstance(t.params)[0].toLowerCase() +
+            _getInstance(t.params).substring(1) +
+            '.model.ts',
+        content);
   }
 }

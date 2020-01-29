@@ -1,52 +1,64 @@
-POST%		/api/auth/signup%
-password,
-phone,
-date,
-book,
-avatar
-_____
-
-
-POST%		/api/auth/login%
-userID,
-password,
-phone,
-date,
-book,
-avatar
-_____
-
-
 GET%		/api/users%
 userID,
 password,
-phone,
-date,
-book,
-avatar
+username
+_____
+
+
+POST%		/api/users%
+userID,
+password,
+username
 _____
 
 
 GET%		/api/users/:userID%
 userID,
 password,
-phone,
-date,
-book,
-avatar
+username
 _____
 
 
 PUT%		/api/users/:userID%
+userID,
 password,
-phone,
-date,
-book,
-avatar
+username
 _____
 
 
 DELETE%		/api/users/:userID%
+_____
+
+
+GET%		/api/companies%
+companyID,
+password,
+email
+_____
+
+
+POST%		/api/companies%
+companyID,
+password,
+email
+_____
+
+
+GET%		/api/companies/:companyID%
+companyID,
+password,
+email
+_____
+
+
+PUT%		/api/companies/:companyID%
+companyID,
+password,
+email
+_____
+
+
+DELETE%		/api/companies/:companyID%
 _____
 
 
@@ -58,6 +70,8 @@ _____
 
 
 POST%		/api/users/:userID/notes%
+noteID,
+userID,
 title
 _____
 
@@ -70,6 +84,8 @@ _____
 
 
 PUT%		/api/users/:userID/notes/:noteID%
+noteID,
+userID,
 title
 _____
 
@@ -88,6 +104,9 @@ _____
 
 
 POST%		/api/users/:userID/notes/:noteID/noteImages%
+noteImageID,
+userID,
+noteID,
 content,
 cover
 _____
@@ -103,6 +122,9 @@ _____
 
 
 PUT%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
+noteImageID,
+userID,
+noteID,
 content,
 cover
 _____
