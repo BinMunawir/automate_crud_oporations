@@ -90,11 +90,25 @@ export async function """ +
 
             """;
           } else if (f.contains('create')) {
+            String _getID() {
+              String id = '';
+              this._io.getTables().forEach((t) {
+                if (t.name != tableName) return;
+                id = t.params[0][0];
+              });
+              return id.substring(0, id.indexOf('ID'));
+            }
+
             content += """
 export async function """ +
                 f +
                 """(data: any) {
     try {
+      if (data.""" +
+                _getID() +
+                """ID == null) data.""" +
+                _getID() +
+                """ID = shortid.generate();
         await service.sqlStorage.sqlCreate('""" +
                 tableName +
                 """', data)
@@ -142,6 +156,7 @@ export async function """ +
 import { HTTP400Error } from "../models/http400error";
 import * as utilities from "../utilities";
 import service from "../services";
+const shortid = require('shortid');
 
         ''' +
           _getFunctions() +

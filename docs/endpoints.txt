@@ -1,64 +1,40 @@
 GET%		/api/users%
 userID,
 password,
-username
+username,
+avatar,
+cv
 _____
 
 
 POST%		/api/users%
 userID,
 password,
-username
+username,
+avatar,
+cv
 _____
 
 
 GET%		/api/users/:userID%
 userID,
 password,
-username
+username,
+avatar,
+cv
 _____
 
 
 PUT%		/api/users/:userID%
 userID,
 password,
-username
+username,
+avatar,
+cv
 _____
 
 
 DELETE%		/api/users/:userID%
-_____
-
-
-GET%		/api/companies%
-companyID,
-password,
-email
-_____
-
-
-POST%		/api/companies%
-companyID,
-password,
-email
-_____
-
-
-GET%		/api/companies/:companyID%
-companyID,
-password,
-email
-_____
-
-
-PUT%		/api/companies/:companyID%
-companyID,
-password,
-email
-_____
-
-
-DELETE%		/api/companies/:companyID%
 _____
 
 
@@ -131,3 +107,103 @@ _____
 
 
 DELETE%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
+_____
+
+
+GET%		/api/companies%
+companyID,
+password,
+email,
+phone,
+title
+_____
+
+
+POST%		/api/companies%
+companyID,
+password,
+email,
+phone,
+title
+_____
+
+
+GET%		/api/companies/:companyID%
+companyID,
+password,
+email,
+phone,
+title
+_____
+
+
+PUT%		/api/companies/:companyID%
+companyID,
+password,
+email,
+phone,
+title
+_____
+
+
+DELETE%		/api/companies/:companyID%
+_____
+
+
+GET%		/api/companies/:companyID/adds%
+addID,
+companyID,
+title
+_____
+
+
+POST%		/api/companies/:companyID/adds%
+addID,
+companyID,
+title
+_____
+
+
+GET%		/api/companies/:companyID/adds/:addID%
+addID,
+companyID,
+title
+_____
+
+
+PUT%		/api/companies/:companyID/adds/:addID%
+addID,
+companyID,
+title
+_____
+
+
+DELETE%		/api/companies/:companyID/adds/:addID%
+_____
+
+
+GET%		/api/offers%
+offerID,
+content
+_____
+
+
+POST%		/api/offers%
+offerID,
+content
+_____
+
+
+GET%		/api/offers/:offerID%
+offerID,
+content
+_____
+
+
+PUT%		/api/offers/:offerID%
+offerID,
+content
+_____
+
+
+DELETE%		/api/offers/:offerID%

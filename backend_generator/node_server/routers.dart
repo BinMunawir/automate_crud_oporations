@@ -15,6 +15,7 @@ class Routers {
   }
 
   void _generateRouterIndex(List<String> routes) {
+    if (this._io.getAuth().isNotEmpty) routes.add('auth');
     String _getImports() {
       String content = '';
       routes.forEach(
@@ -95,10 +96,9 @@ class Routers {
       String _getModel() {
         String content = '';
         this._io.getTables().forEach((t) {
-          String model;
           Map<String, dynamic> params = Map();
           if (t.name[0].toLowerCase() + t.name.substring(1) == k) {
-            model = t.params[0][0][0].toUpperCase() +
+            String model = t.params[0][0][0].toUpperCase() +
                 t.params[0][0].substring(1, t.params[0][0].indexOf('ID'));
             t.params.forEach((p) {
               if (p[1].contains('INT'))
@@ -129,25 +129,7 @@ class Routers {
         }
 
         String content;
-        if (func == 'signup') {
-          content = '''
-        let accepted: string[] = [''' +
-              _getParameters(p) +
-              ''']
-        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.body));
-        await signup(body);
-        res.status(200).send();
-          ''';
-        } else if (func == 'login') {
-          content = '''
-        let accepted: string[] = [''' +
-              _getParameters(p) +
-              ''']
-        let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type));
-        let data = await login(body);
-        res.status(200).send(data);
-          ''';
-        } else if (func.contains('get')) {
+        if (func.contains('get')) {
           content = '''
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
         let accepted: string[] = [''' +
@@ -194,6 +176,29 @@ class Routers {
       }
 
       String _getRoutes() {
+        List<String> auth = [];
+        this._io.getAuth().forEach((t, p) {
+          this._io.getTables().forEach((tt) {
+            if (tt.name != t) return;
+            auth.add(tt.params[0][0]);
+          });
+        });
+        String _getVarify(String path) {
+          bool isAuth = false;
+          String aa;
+          auth.forEach((a) {
+            if (path.contains(a)) {
+              isAuth = true;
+              aa = a;
+            }
+          });
+          return isAuth
+              ? 'utilities.verifyToken(req.params.' +
+                  aa +
+                  ', req.headers.auth)\n'
+              : '';
+        }
+
         String content = '';
         r.forEach((f) {
           f.forEach((p, c) => {
@@ -208,9 +213,7 @@ class Routers {
             handler: [
               async (req: any, res: any) => {
                 ''' +
-                    (c[1].contains('userID')
-                        ? 'utilities.verifyToken(req.params.userID, req.headers.auth)\n'
-                        : '') +
+                    _getVarify(c[1]) +
                     _getFunContent(p, c[2]) +
                     '''
               }

@@ -37,6 +37,7 @@ class IO {
     String content = readFile('./docs/models.txt');
     List<Table> tables = [];
     content.split('_____').forEach((t) {
+      if (t.contains('auth')) return;
       List<String> tContent = t.split(':');
       String tName = tContent[0].trim();
       List<List<String>> tParams = [];
@@ -48,6 +49,21 @@ class IO {
       tables.add(Table(tName, tParams));
     });
     return tables;
+  }
+
+  Map<String, List<String>> getAuth() {
+    Map<String, List<String>> result = Map();
+    String content = readFile('./docs/models.txt');
+    content.split('_____').forEach((t) {
+      if (t.contains('auth')) {
+        t = t.split(':')[1].trim();
+        t.split(';').forEach((a) {
+          result.addAll(
+              {a.split('=')[0].trim(): a.split('=')[1].trim().split(',')});
+        });
+      }
+    });
+    return result;
   }
 
   List<Endpoint> getEndpoints() {

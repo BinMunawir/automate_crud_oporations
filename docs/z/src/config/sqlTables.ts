@@ -1,4 +1,5 @@
-
+    export const tables = `
+    
 
 CREATE TABLE Users (
 	userID			VARCHAR(255),
@@ -55,3 +56,5 @@ CREATE TABLE Offers (
 	content			VARCHAR(255),
 PRIMARY KEY (offerID)
 );
+    `;
+    

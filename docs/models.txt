@@ -1,13 +1,14 @@
+auth:
+Users=username,password;
+Companies=email,password
+_____
+
 Users:
 userID,, p;
 password,,;
-username,,u
-_____
-
-Companies:
-companyID,, p;
-password,,;
-email,,u
+username,,u;
+avatar,image,;
+cv,pdf,
 _____
 
 Notes:
@@ -23,3 +24,24 @@ userID,,Users;
 noteID,,Notes;
 content, pdf,;
 cover,image,
+
+_____
+
+Companies:
+companyID,, p;
+password,,;
+email,,u;
+phone,,u;
+title,,
+_____
+
+Adds:
+addID,,p;
+companyID,,Companies;
+title,,
+
+_____
+
+Offers:
+offerID,,p;
+content,,

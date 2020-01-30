@@ -1,21 +1,3 @@
-import '../../io.dart';
-
-class Utilities {
-  IO _io = IO();
-  String _root;
-  String _dir;
-
-  Utilities(this._root) {
-    this._dir = this._root + 'src/utilities/';
-    _io.createDir(this._dir);
-  }
-
-  void generate() {
-    this._generateUtilities();
-  }
-
-  void _generateUtilities() {
-    String content = '''
 import { Router, Request, Response, NextFunction } from "express";
 import { HTTP400Error } from "../models/http400error";
 const jwt = require('jsonwebtoken')
@@ -175,9 +157,4 @@ export function acceptedBody(acceptedBody: any[], body: any) {
   return newBody;
 }
     
-    ''';
-
-    _io.createFile(this._dir + 'index.ts');
-    _io.writeFile(this._dir + 'index.ts', content);
-  }
-}
+    

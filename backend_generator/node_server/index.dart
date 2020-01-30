@@ -1,4 +1,5 @@
 import '../../io.dart';
+import 'auth.dart';
 import 'config.dart';
 import 'essentials.dart';
 import 'controllers.dart';
@@ -10,7 +11,6 @@ import 'utilities.dart';
 
 void main() {
   IO io = IO();
-
   String root = './docs/' + io.getConfig()[0][1] + '/';
 
   Essentials(root).generate();
@@ -21,4 +21,5 @@ void main() {
   Models(root).generate();
   Routers(root).generate();
   Controllers(root).generate();
+  Auth(root).generate();
 }
