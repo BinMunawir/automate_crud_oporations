@@ -1,36 +1,92 @@
+GET%		/api/organizations%
+organizationID,
+arabicName,
+englishName,
+domain,
+type
+_____
+
+
+POST%		/api/organizations%
+organizationID,
+arabicName,
+englishName,
+domain,
+type
+_____
+
+
+GET%		/api/organizations/:organizationID%
+organizationID,
+arabicName,
+englishName,
+domain,
+type
+_____
+
+
+PUT%		/api/organizations/:organizationID%
+organizationID,
+arabicName,
+englishName,
+domain,
+type
+_____
+
+
+DELETE%		/api/organizations/:organizationID%
+_____
+
+
 GET%		/api/users%
 userID,
 password,
-username,
-avatar,
-cv
+name,
+email,
+phone,
+status,
+lastActivity,
+organizationID,
+addedDate
 _____
 
 
 POST%		/api/users%
 userID,
 password,
-username,
-avatar,
-cv
+name,
+email,
+phone,
+status,
+lastActivity,
+organizationID,
+addedDate
 _____
 
 
 GET%		/api/users/:userID%
 userID,
 password,
-username,
-avatar,
-cv
+name,
+email,
+phone,
+status,
+lastActivity,
+organizationID,
+addedDate
 _____
 
 
 PUT%		/api/users/:userID%
 userID,
 password,
-username,
-avatar,
-cv
+name,
+email,
+phone,
+status,
+lastActivity,
+organizationID,
+addedDate
 _____
 
 
@@ -38,172 +94,384 @@ DELETE%		/api/users/:userID%
 _____
 
 
-GET%		/api/users/:userID/notes%
-noteID,
-userID,
-title
-_____
-
-
-POST%		/api/users/:userID/notes%
-noteID,
-userID,
-title
-_____
-
-
-GET%		/api/users/:userID/notes/:noteID%
-noteID,
-userID,
-title
-_____
-
-
-PUT%		/api/users/:userID/notes/:noteID%
-noteID,
-userID,
-title
-_____
-
-
-DELETE%		/api/users/:userID/notes/:noteID%
-_____
-
-
-GET%		/api/users/:userID/notes/:noteID/noteImages%
-noteImageID,
-userID,
-noteID,
-content,
-cover
-_____
-
-
-POST%		/api/users/:userID/notes/:noteID/noteImages%
-noteImageID,
-userID,
-noteID,
-content,
-cover
-_____
-
-
-GET%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
-noteImageID,
-userID,
-noteID,
-content,
-cover
-_____
-
-
-PUT%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
-noteImageID,
-userID,
-noteID,
-content,
-cover
-_____
-
-
-DELETE%		/api/users/:userID/notes/:noteID/noteImages/:noteImageID%
-_____
-
-
-GET%		/api/companies%
-companyID,
+GET%		/api/admins%
+adminID,
+name,
 password,
+role,
 email,
-phone,
-title
+addedDate,
+lastActivity,
+status
 _____
 
 
-POST%		/api/companies%
-companyID,
+POST%		/api/admins%
+adminID,
+name,
 password,
+role,
 email,
-phone,
-title
+addedDate,
+lastActivity,
+status
 _____
 
 
-GET%		/api/companies/:companyID%
-companyID,
+GET%		/api/admins/:adminID%
+adminID,
+name,
 password,
+role,
 email,
-phone,
-title
+addedDate,
+lastActivity,
+status
 _____
 
 
-PUT%		/api/companies/:companyID%
-companyID,
+PUT%		/api/admins/:adminID%
+adminID,
+name,
 password,
+role,
 email,
-phone,
-title
+addedDate,
+lastActivity,
+status
 _____
 
 
-DELETE%		/api/companies/:companyID%
+DELETE%		/api/admins/:adminID%
 _____
 
 
-GET%		/api/companies/:companyID/adds%
-addID,
-companyID,
-title
+GET%		/api/admins/:adminID/books%
+bookID,
+adminID,
+arabicTitle,
+englishTitle,
+number,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-POST%		/api/companies/:companyID/adds%
-addID,
-companyID,
-title
+POST%		/api/admins/:adminID/books%
+bookID,
+adminID,
+arabicTitle,
+englishTitle,
+number,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-GET%		/api/companies/:companyID/adds/:addID%
-addID,
-companyID,
-title
+GET%		/api/admins/:adminID/books/:bookID%
+bookID,
+adminID,
+arabicTitle,
+englishTitle,
+number,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-PUT%		/api/companies/:companyID/adds/:addID%
-addID,
-companyID,
-title
+PUT%		/api/admins/:adminID/books/:bookID%
+bookID,
+adminID,
+arabicTitle,
+englishTitle,
+number,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-DELETE%		/api/companies/:companyID/adds/:addID%
+DELETE%		/api/admins/:adminID/books/:bookID%
 _____
 
 
-GET%		/api/offers%
-offerID,
-content
+GET%		/api/admins/:adminID/books/:bookID/volumes%
+volumeID,
+adminID,
+bookID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-POST%		/api/offers%
-offerID,
-content
+POST%		/api/admins/:adminID/books/:bookID/volumes%
+volumeID,
+adminID,
+bookID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-GET%		/api/offers/:offerID%
-offerID,
-content
+GET%		/api/admins/:adminID/books/:bookID/volumes/:volumeID%
+volumeID,
+adminID,
+bookID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-PUT%		/api/offers/:offerID%
-offerID,
-content
+PUT%		/api/admins/:adminID/books/:bookID/volumes/:volumeID%
+volumeID,
+adminID,
+bookID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+version,
+video
 _____
 
 
-DELETE%		/api/offers/:offerID%
+DELETE%		/api/admins/:adminID/books/:bookID/volumes/:volumeID%
+_____
+
+
+GET%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters%
+chapterID,
+adminID,
+bookID,
+volumeID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+versionDate,
+chapter
+_____
+
+
+POST%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters%
+chapterID,
+adminID,
+bookID,
+volumeID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+versionDate,
+chapter
+_____
+
+
+GET%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID%
+chapterID,
+adminID,
+bookID,
+volumeID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+versionDate,
+chapter
+_____
+
+
+PUT%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID%
+chapterID,
+adminID,
+bookID,
+volumeID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+versionDate,
+chapter
+_____
+
+
+DELETE%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID%
+_____
+
+
+GET%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents%
+documentID,
+adminID,
+bookID,
+volumeID,
+chapterID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+document
+_____
+
+
+POST%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents%
+documentID,
+adminID,
+bookID,
+volumeID,
+chapterID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+document
+_____
+
+
+GET%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID%
+documentID,
+adminID,
+bookID,
+volumeID,
+chapterID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+document
+_____
+
+
+PUT%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID%
+documentID,
+adminID,
+bookID,
+volumeID,
+chapterID,
+arabicTitle,
+englishTitle,
+lastModified,
+modifiedBy,
+versionNumber,
+document
+_____
+
+
+DELETE%		/api/admins/:adminID/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID%
+_____
+
+
+GET%		/api/admins/:adminID/glossaries%
+glossaryID,
+adminID,
+word,
+meaning,
+addedDate,
+lastModified
+_____
+
+
+POST%		/api/admins/:adminID/glossaries%
+glossaryID,
+adminID,
+word,
+meaning,
+addedDate,
+lastModified
+_____
+
+
+GET%		/api/admins/:adminID/glossaries/:glossaryID%
+glossaryID,
+adminID,
+word,
+meaning,
+addedDate,
+lastModified
+_____
+
+
+PUT%		/api/admins/:adminID/glossaries/:glossaryID%
+glossaryID,
+adminID,
+word,
+meaning,
+addedDate,
+lastModified
+_____
+
+
+DELETE%		/api/admins/:adminID/glossaries/:glossaryID%
+_____
+
+
+GET%		/api/users/:userID/inquiries%
+inquiryID,
+organizationID,
+userID,
+inquiry,
+response,
+status,
+adminID
+_____
+
+
+POST%		/api/users/:userID/inquiries%
+inquiryID,
+organizationID,
+userID,
+inquiry,
+response,
+status,
+adminID
+_____
+
+
+GET%		/api/users/:userID/inquiries/:inquiryID%
+inquiryID,
+organizationID,
+userID,
+inquiry,
+response,
+status,
+adminID
+_____
+
+
+PUT%		/api/users/:userID/inquiries/:inquiryID%
+inquiryID,
+organizationID,
+userID,
+inquiry,
+response,
+status,
+adminID
+_____
+
+
+DELETE%		/api/users/:userID/inquiries/:inquiryID%

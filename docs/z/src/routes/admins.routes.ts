@@ -1,74 +1,72 @@
 import * as utilities from "../utilities";
-      import { getNotes, createNotes, getNote, updateNote, deleteNote,  } from "../controllers/notes.controller";
+      import { getAdmins, createAdmins, getAdmin, updateAdmin, deleteAdmin,  } from "../controllers/admins.controller";
 
-                      let type: NoteModel = 
-              {noteID: '', userID: '', title: ''}            
+                      let type: AdminModel = 
+              {adminID: '', name: '', password: '', role: '', email: '', addedDate: 0, lastActivity: 0, status: 0}            
       export default [ 
                   {
-            path: "/api/users/:userID/notes",
+            path: "/api/admins",
             method: "get",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
-        let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', ];
-        let data = await getNotes(query, accepted);
+                        let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
+        let accepted: string[] = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status', ];
+        let data = await getAdmins(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes",
+            path: "/api/admins",
             method: "post",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
-        let accepted: string[] = ['noteID', 'userID', 'title', ]
+                        let accepted: string[] = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, {...req.params, ...req.body}));
-        await createNotes(body);
+        await createAdmins(body);
         res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID",
+            path: "/api/admins/:adminID",
             method: "get",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', ];
-        let data = await getNote(query, accepted);
+        let accepted: string[] = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status', ];
+        let data = await getAdmin(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID",
+            path: "/api/admins/:adminID",
             method: "put",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteID', 'userID', 'title', ]
+        let accepted: string[] = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
-        await updateNote(query, body);
+        await updateAdmin(query, body);
         res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID",
+            path: "/api/admins/:adminID",
             method: "delete",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params};
-        await deleteNote(query);
+        await deleteAdmin(query);
         res.status(200).send();
                         }
             ]

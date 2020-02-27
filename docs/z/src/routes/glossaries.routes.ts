@@ -1,74 +1,74 @@
 import * as utilities from "../utilities";
-      import { getNoteImages, createNoteImages, getNoteImage, updateNoteImage, deleteNoteImage,  } from "../controllers/noteImages.controller";
+      import { getGlossaries, createGlossaries, getGlossary, updateGlossary, deleteGlossary,  } from "../controllers/glossaries.controller";
 
-                      let type: NoteImageModel = 
-              {noteImageID: '', userID: '', noteID: '', content: {mimetype: 'pdf',}, cover: {mimetype: 'image',}}            
+                      let type: GlossaryModel = 
+              {glossaryID: '', adminID: '', word: '', meaning: '', addedDate: 0, lastModified: 0}            
       export default [ 
                   {
-            path: "/api/users/:userID/notes/:noteID/noteImages",
+            path: "/api/admins/:adminID/glossaries",
             method: "get",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ];
-        let data = await getNoteImages(query, accepted);
+        let accepted: string[] = ['glossaryID', 'adminID', 'word', 'meaning', 'addedDate', 'lastModified', ];
+        let data = await getGlossaries(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID/noteImages",
+            path: "/api/admins/:adminID/glossaries",
             method: "post",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ]
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
+        let accepted: string[] = ['glossaryID', 'adminID', 'word', 'meaning', 'addedDate', 'lastModified', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, {...req.params, ...req.body}));
-        await createNoteImages(body);
+        await createGlossaries(body);
         res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID/noteImages/:noteImageID",
+            path: "/api/admins/:adminID/glossaries/:glossaryID",
             method: "get",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ];
-        let data = await getNoteImage(query, accepted);
+        let accepted: string[] = ['glossaryID', 'adminID', 'word', 'meaning', 'addedDate', 'lastModified', ];
+        let data = await getGlossary(query, accepted);
         res.status(200).send(JSON.stringify(data));
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID/noteImages/:noteImageID",
+            path: "/api/admins/:adminID/glossaries/:glossaryID",
             method: "put",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params, ...utilities.checkQuery(req.query, type) };
-        let accepted: string[] = ['noteImageID', 'userID', 'noteID', 'content', 'cover', ]
+        let accepted: string[] = ['glossaryID', 'adminID', 'word', 'meaning', 'addedDate', 'lastModified', ]
         let body = utilities.acceptedBody(accepted, await utilities.checkBody(req.body, type, req.params));
-        await updateNoteImage(query, body);
+        await updateGlossary(query, body);
         res.status(200).send();
                         }
             ]
           },
 
                     {
-            path: "/api/users/:userID/notes/:noteID/noteImages/:noteImageID",
+            path: "/api/admins/:adminID/glossaries/:glossaryID",
             method: "delete",
             handler: [
               async (req: any, res: any) => {
-                utilities.verifyToken(req.params.userID, req.headers.auth)
+                utilities.verifyToken(req.params.adminID, req.headers.auth)
         let query = { ...req.params};
-        await deleteNoteImage(query);
+        await deleteGlossary(query);
         res.status(200).send();
                         }
             ]

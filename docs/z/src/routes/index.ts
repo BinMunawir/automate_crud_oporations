@@ -1,10 +1,13 @@
-          import users from "./users.routes";
-import notes from "./notes.routes";
-import noteImages from "./noteImages.routes";
-import companies from "./companies.routes";
-import adds from "./adds.routes";
-import offers from "./offers.routes";
+          import organizations from "./organizations.routes";
+import users from "./users.routes";
+import admins from "./admins.routes";
+import books from "./books.routes";
+import volumes from "./volumes.routes";
+import chapters from "./chapters.routes";
+import documents from "./documents.routes";
+import glossaries from "./glossaries.routes";
+import inquiries from "./inquiries.routes";
 import auth from "./auth.routes";
 
 
-export default [...users, ...notes, ...noteImages, ...companies, ...adds, ...offers, ...auth, ];        
+export default [...organizations, ...users, ...admins, ...books, ...volumes, ...chapters, ...documents, ...glossaries, ...inquiries, ...auth, ];        

@@ -3,35 +3,35 @@ import { HTTP400Error } from "../models/http400error";
 const shortid = require('shortid');
 import services from "../services";
 
-let userType: UserModel =
-    { userID: '', password: '', username: '', avatar: { mimetype: 'image', }, cv: { mimetype: 'pdf', } }
-let companyType: CompanyModel =
-    { companyID: '', password: '', email: '', phone: '', title: '' }
-
+            let userType: UserModel = 
+              {userID: '', password: '', name: '', email: '', phone: '', status: 0, lastActivity: 0, organizationID: '', addedDate: 0}          
+                        let adminType: AdminModel = 
+              {adminID: '', name: '', password: '', role: '', email: '', addedDate: 0, lastActivity: 0, status: 0}          
+            
 export async function signup(data: any) {
-    if (data.authType == 'Users') {
-        if (data.username == null || data.password == null)
-            throw new HTTP400Error(1614, 'username and password are required');
+if (data.authType == 'Users') {
+        if (data.email == null || data.password == null )
+            throw new HTTP400Error(1614, 'email and password are required');
 
-        let accepted: string[] = ['userID', 'password', 'username', 'avatar', 'cv'];
-        let userData = utilities.acceptedBody(accepted, data);
+        let accepted: string[] = ['userID', 'password', 'name', 'email', 'phone', 'status', 'lastActivity', 'organizationID', 'addedDate'];
+         let userData = utilities.acceptedBody(accepted, data);
         if (userData.userID == null) userData.userID = shortid.generate();
         userData = await utilities.checkBody(userData, userType, userData);
         return await exceuteSignup(data.authType, userData);
     }
 
-    if (data.authType == 'Companies') {
-        if (data.email == null || data.password == null)
-            throw new HTTP400Error(1614, 'email and password are required');
+      if (data.authType == 'Admins') {
+        if (data.userID == null || data.password == null )
+            throw new HTTP400Error(1614, 'userID and password are required');
 
-        let accepted: string[] = ['companyID', 'password', 'email', 'phone'];
-        let companyData = utilities.acceptedBody(accepted, data);
-        if (companyData.companyID == null) companyData.companyID = shortid.generate();
-        companyData = await utilities.checkBody(companyData, companyType, companyData);
-        return await exceuteSignup(data.authType, companyData);
+        let accepted: string[] = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status'];
+         let adminData = utilities.acceptedBody(accepted, data);
+        if (adminData.adminID == null) adminData.adminID = shortid.generate();
+        adminData = await utilities.checkBody(adminData, adminType, adminData);
+        return await exceuteSignup(data.authType, adminData);
     }
 
-    throw new HTTP400Error(5461, 'the auth type is not supported');
+          throw new HTTP400Error(5461, 'the auth type is not supported');
 }
 async function exceuteSignup(table: any, data: any) {
     try {
@@ -64,15 +64,15 @@ export async function login(query: any, authTypes: any[]): Promise<any> {
         throw new HTTP400Error(6541, 'No user by that information in all types');
     }
     else if (query.authType == 'Users') {
-        query = { username: query.id, password: query.password }
-        let requestedData: any = ['userID', 'password', 'username', 'avatar', 'cv'];
+        query = { email: query.id, password: query.password }
+          let requestedData: any = ['userID', 'password', 'name', 'email', 'phone', 'status', 'lastActivity', 'organizationID', 'addedDate'];
         return await exceuteLogin('Users', query, requestedData)
     }
 
-    else if (query.authType == 'Companies') {
-        query = { email: query.id, password: query.password }
-        let requestedData: any = ['companyID', 'password', 'email', 'phone', 'title'];
-        return await exceuteLogin('Companies', query, requestedData)
+    else if (query.authType == 'Admins') {
+        query = { userID: query.id, password: query.password }
+          let requestedData: any = ['adminID', 'name', 'password', 'role', 'email', 'addedDate', 'lastActivity', 'status'];
+        return await exceuteLogin('Admins', query, requestedData)
     }
 
 }
@@ -92,3 +92,4 @@ async function exceuteLogin(table: any, query: any, requestedData: any) {
     }
 }
 
+        
