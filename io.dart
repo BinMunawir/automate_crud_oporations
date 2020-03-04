@@ -1,105 +1,40 @@
 import 'dart:io';
 
-main(List<String> args) {
-  IO io = IO();
-  print(io.getEndpoints()[10].params);
-}
-
 class IO {
-  void createDir(String path) {
+  void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
-    if (dir.existsSync()) dir.deleteSync(recursive: true);
+    if (override && dir.existsSync()) dir.deleteSync(recursive: true);
     dir.createSync(recursive: true);
   }
 
-  void createFile(String path) {
+  void createFile(String path, {bool override = false}) {
     File file = File(path);
-    if (file.existsSync()) file.deleteSync();
+    if (override && file.existsSync()) file.deleteSync();
     file.createSync();
   }
 
-  String readFile(String path) {
+  String readFromFile(String path) {
     File file = File(path);
     return file.readAsStringSync();
   }
 
-  void writeFile(String path, String content) {
+  void writeToFile(String path, String content) {
     File file = File(path);
     return file.writeAsStringSync(content);
   }
 
-  void copyFile(String source, String path) {
-    createFile(path);
-    writeFile(path, readFile(source));
+  void copyFile(String src, String des) {
+    this.createFile(src);
+    this.writeToFile(src, readFromFile(des));
   }
 
-  List<Table> getTables() {
-    String content = readFile('./docs/models.txt');
-    List<Table> tables = [];
-    content.split('_____').forEach((t) {
-      if (t.contains('auth')) return;
-      List<String> tContent = t.split(':');
-      String tName = tContent[0].trim();
-      List<List<String>> tParams = [];
-      tContent[1].split(';').forEach((p) {
-        List<String> params = [];
-        p.split(',').forEach((e) => params.add(e.trim()));
-        tParams.add(params);
-      });
-      tables.add(Table(tName, tParams));
-    });
-    return tables;
+  Map<String, String> getConfigContent() {
+    Map<String, String> configs = {};
+
+    String configContent = this.readFromFile('./docs/config.txt');
+    configContent.split(',').forEach((x) =>
+      configs.addAll({x.split('=')[0]: x.split('=')[1]})
+    );
+    return configs;
   }
-
-  Map<String, List<String>> getAuth() {
-    Map<String, List<String>> result = Map();
-    String content = readFile('./docs/models.txt');
-    content.split('_____').forEach((t) {
-      if (t.contains('auth')) {
-        t = t.split(':')[1].trim();
-        t.split(';').forEach((a) {
-          result.addAll(
-              {a.split('=')[0].trim(): a.split('=')[1].trim().split(',')});
-        });
-      }
-    });
-    return result;
-  }
-
-  List<Endpoint> getEndpoints() {
-    String content = readFile('./docs/endpoints.txt');
-    List<Endpoint> endpoints = [];
-    content.split('_____').forEach((e) {
-      List<String> ee = e.split('%');
-      List<String> params = [];
-      ee[2].trim().split(',').forEach((p) {
-        params.add(p.trim());
-      });
-      endpoints.add(Endpoint(ee[0].trim(), ee[1].trim(), params: params));
-    });
-    return endpoints;
-  }
-
-  List<List<String>> getConfig() {
-    String content = readFile('./docs/config.txt');
-    List<List<String>> config = [];
-    content.split(',').forEach((e) {
-      config.add(e.trim().split('='));
-    });
-    return config;
-  }
-}
-
-class Table {
-  String name;
-  List<List<String>> params;
-  Table(this.name, this.params);
-}
-
-class Endpoint {
-  String method;
-  String path;
-  List<String> params;
-
-  Endpoint(this.method, this.path, {this.params});
 }
