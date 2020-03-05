@@ -1,19 +1,21 @@
-import '../../../io.dart';
+import '../../../../io.dart';
 import 'setupFiles.dart';
 
-class SetupNode {
+class Setup {
   IO _io;
-  String _legacyCodePath, _parentPath;
+  String _srcCodePath;
+  String _sqlTables;
   Map<String, List<String>> _neededFiles;
   List<String> _neededEnvVaribales;
+
   String _projectName;
   String _root;
 
-  SetupNode(this._parentPath, this._legacyCodePath, this._neededFiles,
-      this._neededEnvVaribales) {
+  Setup(this._srcCodePath, this._neededFiles, this._neededEnvVaribales,
+      [this._sqlTables = '']) {
     this._io = IO();
     this._projectName = this._io.getConfigContent()['projectName'];
-    this._root = this._parentPath + '/' + this._projectName;
+    this._root = this._io.generatedProjectsPath + '/' + this._projectName;
 
     this._setupDirectories();
     this._setupFiles();
@@ -22,9 +24,9 @@ class SetupNode {
   void _setupDirectories() {
     this._io.createDir(this._root, override: true);
 
-    this._neededFiles.keys.toList().forEach((path) {
+    this._neededFiles.keys.toList().forEach((dirPath) {
       String _buildingPath = this._root;
-      path.split('/').forEach((d) {
+      dirPath.split('/').forEach((d) {
         _buildingPath += '/' + d;
         this._io.createDir(_buildingPath);
       });
@@ -36,16 +38,16 @@ class SetupNode {
       files.forEach((f) {
         this
             ._io
-            .copyFile(this._legacyCodePath + '/' + dir, this._root + '/' + dir);
+            .copyFile(this._io.srcCodePath + '/' + dir, this._root + '/' + dir);
       });
     });
 
     SetupFiles(this);
   }
 
+  String get srcCodePath => this._srcCodePath;
+  String get sqlTables => this._sqlTables;
   IO get io => this._io;
-  String get legacyCodePath => this._legacyCodePath;
-  String get parentPath => this._parentPath;
   Map<String, List<String>> get neededFiles => this._neededFiles;
   List<String> get neededEnvVaribales => this._neededEnvVaribales;
   String get projectName => this._projectName;

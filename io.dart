@@ -3,7 +3,7 @@ import 'dart:io';
 class IO {
   String srcCodePath = './src_code/node',
       docsPath = './docs',
-      generatedProjects = './generated_projects';
+      generatedProjectsPath = './generated_projects';
 
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
@@ -35,7 +35,7 @@ class IO {
   Map<String, String> getConfigContent() {
     Map<String, String> configs = {};
 
-    String configContent = this.readFromFile('./docs/config.txt');
+    String configContent = this.readFromFile(this.docsPath+'/config.txt');
     configContent
         .split(',')
         .forEach((x) => configs.addAll({x.split('=')[0]: x.split('=')[1]}));
