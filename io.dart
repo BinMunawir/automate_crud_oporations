@@ -1,6 +1,10 @@
 import 'dart:io';
 
 class IO {
+  String srcCodePath = './src_code/node',
+      docsPath = './docs',
+      generatedProjects = './generated_projects';
+
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
     if (override && dir.existsSync()) dir.deleteSync(recursive: true);
@@ -32,9 +36,9 @@ class IO {
     Map<String, String> configs = {};
 
     String configContent = this.readFromFile('./docs/config.txt');
-    configContent.split(',').forEach((x) =>
-      configs.addAll({x.split('=')[0]: x.split('=')[1]})
-    );
+    configContent
+        .split(',')
+        .forEach((x) => configs.addAll({x.split('=')[0]: x.split('=')[1]}));
     return configs;
   }
 }
