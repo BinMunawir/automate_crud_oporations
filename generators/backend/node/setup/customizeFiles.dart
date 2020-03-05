@@ -1,34 +1,37 @@
 import 'setup.dart';
 
-class SetupFiles {
+class CustomizeFiles {
   Setup _setup;
 
-  SetupFiles(this._setup) {
-    this.setupPackageFile();
-    this.setupEnvFile();
-    this.setupSqlTablesFile();
-    this.setupSwaggerFile();
-  }
+  CustomizeFiles(this._setup);
 
-  void setupPackageFile() {
+  void customizePackageFile() {
     String content =
         this._setup.io.readFromFile(this._setup.root + '/package.json');
-    content.replaceFirst('node_project_name', this._setup.projectName);
+    content = content.replaceFirst('node_project_name', this._setup.projectName);
     this._setup.io.writeToFile(this._setup.root + '/package.json', content);
   }
 
-  void setupEnvFile() {
+  void customizeEnvFile() {
     String content = '';
 
-    Map<String, String> configVar = this._setup.io.getConfigContent();
-    this._setup.neededEnvVaribales.forEach((v) {
-      content += (v + '=' + configVar[v] + '\n');
+    Map<String, String> configVars = this._setup.io.getConfigContent();
+    Map<String, String> envVars = {};
+
+    this._setup.requiredEnvVaribales.forEach((v) {
+      envVars[v] = configVars[v];
+    });
+    if (envVars['dbName'] == null)
+      envVars['dbName'] = configVars['projectName'] + 'DB';
+
+    envVars.forEach((k, v) {
+      content += k + '=' + v + '\n';
     });
 
     this._setup.io.writeToFile(this._setup.root + '/.env', content);
   }
 
-  void setupSqlTablesFile() {
+  void customizeSqlTablesFile() {
     String content =
         'export const tables = `\n\n ${this._setup.sqlTables} \n\n`;';
 
@@ -38,8 +41,8 @@ class SetupFiles {
         .writeToFile(this._setup.root + '/src/config/sqlTables.ts', content);
   }
 
-  void setupSwaggerFile() {
-    String content = '\n\n';
+  void customizeSwaggerFile() {
+    String content = '\n\n{}';
 
     this
         ._setup
@@ -47,7 +50,7 @@ class SetupFiles {
         .writeToFile(this._setup.root + '/src/config/swagger.json', content);
   }
 
-  void setupRoutesIndexFile() {
+  void customizeRoutesIndexFile() {
     String content = '\n\nexport default [ ];';
 
     this

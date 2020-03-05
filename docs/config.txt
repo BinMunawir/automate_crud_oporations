@@ -1,9 +1,8 @@
-projectName=z,
+projectName=test5,
 hostname=localhost,
 port=3030,
-secretKey=abdullahInnosoft,
+secretKey=abdullahInnosoft123,
 dbHost=localhost,
 dbUser=root,
 dbPassword=123456789,
-dbName=z,
 storageHost=localhost:3030

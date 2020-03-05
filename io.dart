@@ -3,7 +3,7 @@ import 'dart:io';
 class IO {
   String srcCodePath = './src_code/node',
       docsPath = './docs',
-      generatedProjectsPath = './generated_projects';
+      generatedProjectsPath = './projects';
 
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
@@ -28,17 +28,16 @@ class IO {
   }
 
   void copyFile(String src, String des) {
-    this.createFile(src);
-    this.writeToFile(src, readFromFile(des));
+    this.createFile(des);
+    this.writeToFile(des, readFromFile(src));
   }
 
   Map<String, String> getConfigContent() {
-    Map<String, String> configs = {};
+    Map<String, String> configs = Map<String, String>();
 
-    String configContent = this.readFromFile(this.docsPath+'/config.txt');
-    configContent
-        .split(',')
-        .forEach((x) => configs.addAll({x.split('=')[0]: x.split('=')[1]}));
+    String configContent = this.readFromFile(this.docsPath + '/config.txt');
+    configContent.split(',').forEach((x) =>
+        configs[x.trim().split('=')[0].trim()] = x.trim().split('=')[1].trim());
     return configs;
   }
 }
