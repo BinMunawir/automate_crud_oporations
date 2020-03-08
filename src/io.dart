@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'endpoint.dart';
 import 'model.dart';
 
 class IO {
@@ -43,26 +44,35 @@ class IO {
     return configs;
   }
 
-  List<Model> getAllModels() {
-    List<Model> models = [];
+  Map<String, Model> getModels() {
+    Map<String, Model> models = {};
 
     this
         .readFromFile(this.docsPath + '/models.txt')
         .split('_____')
         .forEach((m) {
       m = m.trim();
-      models.add(Model.text(m));
+      Model model = Model.text(m);
+      models.addAll({model.pluralName: model});
     });
 
     return models;
   }
 
-  Model getModel(String pluralName) {
-    Model model;
-    this.getAllModels().forEach((m) {
-      if (m.pluralName == pluralName) model = m;
+  Map<String, List<Endpoint>> getEndpoints() {
+    Map<String, List<Endpoint>> endpoints = {};
+
+    this
+        .readFromFile(this.docsPath + '/endpoints.txt')
+        .split('_____')
+        .forEach((e) {
+      e = e.trim();
+      Endpoint endpoint = Endpoint.fromText(e);
+      if (endpoints[endpoint.model] == null)
+        endpoints.addAll({endpoint.model: []});
+      endpoints[endpoint.model].add(endpoint);
     });
 
-    return model;
+    return endpoints;
   }
 }
