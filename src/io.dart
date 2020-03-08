@@ -3,9 +3,9 @@ import 'dart:io';
 import 'model.dart';
 
 class IO {
-  String srcCodePath = '../src_code/node',
-      docsPath = '../ docs',
-      generatedProjectsPath = '../projects';
+  String srcCodePath = './src_code/node',
+      docsPath = './docs',
+      generatedProjectsPath = './projects';
 
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);

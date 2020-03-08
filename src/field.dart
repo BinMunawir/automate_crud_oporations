@@ -8,4 +8,11 @@ class Field {
     this.type = fieldText.split(',')[1].trim();
     this.info = fieldText.split(',')[2].trim();
   }
+
+  @override
+  String toString() {
+    String content = '''$name, $type, $info''';
+
+    return content;
+  }
 }
