@@ -1,4 +1,4 @@
-import '../../../../io.dart';
+import '../../../../src/io.dart';
 import 'customizeFiles.dart';
 
 class Setup {

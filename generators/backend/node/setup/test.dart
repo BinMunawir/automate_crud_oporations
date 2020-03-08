@@ -4,24 +4,7 @@ import 'customizeFiles.dart';
 import 'setup.dart';
 
 main(List<String> args) {
-  Test test = Test();
-  // test._setup.run();
-  try {
-    test.testComponent();
-    // test.testCreateDirectories();
-    // test.testCopyFilesFromSrcCode();
-    // test.testCustomizePackageFile();
-    // test.testCustomizeEnvFile();
-  } catch (e) {
-    if (e is Map)
-      print(e);
-    else
-      throw e;
-  }
-}
-
-class Test {
-  Setup _setup = Setup({
+  Test test = Test(Setup({
     "": ['.env', '.gitignore', 'package.json', 'README.md', 'tsconfig.json'],
     "public/general": [],
     "src": ['server.ts'],
@@ -40,7 +23,26 @@ class Test {
     'dbUser',
     'dbPassword',
     'dbName',
-  ]);
+  ]));
+  // test._setup.run();
+  try {
+    test.testComponent();
+    // test.testCreateDirectories();
+    // test.testCopyFilesFromSrcCode();
+    // test.testCustomizePackageFile();
+    // test.testCustomizeEnvFile();
+  } catch (e) {
+    if (e is Map)
+      print(e);
+    else
+      throw e;
+  }
+}
+
+class Test {
+  Setup _setup;
+
+  Test(this._setup);
 
   void testComponent() {
     this.testCreateDirectories();

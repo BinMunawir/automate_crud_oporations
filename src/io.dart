@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'model.dart';
+
 class IO {
-  String srcCodePath = './src_code/node',
-      docsPath = './docs',
-      generatedProjectsPath = './projects';
+  String srcCodePath = '../src_code/node',
+      docsPath = '../ docs',
+      generatedProjectsPath = '../projects';
 
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
@@ -39,5 +41,28 @@ class IO {
     configContent.split(',').forEach((x) =>
         configs[x.trim().split('=')[0].trim()] = x.trim().split('=')[1].trim());
     return configs;
+  }
+
+  List<Model> getAllModels() {
+    List<Model> models = [];
+
+    this
+        .readFromFile(this.docsPath + '/models.txt')
+        .split('_____')
+        .forEach((m) {
+      m = m.trim();
+      models.add(Model.text(m));
+    });
+
+    return models;
+  }
+
+  Model getModel(String pluralName) {
+    Model model;
+    this.getAllModels().forEach((m) {
+      if (m.pluralName == pluralName) model = m;
+    });
+
+    return model;
   }
 }
