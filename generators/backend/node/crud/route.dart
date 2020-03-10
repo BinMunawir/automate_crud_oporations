@@ -14,7 +14,6 @@ class Route {
     this.typeContent();
     this.routesContent();
     this.writeRoute();
-    print('done');
   }
 
   void importContent() {
@@ -39,10 +38,6 @@ class Route {
         this._model.singlarName[0] +
         this._model.singlarName.substring(1) +
         'Model = {\n';
-    this._model.getDependencyModels().forEach((d) {
-      content += d.singlarName + "ID: '',\n";
-    });
-    content += this._model.singlarName + "ID: '',\n";
     this._model.fields.forEach((f) {
       content += f.name + ': ';
       if (f.type.length == 0 || f.type.contains('CHAR'))
@@ -68,7 +63,7 @@ class Route {
       else if (e.method == 'DELETE') routes.add(this._deleteMethod(e));
     });
 
-    this._content += content + routes.formatOutput();
+    this._content += content + routes.toString();
   }
 
   String _getMethod(Endpoint e) {
@@ -186,11 +181,11 @@ class Route {
   }
 
   String _getEndpointParams(Endpoint e) {
-    e.params = e.params.map((p) {
+    e.params = e.params.map<String>((p) {
       return "'" + p + "'";
     }).toList();
 
-    return e.params.formatOutput();
+    return e.params.toString();
   }
 
   String _getEndpointFunction(Endpoint e) {
@@ -204,27 +199,21 @@ class Route {
     else if (e.method == 'DELETE') func += 'delete';
 
     if (e.path.substring(e.path.lastIndexOf('/') + 1) ==
-        ':${this._model.singlarName}ID')
+            ':${this._model.singlarName}ID' ||
+        e.method == 'POST')
       func += this._model.singlarName[0].toUpperCase() +
           this._model.singlarName.substring(1);
     else
-      func += this._model.pluralName[0].toUpperCase() +
+      func += 'All' +
+          this._model.pluralName[0].toUpperCase() +
           this._model.pluralName.substring(1);
 
     this._model.depends.asMap().forEach((i, m) {
-      this._io.getModels()[m].getDependencyModels().asMap().forEach((i, m) {
-        if (!e.path.contains(m.singlarName + 'ID')) return;
-        if (i == 0) func += 'By';
-        func +=
-            m.singlarName[0].toUpperCase() + m.singlarName.substring(1) + "ID";
-        func += 'And';
-      });
-      Model d = this._io.getModels()[m];
-      if (!e.path.contains(d.singlarName + 'ID')) return;
-      if (!func.contains('By')) func += 'By';
-      if (i != 0) func += 'And';
+      if (!e.path.contains(m.singlarName + 'ID')) return;
+      if (!func.contains('FilteredBy')) func += 'FilteredBy';
+      else func += 'And';
       func +=
-          d.singlarName[0].toUpperCase() + d.singlarName.substring(1) + "ID";
+          m.singlarName[0].toUpperCase() + m.singlarName.substring(1) + "ID";
     });
 
     return func;

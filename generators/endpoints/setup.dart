@@ -19,8 +19,6 @@ class Setup {
       content += '_____\n\n';
     });
 
-    print(this._endpoints.length);
-
     this._io.createFile(this._io.docsPath + '/endpoints.txt', override: true);
     this._io.writeToFile(this._io.docsPath + '/endpoints.txt', content);
   }

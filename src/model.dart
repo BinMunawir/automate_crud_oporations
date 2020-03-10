@@ -7,7 +7,7 @@ class Model {
   List<Field> fields;
   List<Endpoint> endpoints;
 
-  Model(this.pluralName, this.singlarName, this.depends, this.fields);
+  Model(this.pluralName, this.singlarName, this.depends, this.fields, this.endpoints);
 
   
   List<Field> getIDs() {

@@ -311,3 +311,41 @@ downloads;
 DELETE# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
 
 
+_____
+
+groups;
+GET# 			/api/groups;
+groupID;
+title;
+
+
+_____
+
+groups;
+GET# 			/api/groups/:groupID;
+groupID;
+title;
+
+
+_____
+
+groups;
+POST# 			/api/groups;
+groupID;
+title;
+
+
+_____
+
+groups;
+PUT# 			/api/groups/:groupID;
+groupID;
+title;
+
+
+_____
+
+groups;
+DELETE# 			/api/groups/:groupID;
+
+

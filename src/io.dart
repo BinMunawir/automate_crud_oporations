@@ -53,7 +53,7 @@ class IO {
         .split('_____')
         .forEach((m) {
       m = m.trim();
-      Model model = Model('', '', [], []);
+      Model model = Model('', '', [], [], []);
       m.split(';').asMap().forEach((i, r) {
         if (i == m.split(';').length - 1) return;
         r = r.trim();
