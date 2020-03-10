@@ -1,46 +1,313 @@
 users;
-GET:/users;
+GET# 			/api/users;
+userID;
 name;
 password;
+
 
 _____
 
 users;
-POST:/users;
+GET# 			/api/users/:userID;
+userID;
 name;
 password;
+
 
 _____
 
 users;
-GET:/users/:userID;
+POST# 			/api/users;
+userID;
 name;
 password;
+
 
 _____
 
 users;
-GET:/users;
+PUT# 			/api/users/:userID;
+userID;
 name;
 password;
+
 
 _____
 
 users;
-GET:/users;
-name;
-password;
+DELETE# 			/api/users/:userID;
+
 
 _____
 
 admins;
-GET:/admins;
+GET# 			/api/admins;
+adminID;
 name;
 password;
+
 
 _____
 
-rules;
-GET:/rules;
+admins;
+GET# 			/api/admins/:adminID;
+adminID;
 name;
 password;
+
+
+_____
+
+admins;
+POST# 			/api/admins;
+adminID;
+name;
+password;
+
+
+_____
+
+admins;
+PUT# 			/api/admins/:adminID;
+adminID;
+name;
+password;
+
+
+_____
+
+admins;
+DELETE# 			/api/admins/:adminID;
+
+
+_____
+
+notes;
+GET# 			/api/notes;
+userID;
+noteID;
+title;
+content;
+date;
+
+
+_____
+
+notes;
+GET# 			/api/users/:userID/notes;
+userID;
+noteID;
+title;
+content;
+date;
+
+
+_____
+
+notes;
+GET# 			/api/users/:userID/notes/:noteID;
+userID;
+noteID;
+title;
+content;
+date;
+
+
+_____
+
+notes;
+POST# 			/api/users/:userID/notes;
+userID;
+noteID;
+title;
+content;
+date;
+
+
+_____
+
+notes;
+PUT# 			/api/users/:userID/notes/:noteID;
+userID;
+noteID;
+title;
+content;
+date;
+
+
+_____
+
+notes;
+DELETE# 			/api/users/:userID/notes/:noteID;
+
+
+_____
+
+noteImages;
+GET# 			/api/noteImages;
+userID;
+noteID;
+noteImageID;
+image;
+
+
+_____
+
+noteImages;
+GET# 			/api/users/:userID/notes/:noteID/noteImages;
+userID;
+noteID;
+noteImageID;
+image;
+
+
+_____
+
+noteImages;
+GET# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
+userID;
+noteID;
+noteImageID;
+image;
+
+
+_____
+
+noteImages;
+POST# 			/api/users/:userID/notes/:noteID/noteImages;
+userID;
+noteID;
+noteImageID;
+image;
+
+
+_____
+
+noteImages;
+PUT# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
+userID;
+noteID;
+noteImageID;
+image;
+
+
+_____
+
+noteImages;
+DELETE# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
+
+
+_____
+
+books;
+GET# 			/api/books;
+bookID;
+title;
+
+
+_____
+
+books;
+GET# 			/api/books/:bookID;
+bookID;
+title;
+
+
+_____
+
+books;
+POST# 			/api/books;
+bookID;
+title;
+
+
+_____
+
+books;
+PUT# 			/api/books/:bookID;
+bookID;
+title;
+
+
+_____
+
+books;
+DELETE# 			/api/books/:bookID;
+
+
+_____
+
+downloads;
+GET# 			/api/downloads;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+GET# 			/api/users/:userID/downloads;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+GET# 			/api/books/:bookID/downloads;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+GET# 			/api/users/:userID/books/:bookID/downloads;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+GET# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+POST# 			/api/users/:userID/books/:bookID/downloads;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+PUT# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
+userID;
+bookID;
+downloadID;
+data;
+
+
+_____
+
+downloads;
+DELETE# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
+
+

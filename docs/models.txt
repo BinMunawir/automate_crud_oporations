@@ -17,5 +17,15 @@ date,INT,;
 
 _____
 
-noteImages-noteImage > notes
+noteImages-noteImage > notes;
 image, image,;
+
+_____
+
+books-book;
+title,,;
+
+_____
+
+downloads-download > users,books;
+data,INT,;

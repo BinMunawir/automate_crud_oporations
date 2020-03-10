@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'endpoint.dart';
+import 'field.dart';
 import 'model.dart';
 
 class IO {
   String srcCodePath = './src_code/node',
       docsPath = './docs',
-      generatedProjectsPath = './projects';
+      projectsPath = './projects';
 
   void createDir(String path, {bool override = false}) {
     Directory dir = Directory(path);
@@ -52,28 +53,51 @@ class IO {
         .split('_____')
         .forEach((m) {
       m = m.trim();
-      Model model = Model.text(m);
-      models.addAll({model.pluralName: model});
+      Model model = Model('', '', [], []);
+      m.split(';').asMap().forEach((i, r) {
+        if (i == m.split(';').length - 1) return;
+        r = r.trim();
+        if (i == 0) {
+          List<String> r1st = r.split('>');
+          model.pluralName = r1st[0].trim().split('-')[0].trim();
+          model.singlarName = r1st[0].trim().split('-')[1].trim();
+          if (r1st.length > 1)
+            r1st[1]
+                .trim()
+                .split(',')
+                .forEach((d) => model.depends.add(models[d.trim()]));
+          model.fields = model.getIDs();
+          return;
+        }
+        model.fields.add(Field.fromText(r));
+      });
+      models[model.pluralName] = model;
     });
-
-    Map<String, List<Endpoint>> endpoints = this.getEndpoints();
-    models.forEach((n, m) => m.endpoints = endpoints[n]);
 
     return models;
   }
 
-  Map<String, List<Endpoint>> getEndpoints() {
-    Map<String, List<Endpoint>> endpoints = {};
+  Map<String, Model> getModelsWithEndpoints() {
+    Map<String, Model> models = this.getModels();
+
+    this.getEndpoints().forEach((e) {
+      models.forEach((k, v) {
+        if (e.modelName == k) v.endpoints.add(e);
+      });
+    });
+
+    return models;
+  }
+
+  List<Endpoint> getEndpoints() {
+    List<Endpoint> endpoints = [];
 
     this
         .readFromFile(this.docsPath + '/endpoints.txt')
         .split('_____')
         .forEach((e) {
       e = e.trim();
-      Endpoint endpoint = Endpoint.fromText(e);
-      if (endpoints[endpoint.model] == null)
-        endpoints.addAll({endpoint.model: []});
-      endpoints[endpoint.model].add(endpoint);
+      endpoints.add(Endpoint.fromText(e));
     });
 
     return endpoints;

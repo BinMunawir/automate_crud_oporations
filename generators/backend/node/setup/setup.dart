@@ -15,7 +15,7 @@ class Setup {
       [this._sqlTables = '']) {
     this._io = IO();
     this._projectName = this._io.getConfigContent()['projectName'];
-    this._root = this._io.generatedProjectsPath + '/' + this._projectName;
+    this._root = this._io.projectsPath + '/' + this._projectName;
   }
 
   void run() {

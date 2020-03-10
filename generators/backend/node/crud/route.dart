@@ -68,7 +68,7 @@ class Route {
       else if (e.method == 'DELETE') routes.add(this._deleteMethod(e));
     });
 
-    this._content += content + routes.toString();
+    this._content += content + routes.formatOutput();
   }
 
   String _getMethod(Endpoint e) {
@@ -168,7 +168,7 @@ class Route {
 
   void writeRoute() {
     this._io.createFile(
-        this._io.generatedProjectsPath +
+        this._io.projectsPath +
             '/' +
             this._io.getConfigContent()['projectName'] +
             '/src/routes/' +
@@ -176,7 +176,7 @@ class Route {
             '.route.ts',
         override: true);
     this._io.writeToFile(
-        this._io.generatedProjectsPath +
+        this._io.projectsPath +
             '/' +
             this._io.getConfigContent()['projectName'] +
             '/src/routes/' +
@@ -190,7 +190,7 @@ class Route {
       return "'" + p + "'";
     }).toList();
 
-    return e.params.toString();
+    return e.params.formatOutput();
   }
 
   String _getEndpointFunction(Endpoint e) {

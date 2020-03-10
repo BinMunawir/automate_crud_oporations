@@ -1,56 +1,20 @@
 import 'endpoint.dart';
 import 'field.dart';
-import 'io.dart';
 
 class Model {
-  IO _io = IO();
   String pluralName, singlarName;
-  List<String> depends = [];
-  List<Field> fields = [];
-  List<Endpoint> endpoints = [];
+  List<Model> depends;
+  List<Field> fields;
+  List<Endpoint> endpoints;
 
   Model(this.pluralName, this.singlarName, this.depends, this.fields);
 
-  Model.text(String modelText) {
-    modelText.split(';').asMap().forEach((i, r) {
-      r = r.trim();
-      if (i == modelText.split(';').length - 1) return;
-      if (i == 0) {
-        this.pluralName = r.split('>')[0].trim().split('-')[0].trim();
-        this.singlarName = r.split('>')[0].trim().split('-')[1].trim();
-        if (r.split('>').length > 1)
-          r
-              .split('>')[1]
-              .trim()
-              .split(',')
-              .forEach((d) => this.depends.add(d.trim()));
-        return;
-      }
-      this.fields.add(Field.text(r));
-    });
-  }
+  
+  List<Field> getIDs() {
+    List<Field> ids = [];
+    this.depends.forEach((m) => ids.addAll(m.getIDs()));
+    ids.add(Field(this.singlarName + 'ID', '', ''));
 
-  List<Model> getDependencyModels() {
-    List<Model> dep = [];
-    Map<String, Model> models = this._io.getModels();
-    this.depends.forEach((d) {
-      dep.addAll(models[d].getDependencyModels());
-      dep.add(models[d]);
-    });
-    return dep;
-  }
-
-  @override
-  String toString() {
-    String content = '''
-
-________________
-$pluralName: $singlarName
-$depends
-$fields
-________________
-''';
-
-    return content;
+    return ids;
   }
 }
