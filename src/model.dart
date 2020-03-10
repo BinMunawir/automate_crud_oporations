@@ -1,9 +1,13 @@
+import 'endpoint.dart';
 import 'field.dart';
+import 'io.dart';
 
 class Model {
+  IO _io = IO();
   String pluralName, singlarName;
   List<String> depends = [];
   List<Field> fields = [];
+  List<Endpoint> endpoints = [];
 
   Model(this.pluralName, this.singlarName, this.depends, this.fields);
 
@@ -24,6 +28,16 @@ class Model {
       }
       this.fields.add(Field.text(r));
     });
+  }
+
+  List<Model> getDependencyModels() {
+    List<Model> dep = [];
+    Map<String, Model> models = this._io.getModels();
+    this.depends.forEach((d) {
+      dep.addAll(models[d].getDependencyModels());
+      dep.add(models[d]);
+    });
+    return dep;
   }
 
   @override

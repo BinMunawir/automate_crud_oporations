@@ -4,6 +4,18 @@ password,,;
 
 _____
 
-admins-admin > users;
+admins-admin;
 name,,u;
 password,,;
+
+_____
+
+notes-note > users;
+title,,;
+content,,;
+date,INT,;
+
+_____
+
+noteImages-noteImage > notes
+image, image,;

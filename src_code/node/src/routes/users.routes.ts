@@ -53,7 +53,7 @@ export default [
         let body = acceptedBody(accepted, await checkBody(req.body, userType, req.params));
         console.log(body);
         
-        // await updateUser(query, body);
+        await updateUser(query, body);
         res.status(200).send();
       }
     ]

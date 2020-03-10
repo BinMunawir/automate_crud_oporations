@@ -56,6 +56,9 @@ class IO {
       models.addAll({model.pluralName: model});
     });
 
+    Map<String, List<Endpoint>> endpoints = this.getEndpoints();
+    models.forEach((n, m) => m.endpoints = endpoints[n]);
+
     return models;
   }
 
