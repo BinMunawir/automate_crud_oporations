@@ -10,8 +10,7 @@ class Setup {
   String _projectName;
   String _root;
 
-  Setup(this._requiredDirectoriesAndFiles,
-      this._requiredEnvVaribales,
+  Setup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales,
       [this._sqlTables = '']) {
     this._io = IO();
     this._projectName = this._io.getConfigContent()['projectName'];
@@ -34,6 +33,13 @@ class Setup {
         this._io.createDir(_buildingPath);
       });
     });
+
+    this._io.getModels().forEach((k, v) => v.fields.forEach((f) {
+          if (f.type.trim().length == 0 ||
+              f.type.contains('INT') ||
+              f.type.contains('CHAR')) return;
+          this._io.createDir(this._root + '/public/' + f.name);
+        }));
   }
 
   void copyFilesFromSrcCode() {
