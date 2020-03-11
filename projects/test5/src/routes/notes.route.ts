@@ -1,7 +1,7 @@
 import { getAllNotes, getAllNotesFilteredByUserID, getNoteFilteredByUserID, createNoteFilteredByUserID, updateNoteFilteredByUserID, deleteNoteFilteredByUserID, } from "../controllers/notes.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let noteType: noteModel = {
+let noteType: NoteModel = {
 userID: '',
 noteID: '',
 title: '',

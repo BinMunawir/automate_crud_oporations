@@ -1,9 +1,11 @@
 import '../../../../src/endpoint.dart';
 import '../../../../src/io.dart';
 import '../../../../src/model.dart';
+import 'utilities.dart';
 
 class Route {
   IO _io = IO();
+  Utilities _utilities = Utilities();
   Model _model;
   String _content = '';
 
@@ -19,10 +21,8 @@ class Route {
   void importContent() {
     String content = 'import { ';
 
-    this
-        ._model
-        .endpoints
-        .forEach((e) => content += this._getEndpointFunction(e) + ', ');
+    this._model.endpoints.forEach(
+        (e) => content += this._utilities.getEndpointFunction(e) + ', ');
 
     content += '} from "../controllers/' +
         this._model.pluralName +
@@ -35,14 +35,17 @@ class Route {
     String content = 'let ' +
         this._model.singlarName +
         'Type: ' +
-        this._model.singlarName[0] +
+        this._model.singlarName[0].toUpperCase() +
         this._model.singlarName.substring(1) +
         'Model = {\n';
     this._model.fields.forEach((f) {
       content += f.name + ': ';
       if (f.type.length == 0 || f.type.contains('CHAR'))
         content += "'',\n";
-      else if (f.type.contains('INT')) content += '0,\n';
+      else if (f.type.contains('INT'))
+        content += '0,\n';
+      else
+        content += "'" + f.type + "',\n";
     });
     content += '}\n\n';
 
@@ -79,10 +82,10 @@ class Route {
         this._model.singlarName +
         '''Type) };
         let accepted = ''' +
-        this._getEndpointParams(e) +
+        this._utilities.getEndpointParams(e) +
         ''';
         let data = await ''' +
-        this._getEndpointFunction(e) +
+        this._utilities.getEndpointFunction(e) +
         '''(query, accepted);
         res.status(200).send(JSON.stringify(data));
       }
@@ -105,7 +108,7 @@ class Route {
         this._model.singlarName +
         '''Type));
         await ''' +
-        this._getEndpointFunction(e) +
+        this._utilities.getEndpointFunction(e) +
         '''(body);
         res.status(200).send();
       }
@@ -132,7 +135,7 @@ class Route {
         '''Type, req.params));
         
         await ''' +
-        this._getEndpointFunction(e) +
+        this._utilities.getEndpointFunction(e) +
         '''(query, body);
         res.status(200).send();
       }
@@ -152,7 +155,7 @@ class Route {
       async (req: any, res: any) => {
         let query = { ...req.params};
         await ''' +
-        this._getEndpointFunction(e) +
+        this._utilities.getEndpointFunction(e) +
         '''(query);
         res.status(200).send();
       }
@@ -162,60 +165,26 @@ class Route {
   }
 
   void writeRoute() {
-    this._io.createFile(
-        this._io.projectsPath +
-            '/' +
-            this._io.getConfigContent()['projectName'] +
-            '/src/routes/' +
-            this._model.pluralName +
-            '.route.ts',
+    String routesPath = this._io.projectsPath +
+        '/' +
+        this._io.getConfigContent()['projectName'] +
+        '/src/routes/';
+
+    this._io.createFile(routesPath + this._model.pluralName + '.route.ts',
         override: true);
     this._io.writeToFile(
-        this._io.projectsPath +
-            '/' +
-            this._io.getConfigContent()['projectName'] +
-            '/src/routes/' +
-            this._model.pluralName +
-            '.route.ts',
-        this._content);
-  }
+        routesPath + this._model.pluralName + '.route.ts', this._content);
 
-  String _getEndpointParams(Endpoint e) {
-    e.params = e.params.map<String>((p) {
-      return "'" + p + "'";
-    }).toList();
-
-    return e.params.toString();
-  }
-
-  String _getEndpointFunction(Endpoint e) {
-    String func = '';
-    if (e.method == 'GET')
-      func += 'get';
-    else if (e.method == 'POST')
-      func += 'create';
-    else if (e.method == 'PUT')
-      func += 'update';
-    else if (e.method == 'DELETE') func += 'delete';
-
-    if (e.path.substring(e.path.lastIndexOf('/') + 1) ==
-            ':${this._model.singlarName}ID' ||
-        e.method == 'POST')
-      func += this._model.singlarName[0].toUpperCase() +
-          this._model.singlarName.substring(1);
-    else
-      func += 'All' +
-          this._model.pluralName[0].toUpperCase() +
-          this._model.pluralName.substring(1);
-
-    this._model.depends.asMap().forEach((i, m) {
-      if (!e.path.contains(m.singlarName + 'ID')) return;
-      if (!func.contains('FilteredBy')) func += 'FilteredBy';
-      else func += 'And';
-      func +=
-          m.singlarName[0].toUpperCase() + m.singlarName.substring(1) + "ID";
-    });
-
-    return func;
+    String index = this._io.readFromFile(routesPath + 'index.ts');
+    index = 'import ' +
+        this._model.pluralName +
+        ' from "./' +
+        this._model.pluralName +
+        '.route";\n' +
+        index;
+    String exports = index.substring(index.indexOf('['), index.indexOf(']'));
+    exports += ' ...' + this._model.pluralName + ',';
+    index = index.replaceRange(index.indexOf('['), index.indexOf(']'), exports);
+    this._io.writeToFile(routesPath + 'index.ts', index);
   }
 }

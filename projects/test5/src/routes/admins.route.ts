@@ -1,7 +1,7 @@
 import { getAllAdmins, getAdmin, createAdmin, updateAdmin, deleteAdmin, } from "../controllers/admins.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let adminType: adminModel = {
+let adminType: AdminModel = {
 adminID: '',
 name: '',
 password: '',

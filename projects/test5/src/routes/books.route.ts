@@ -1,7 +1,7 @@
 import { getAllBooks, getBook, createBook, updateBook, deleteBook, } from "../controllers/books.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let bookType: bookModel = {
+let bookType: BookModel = {
 bookID: '',
 title: '',
 }

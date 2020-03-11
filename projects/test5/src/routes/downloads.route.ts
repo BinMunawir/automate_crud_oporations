@@ -1,7 +1,7 @@
 import { getAllDownloads, getAllDownloadsFilteredByUserID, getAllDownloadsFilteredByBookID, getAllDownloadsFilteredByUserIDAndBookID, getDownloadFilteredByUserIDAndBookID, createDownloadFilteredByUserIDAndBookID, updateDownloadFilteredByUserIDAndBookID, deleteDownloadFilteredByUserIDAndBookID, } from "../controllers/downloads.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let downloadType: downloadModel = {
+let downloadType: DownloadModel = {
 userID: '',
 bookID: '',
 downloadID: '',

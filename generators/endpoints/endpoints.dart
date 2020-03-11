@@ -2,7 +2,7 @@ import '../../src/endpoint.dart';
 import '../../src/io.dart';
 import '../../src/model.dart';
 
-class Setup {
+class Endpoints {
   IO _io = IO();
   List<Endpoint> _endpoints = [];
 

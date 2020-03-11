@@ -1,15 +1,18 @@
+import 'model.dart';
+
 class Endpoint {
-  String modelName, method, path;
+  String method, path;
+  Model model;
   List<String> params = [];
 
-  Endpoint(this.modelName, this.method, this.path, this.params);
+  Endpoint(this.model, this.method, this.path, this.params);
 
   Endpoint.fromText(String endpointTextFormat) {
     endpointTextFormat.split(';').asMap().forEach((i, r) {
       if (i == endpointTextFormat.split(';').length - 1) return;
       r = r.trim();
       if (i == 0) {
-        this.modelName = r;
+        this.model = Model(r, '', [], [], []);
         return;
       }
       if (i == 1) {
@@ -24,7 +27,7 @@ class Endpoint {
   String formatOutput() {
     String params = '';
     this.params.forEach((p) => params += p + ';\n');
-    return '''$modelName;
+    return '''$model;
 $method# \t\t\t/api$path;
 $params''';
   }

@@ -82,7 +82,10 @@ class IO {
 
     this.getEndpoints().forEach((e) {
       models.forEach((k, v) {
-        if (e.modelName == k) v.endpoints.add(e);
+        if (e.model.pluralName == k) {
+          e.model = v;
+          v.endpoints.add(e);
+        }
       });
     });
 

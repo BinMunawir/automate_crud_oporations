@@ -1,7 +1,7 @@
 import { getAllUsers, getUser, createUser, updateUser, deleteUser, } from "../controllers/users.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let userType: userModel = {
+let userType: UserModel = {
 userID: '',
 name: '',
 password: '',

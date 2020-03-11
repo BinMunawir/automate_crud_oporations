@@ -1,7 +1,7 @@
 import { getAllGroups, getGroup, createGroup, updateGroup, deleteGroup, } from "../controllers/groups.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let groupType: groupModel = {
+let groupType: GroupModel = {
 groupID: '',
 title: '',
 }

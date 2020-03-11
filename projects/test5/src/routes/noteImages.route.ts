@@ -1,11 +1,12 @@
 import { getAllNoteImages, getAllNoteImagesFilteredByNoteID, getNoteImageFilteredByNoteID, createNoteImageFilteredByNoteID, updateNoteImageFilteredByNoteID, deleteNoteImageFilteredByNoteID, } from "../controllers/noteImages.controller";
 import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";
 
-let noteImageType: noteImageModel = {
+let noteImageType: NoteImageModel = {
 userID: '',
 noteID: '',
 noteImageID: '',
-image: }
+image: 'image',
+}
 
 export default [  {
     path: "/api/noteImages",
