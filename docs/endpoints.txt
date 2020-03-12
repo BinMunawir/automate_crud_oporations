@@ -1,4 +1,4 @@
-users;
+Instance of 'Model';
 GET# 			/api/users;
 userID;
 name;
@@ -7,7 +7,7 @@ password;
 
 _____
 
-users;
+Instance of 'Model';
 GET# 			/api/users/:userID;
 userID;
 name;
@@ -16,7 +16,7 @@ password;
 
 _____
 
-users;
+Instance of 'Model';
 POST# 			/api/users;
 userID;
 name;
@@ -25,7 +25,7 @@ password;
 
 _____
 
-users;
+Instance of 'Model';
 PUT# 			/api/users/:userID;
 userID;
 name;
@@ -34,13 +34,13 @@ password;
 
 _____
 
-users;
+Instance of 'Model';
 DELETE# 			/api/users/:userID;
 
 
 _____
 
-admins;
+Instance of 'Model';
 GET# 			/api/admins;
 adminID;
 name;
@@ -49,7 +49,7 @@ password;
 
 _____
 
-admins;
+Instance of 'Model';
 GET# 			/api/admins/:adminID;
 adminID;
 name;
@@ -58,7 +58,7 @@ password;
 
 _____
 
-admins;
+Instance of 'Model';
 POST# 			/api/admins;
 adminID;
 name;
@@ -67,7 +67,7 @@ password;
 
 _____
 
-admins;
+Instance of 'Model';
 PUT# 			/api/admins/:adminID;
 adminID;
 name;
@@ -76,13 +76,13 @@ password;
 
 _____
 
-admins;
+Instance of 'Model';
 DELETE# 			/api/admins/:adminID;
 
 
 _____
 
-notes;
+Instance of 'Model';
 GET# 			/api/notes;
 userID;
 noteID;
@@ -93,7 +93,7 @@ date;
 
 _____
 
-notes;
+Instance of 'Model';
 GET# 			/api/users/:userID/notes;
 userID;
 noteID;
@@ -104,7 +104,7 @@ date;
 
 _____
 
-notes;
+Instance of 'Model';
 GET# 			/api/users/:userID/notes/:noteID;
 userID;
 noteID;
@@ -115,7 +115,7 @@ date;
 
 _____
 
-notes;
+Instance of 'Model';
 POST# 			/api/users/:userID/notes;
 userID;
 noteID;
@@ -126,7 +126,7 @@ date;
 
 _____
 
-notes;
+Instance of 'Model';
 PUT# 			/api/users/:userID/notes/:noteID;
 userID;
 noteID;
@@ -137,13 +137,13 @@ date;
 
 _____
 
-notes;
+Instance of 'Model';
 DELETE# 			/api/users/:userID/notes/:noteID;
 
 
 _____
 
-noteImages;
+Instance of 'Model';
 GET# 			/api/noteImages;
 userID;
 noteID;
@@ -153,7 +153,7 @@ image;
 
 _____
 
-noteImages;
+Instance of 'Model';
 GET# 			/api/users/:userID/notes/:noteID/noteImages;
 userID;
 noteID;
@@ -163,7 +163,7 @@ image;
 
 _____
 
-noteImages;
+Instance of 'Model';
 GET# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
 userID;
 noteID;
@@ -173,7 +173,7 @@ image;
 
 _____
 
-noteImages;
+Instance of 'Model';
 POST# 			/api/users/:userID/notes/:noteID/noteImages;
 userID;
 noteID;
@@ -183,7 +183,7 @@ image;
 
 _____
 
-noteImages;
+Instance of 'Model';
 PUT# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
 userID;
 noteID;
@@ -193,13 +193,13 @@ image;
 
 _____
 
-noteImages;
+Instance of 'Model';
 DELETE# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
 
 
 _____
 
-books;
+Instance of 'Model';
 GET# 			/api/books;
 bookID;
 title;
@@ -207,7 +207,7 @@ title;
 
 _____
 
-books;
+Instance of 'Model';
 GET# 			/api/books/:bookID;
 bookID;
 title;
@@ -215,7 +215,7 @@ title;
 
 _____
 
-books;
+Instance of 'Model';
 POST# 			/api/books;
 bookID;
 title;
@@ -223,7 +223,7 @@ title;
 
 _____
 
-books;
+Instance of 'Model';
 PUT# 			/api/books/:bookID;
 bookID;
 title;
@@ -231,13 +231,13 @@ title;
 
 _____
 
-books;
+Instance of 'Model';
 DELETE# 			/api/books/:bookID;
 
 
 _____
 
-downloads;
+Instance of 'Model';
 GET# 			/api/downloads;
 userID;
 bookID;
@@ -247,7 +247,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 GET# 			/api/users/:userID/downloads;
 userID;
 bookID;
@@ -257,7 +257,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 GET# 			/api/books/:bookID/downloads;
 userID;
 bookID;
@@ -267,7 +267,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 GET# 			/api/users/:userID/books/:bookID/downloads;
 userID;
 bookID;
@@ -277,7 +277,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 GET# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
 userID;
 bookID;
@@ -287,7 +287,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 POST# 			/api/users/:userID/books/:bookID/downloads;
 userID;
 bookID;
@@ -297,7 +297,7 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 PUT# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
 userID;
 bookID;
@@ -307,13 +307,13 @@ data;
 
 _____
 
-downloads;
+Instance of 'Model';
 DELETE# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
 
 
 _____
 
-groups;
+Instance of 'Model';
 GET# 			/api/groups;
 groupID;
 title;
@@ -321,7 +321,7 @@ title;
 
 _____
 
-groups;
+Instance of 'Model';
 GET# 			/api/groups/:groupID;
 groupID;
 title;
@@ -329,7 +329,7 @@ title;
 
 _____
 
-groups;
+Instance of 'Model';
 POST# 			/api/groups;
 groupID;
 title;
@@ -337,7 +337,7 @@ title;
 
 _____
 
-groups;
+Instance of 'Model';
 PUT# 			/api/groups/:groupID;
 groupID;
 title;
@@ -345,7 +345,7 @@ title;
 
 _____
 
-groups;
+Instance of 'Model';
 DELETE# 			/api/groups/:groupID;
 
 

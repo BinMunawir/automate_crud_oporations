@@ -29,11 +29,11 @@ class Endpoints {
     String collection = instans.substring(0, instans.lastIndexOf(':') - 1);
 
     _endpoints.addAll(this._getEndpoints(model));
-    _endpoints.add(Endpoint(model.pluralName, 'POST', collection,
+    _endpoints.add(Endpoint(model, 'POST', collection,
         model.fields.map<String>((f) => f.name).toList()));
-    _endpoints.add(Endpoint(model.pluralName, 'PUT', instans,
+    _endpoints.add(Endpoint(model, 'PUT', instans,
         model.fields.map<String>((f) => f.name).toList()));
-    _endpoints.add(Endpoint(model.pluralName, 'DELETE', instans, []));
+    _endpoints.add(Endpoint(model, 'DELETE', instans, []));
 
     return _endpoints;
   }
@@ -45,19 +45,19 @@ class Endpoints {
     String collection = instans.substring(0, instans.lastIndexOf(':') - 1);
 
     if (model.depends.length > 0)
-      _endpoints.add(Endpoint(model.pluralName, 'GET', '/' + model.pluralName,
+      _endpoints.add(Endpoint(model, 'GET', '/' + model.pluralName,
           model.fields.map<String>((f) => f.name).toList()));
 
     model.depends.forEach((m) {
       String path = this._path(m) + '/' + model.pluralName;
       if (path == collection) return;
-      _endpoints.add(Endpoint(model.pluralName, "GET", path,
+      _endpoints.add(Endpoint(model, "GET", path,
           model.fields.map<String>((f) => f.name).toList()));
     });
 
-    _endpoints.add(Endpoint(model.pluralName, 'GET', collection,
+    _endpoints.add(Endpoint(model, 'GET', collection,
         model.fields.map<String>((f) => f.name).toList()));
-    _endpoints.add(Endpoint(model.pluralName, 'GET', instans,
+    _endpoints.add(Endpoint(model, 'GET', instans,
         model.fields.map<String>((f) => f.name).toList()));
 
     return _endpoints;

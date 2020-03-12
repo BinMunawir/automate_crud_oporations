@@ -10,9 +10,9 @@ class NodeSetup {
   String _projectName;
   String _root;
 
-  NodeSetup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales,
-      [this._sqlTables = '']) {
+  NodeSetup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales) {
     this._io = IO();
+    this._sqlTables = this._io.readFromFile(this._io.docsPath+'/sqlTables.txt');
     this._projectName = this._io.getConfigContent()['projectName'];
     this._root = this._io.projectsPath + '/' + this._projectName;
   }

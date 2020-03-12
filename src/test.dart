@@ -1,7 +1,12 @@
 import '../generators/backend/node/crud/crud.dart';
 import '../generators/backend/node/setup/setup.dart';
+import '../generators/endpoints/endpoints.dart';
+import '../generators/sqlTables/sqltables.dart';
 
 main(List<String> args) {
+  
+  SqlTables().run();
+  Endpoints().run();
   NodeSetup({
     "": ['.env', '.gitignore', 'package.json', 'README.md', 'tsconfig.json'],
     "public/general": [],
