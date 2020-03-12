@@ -1,7 +1,7 @@
 import 'setup.dart';
 
 class CustomizeFiles {
-  Setup _setup;
+  NodeSetup _setup;
 
   CustomizeFiles(this._setup);
 

@@ -2,7 +2,7 @@ import '../generators/backend/node/crud/crud.dart';
 import '../generators/backend/node/setup/setup.dart';
 
 main(List<String> args) {
-  Setup({
+  NodeSetup({
     "": ['.env', '.gitignore', 'package.json', 'README.md', 'tsconfig.json'],
     "public/general": [],
     "src": ['server.ts'],

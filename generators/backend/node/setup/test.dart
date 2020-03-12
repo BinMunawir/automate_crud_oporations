@@ -4,7 +4,7 @@ import 'customizeFiles.dart';
 import 'setup.dart';
 
 main(List<String> args) {
-  Test test = Test(Setup({
+  Test test = Test(NodeSetup({
     "": ['.env', '.gitignore', 'package.json', 'README.md', 'tsconfig.json'],
     "public/general": [],
     "src": ['server.ts'],
@@ -40,7 +40,7 @@ main(List<String> args) {
 }
 
 class Test {
-  Setup _setup;
+  NodeSetup _setup;
 
   Test(this._setup);
 

@@ -3,13 +3,13 @@ import '../../../../src/io.dart';
 import '../../../../src/model.dart';
 import 'utilities.dart';
 
-class Route {
+class CrudRoute {
   IO _io = IO();
   Utilities _utilities = Utilities();
   Model _model;
   String _content = '';
 
-  Route(this._model);
+  CrudRoute(this._model);
 
   void run() {
     this.importContent();

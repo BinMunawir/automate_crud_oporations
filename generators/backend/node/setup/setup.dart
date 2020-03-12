@@ -1,7 +1,7 @@
 import '../../../../src/io.dart';
 import 'customizeFiles.dart';
 
-class Setup {
+class NodeSetup {
   IO _io;
   String _sqlTables;
   Map<String, List<String>> _requiredDirectoriesAndFiles;
@@ -10,7 +10,7 @@ class Setup {
   String _projectName;
   String _root;
 
-  Setup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales,
+  NodeSetup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales,
       [this._sqlTables = '']) {
     this._io = IO();
     this._projectName = this._io.getConfigContent()['projectName'];

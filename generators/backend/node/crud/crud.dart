@@ -1,5 +1,6 @@
 import '../../../../src/io.dart';
 import 'controller.dart';
+import 'model.dart';
 import 'route.dart';
 
 class Crud {
@@ -7,8 +8,9 @@ class Crud {
 
   void run() {
     this._io.getModelsWithEndpoints().forEach((k, v) {
-      Route(v).run();
-      Controller(v).run();
+      CrudRoute(v).run();
+      CrudController(v).run();
+      CrudModel(v).run();
     });
   }
 }
