@@ -1,351 +1,44 @@
-Instance of 'Model';
+users;
 GET# 			/api/users;
 userID;
-name;
 password;
+date;
+avatar;
 
 
 _____
 
-Instance of 'Model';
+users;
 GET# 			/api/users/:userID;
 userID;
-name;
 password;
+date;
+avatar;
 
 
 _____
 
-Instance of 'Model';
+users;
 POST# 			/api/users;
 userID;
-name;
 password;
+date;
+avatar;
 
 
 _____
 
-Instance of 'Model';
+users;
 PUT# 			/api/users/:userID;
 userID;
-name;
 password;
+date;
+avatar;
 
 
 _____
 
-Instance of 'Model';
+users;
 DELETE# 			/api/users/:userID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/admins;
-adminID;
-name;
-password;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/admins/:adminID;
-adminID;
-name;
-password;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/admins;
-adminID;
-name;
-password;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/admins/:adminID;
-adminID;
-name;
-password;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/admins/:adminID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/notes;
-userID;
-noteID;
-title;
-content;
-date;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/notes;
-userID;
-noteID;
-title;
-content;
-date;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/notes/:noteID;
-userID;
-noteID;
-title;
-content;
-date;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/users/:userID/notes;
-userID;
-noteID;
-title;
-content;
-date;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/users/:userID/notes/:noteID;
-userID;
-noteID;
-title;
-content;
-date;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/users/:userID/notes/:noteID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/noteImages;
-userID;
-noteID;
-noteImageID;
-image;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/notes/:noteID/noteImages;
-userID;
-noteID;
-noteImageID;
-image;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
-userID;
-noteID;
-noteImageID;
-image;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/users/:userID/notes/:noteID/noteImages;
-userID;
-noteID;
-noteImageID;
-image;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
-userID;
-noteID;
-noteImageID;
-image;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/users/:userID/notes/:noteID/noteImages/:noteImageID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/books;
-bookID;
-title;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/books/:bookID;
-bookID;
-title;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/books;
-bookID;
-title;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/books/:bookID;
-bookID;
-title;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/books/:bookID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/downloads;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/downloads;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/books/:bookID/downloads;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/books/:bookID/downloads;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/users/:userID/books/:bookID/downloads;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
-userID;
-bookID;
-downloadID;
-data;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/users/:userID/books/:bookID/downloads/:downloadID;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/groups;
-groupID;
-title;
-
-
-_____
-
-Instance of 'Model';
-GET# 			/api/groups/:groupID;
-groupID;
-title;
-
-
-_____
-
-Instance of 'Model';
-POST# 			/api/groups;
-groupID;
-title;
-
-
-_____
-
-Instance of 'Model';
-PUT# 			/api/groups/:groupID;
-groupID;
-title;
-
-
-_____
-
-Instance of 'Model';
-DELETE# 			/api/groups/:groupID;
 
 

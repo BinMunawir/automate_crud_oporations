@@ -8,7 +8,10 @@ class CustomizeFiles {
   void customizePackageFile() {
     String content =
         this._setup.io.readFromFile(this._setup.root + '/package.json');
-    content = content.replaceFirst('node_project_name', this._setup.projectName);
+    content = content.replaceRange(
+        content.indexOf('"name": "') + 9,
+        content.indexOf('"', content.indexOf('"name": "') + 9),
+        this._setup.projectName);
     this._setup.io.writeToFile(this._setup.root + '/package.json', content);
   }
 

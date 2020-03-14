@@ -1,4 +1,4 @@
-projectName=test0,
+projectName=test00,
 hostname=localhost,
 port=3030,
 secretKey=abdullahInnosoft123,

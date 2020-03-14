@@ -156,3 +156,46 @@ export function acceptedBody(acceptedBody: any[], body: any) {
   }
   return newBody;
 }
+
+export function fielteredByAccept(accept: any[], list: any) {
+  let newList: any = {}
+  accept.forEach(a => {
+    for (const i in Object.entries(list)) {
+      const l = Object.entries(list)[i];
+      if (a == l[0]) {
+        newList[l[0]] = l[1];
+        return;
+      }
+    }
+  })
+  return newList;
+}
+
+export function fielteredByPrevent(prevent: any[], list: any) {
+  let newList: any = {}
+  for (const i in Object.entries(list)) {
+    const l = Object.entries(list)[i];
+    let isprevented = false;
+    for (const k in prevent) {
+      const p = prevent[k];
+      if (p == l[0]) {
+        isprevented = true;
+        break
+      }
+    }
+    if (!isprevented) newList[l[0]] = l[1];
+  }
+  return newList;
+}
+
+export function checkValues(list: any, type: any) {
+  for (const i in Object.entries(list)) {
+    const e: any = Object.entries(list)[i];
+    if (e[1].mimetype.toString().length > 0) {
+      
+    }
+    if (typeof e[1] == typeof type[e[0]]) continue;
+    throw new HTTP400Error(1111, 'the value of ' + e[0] + ' is not ' + typeof type[e[0]]);
+
+  }
+}

@@ -21,6 +21,7 @@ class CrudController {
     String content = '''
 import { HTTP400Error } from "../models/http400error";
 import * as utilities from "../utilities";
+const shortid = require('shortid');
 import facade from "../services";
 
 
@@ -83,58 +84,68 @@ export async function """ +
   String _postMethod(Endpoint e) {
     return """
 export async function """ +
-          this._utilities.getEndpointFunction(e) +
-          """(data: any) {
+        this._utilities.getEndpointFunction(e) +
+        """(data: any) {
     try {
-        return await facade.sqlStorage.sqlCreate('""" +
+        if (!data.""" +
+        this._model.singlarName +
+        """ID) data.""" +
+        this._model.singlarName +
+        """ID = shortid.generate();
+
+        """ +
+        this.handleFilesUpload() +
+        """
+        
+                return await facade.sqlStorage.sqlCreate('""" +
         this._model.pluralName[0].toUpperCase() +
         this._model.pluralName.substring(1) +
         """', data)
-    } catch (e) {
-        throw e;
-    }
-}
-
-
-""";
+            } catch (e) {
+                throw e;
+            }
+        }
+        
+        
+        """;
   }
 
   String _putMethod(Endpoint e) {
     return """
-export async function """ +
-          this._utilities.getEndpointFunction(e) +
-          """(query: any, data: any) {
-    try {
-        return await facade.sqlStorage.sqlUpdate('""" +
+        export async function """ +
+        this._utilities.getEndpointFunction(e) +
+        """(query: any, data: any) {
+            try {
+                return await facade.sqlStorage.sqlUpdate('""" +
         this._model.pluralName[0].toUpperCase() +
         this._model.pluralName.substring(1) +
         """', query, data)
-    } catch (e) {
-        throw e;
-    }
-}
-
-
-""";
+            } catch (e) {
+                throw e;
+            }
+        }
+        
+        
+        """;
   }
 
   String _deleteMethod(Endpoint e) {
     return """
-export async function """ +
-          this._utilities.getEndpointFunction(e) +
-          """(query: any) {
-    try {
-        return await facade.sqlStorage.sqlDelete('""" +
+        export async function """ +
+        this._utilities.getEndpointFunction(e) +
+        """(query: any) {
+            try {
+                return await facade.sqlStorage.sqlDelete('""" +
         this._model.pluralName[0].toUpperCase() +
         this._model.pluralName.substring(1) +
         """', query)
-    } catch (e) {
-        throw e;
-    }
-}
-
-
-""";
+            } catch (e) {
+                throw e;
+            }
+        }
+        
+        
+        """;
   }
 
   void writecontroller() {
@@ -149,5 +160,30 @@ export async function """ +
     this._io.writeToFile(
         controllersPath + this._model.pluralName + '.controller.ts',
         this._content);
+  }
+
+  String handleFilesUpload() {
+    String content = '';
+
+    this._model.fields.forEach((f) {
+      if (f.type.length == 0 ||
+          f.type.contains('INT') ||
+          f.type.contains('CHAR')) return;
+      content += "\nif(data." +
+          f.name +
+          ")\n\tdata." +
+          f.name +
+          " = await utilities.storeFile(data." +
+          f.name +
+          ", '" +
+          f.type.split(':')[0].trim() +
+          "/'+ data." +
+          this._model.singlarName +
+          "ID + '-" +
+          f.name +
+          "');\n";
+    });
+
+    return content;
   }
 }

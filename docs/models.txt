@@ -1,37 +1,6 @@
 users-user;
 name,,u;
 password,,;
+date, BIGINT,;
+avatar, profile_avatars: png-jpeg,;
 
-_____
-
-admins-admin;
-name,,u;
-password,,;
-
-_____
-
-notes-note > users;
-title,,;
-content,,;
-date,INT,;
-
-_____
-
-noteImages-noteImage > notes;
-image, image,;
-
-_____
-
-books-book;
-title,,;
-
-_____
-
-downloads-download > users,books;
-data,INT,;
-
-_____
-
-
-groups-group;
-title,,;

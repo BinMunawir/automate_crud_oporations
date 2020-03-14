@@ -12,7 +12,8 @@ class NodeSetup {
 
   NodeSetup(this._requiredDirectoriesAndFiles, this._requiredEnvVaribales) {
     this._io = IO();
-    this._sqlTables = this._io.readFromFile(this._io.docsPath+'/sqlTables.txt');
+    this._sqlTables =
+        this._io.readFromFile(this._io.docsPath + '/sqlTables.txt');
     this._projectName = this._io.getConfigContent()['projectName'];
     this._root = this._io.projectsPath + '/' + this._projectName;
   }
@@ -38,7 +39,9 @@ class NodeSetup {
           if (f.type.trim().length == 0 ||
               f.type.contains('INT') ||
               f.type.contains('CHAR')) return;
-          this._io.createDir(this._root + '/public/' + f.name);
+          this
+              ._io
+              .createDir(this._root + '/public/' + f.type.split(':')[0].trim());
         }));
   }
 

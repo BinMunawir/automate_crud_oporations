@@ -27,7 +27,7 @@ class Endpoint {
   String formatOutput() {
     String params = '';
     this.params.forEach((p) => params += p + ';\n');
-    return '''$model;
+    return '''${model.pluralName};
 $method# \t\t\t/api$path;
 $params''';
   }

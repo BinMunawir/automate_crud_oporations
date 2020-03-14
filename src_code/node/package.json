@@ -1,5 +1,5 @@
 {
-  "name": "node_project_name",
+  "name": "xxx",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.17.1",
     "shortid": "^2.2.15",
-    "sql_storage_system": "^0.0.36",
+    "sql_storage_system": "^0.0.37",
     "swagger-ui-express": "^4.1.2",
     "tsc-watch": "^4.0.0",
     "typescript": "^3.7.3"

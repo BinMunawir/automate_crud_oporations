@@ -27,7 +27,7 @@ class CrudRoute {
     content += '} from "../controllers/' +
         this._model.pluralName +
         '.controller";\n' +
-        'import { checkQuery, verifyToken, checkBody, acceptedBody } from "../utilities";\n\n';
+        'import { checkQuery, verifyToken, checkBody, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";\n\n';
     this._content += content;
   }
 
@@ -103,10 +103,17 @@ class CrudRoute {
     method: "post",
     handler: [
       async (req: any, res: any) => {
-        let preventedList: string[] = []
-        let body = acceptedBody(preventedList, checkBody(req.body, ''' +
+        let acceptList: string[] = ''' +
+        this._utilities.getEndpointParams(e) +
+        '''
+        
+        let body = filterByAccept(acceptList, req.body);
+        // let preventList: string[] = []
+        // body = filterByPrevent(acceptList, req.body);
+        checkValues(body, ''' +
         this._model.singlarName +
-        '''Type));
+        '''Type)
+        body = { ...req.params, ...body };
         await ''' +
         this._utilities.getEndpointFunction(e) +
         '''(body);
