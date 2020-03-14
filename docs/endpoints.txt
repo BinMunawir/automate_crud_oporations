@@ -1,6 +1,7 @@
 users;
 GET# 			/api/users;
 userID;
+name;
 password;
 date;
 avatar;
@@ -11,6 +12,7 @@ _____
 users;
 GET# 			/api/users/:userID;
 userID;
+name;
 password;
 date;
 avatar;
@@ -21,6 +23,7 @@ _____
 users;
 POST# 			/api/users;
 userID;
+name;
 password;
 date;
 avatar;
@@ -31,6 +34,7 @@ _____
 users;
 PUT# 			/api/users/:userID;
 userID;
+name;
 password;
 date;
 avatar;
@@ -40,5 +44,66 @@ _____
 
 users;
 DELETE# 			/api/users/:userID;
+
+
+_____
+
+notes;
+GET# 			/api/notes;
+userID;
+noteID;
+title;
+image1;
+image2;
+
+
+_____
+
+notes;
+GET# 			/api/users/:userID/notes;
+userID;
+noteID;
+title;
+image1;
+image2;
+
+
+_____
+
+notes;
+GET# 			/api/users/:userID/notes/:noteID;
+userID;
+noteID;
+title;
+image1;
+image2;
+
+
+_____
+
+notes;
+POST# 			/api/users/:userID/notes;
+userID;
+noteID;
+title;
+image1;
+image2;
+
+
+_____
+
+notes;
+PUT# 			/api/users/:userID/notes/:noteID;
+userID;
+noteID;
+title;
+image1;
+image2;
+
+
+_____
+
+notes;
+DELETE# 			/api/users/:userID/notes/:noteID;
 
 

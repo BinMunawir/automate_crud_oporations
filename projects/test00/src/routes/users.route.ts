@@ -1,8 +1,9 @@
 import { getAllUsers, getUser, createUser, updateUser, deleteUser, } from "../controllers/users.controller";
-import { checkQuery, verifyToken, checkBody, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";
+import { checkQuery1, verifyToken, checkBody1, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";
 
 let userType: UserModel = {
 userID: '',
+name: '',
 password: '',
 date: 0,
 avatar: 'profile_avatars: png-jpeg',
@@ -13,9 +14,13 @@ export default [  {
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
-        let accepted = ['userID', 'password', 'date', 'avatar'];
-        let data = await getAllUsers(query, accepted);
+        let queryAccept = ['limit', 'page', 'sort', 'order'];
+        let accept: string[] = ['userID', 'name', 'password', 'date', 'avatar'];
+        let query = filterByAccept([...queryAccept, ...accept], req.query);
+        checkValues(query, userType);
+
+        let returnedFields: string[] = ['userID', 'password', 'date', 'avatar'];
+        let data = await getAllUsers(query, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -25,9 +30,13 @@ export default [  {
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
-        let accepted = ['userID', 'password', 'date', 'avatar'];
-        let data = await getUser(query, accepted);
+        let queryAccept = ['limit', 'page', 'sort', 'order'];
+        let accept: string[] = ['userID', 'name', 'password', 'date', 'avatar'];
+        let query = filterByAccept([...queryAccept, ...accept], req.query);
+        checkValues(query, userType);
+
+        let returnedFields: string[] = ['userID', 'name', 'password', 'date', 'avatar'];
+        let data = await getUser(query, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -37,7 +46,7 @@ export default [  {
     method: "post",
     handler: [
       async (req: any, res: any) => {
-        let acceptList: string[] = ['userID', 'password', 'date', 'avatar']        
+        let acceptList: string[] = ['userID', 'name', 'password', 'date', 'avatar']        
         let body = filterByAccept(acceptList, req.body);
         // let preventList: string[] = []
         // body = filterByPrevent(acceptList, req.body);
@@ -53,9 +62,9 @@ export default [  {
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
+        let query = { ...req.params, ...checkQuery1(req.query, userType) };
         let accepted: string[] = []
-        let body = acceptedBody(accepted, await checkBody(req.body, userType, req.params));
+        let body = acceptedBody(accepted, await checkBody1(req.body, userType, req.params));
         
         await updateUser(query, body);
         res.status(200).send();

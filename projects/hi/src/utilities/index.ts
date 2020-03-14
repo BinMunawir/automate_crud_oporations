@@ -63,7 +63,7 @@ export async function storeFile(file: any, path: string) {
   return 'localhost:3030/public/' + path;
 }
 
-export async function checkBody(body: any, type: any, params: any = null) {
+export async function checkBody1(body: any, type: any, params: any = null) {
   let dbBody: any = {}
   for (const ii in Object.entries(body)) {
     if (Object.entries(body).hasOwnProperty(ii)) {
@@ -91,7 +91,7 @@ export async function checkBody(body: any, type: any, params: any = null) {
   return dbBody;
 }
 
-export function checkQuery(query: any, type: any) {
+export function checkQuery1(query: any, type: any) {
   let dbQuery: any = {}
   Object.entries(query).forEach((q: any) => {
     for (const i in Object.entries(type)) {
@@ -187,7 +187,12 @@ export function filterByPrevent(prevent: any[], list: any) {
 export function checkValues(list: any, type: any) {
   for (const i in Object.entries(list)) {
     const e: any = Object.entries(list)[i];
+    if (e[0] == 'limit' || e[0] == 'page' || e[0] == 'sort' || e[0] == 'order') {
+      checkQueryValue(e, type);
+      continue;
+    }
     if (typeof e[1] == typeof type[e[0]]) continue;
+    if (parseInt(e[1]).toString() != 'NaN') continue;
     if (type[e[0]].length > 1) {
       let types = type[e[0]].split(':')[1].trim();
       if (!e[1].mimetype || !type[e[0]].includes(e[1].name.substring(e[1].name.lastIndexOf('.') + 1)))
@@ -197,4 +202,20 @@ export function checkValues(list: any, type: any) {
     throw new HTTP400Error(1111, 'the value of ' + e[0] + ' is not ' + typeof type[e[0]]);
 
   }
+}
+
+function checkQueryValue(q: any, type: any) {
+  if (q[0] == 'limit' || q[0] == 'page')
+    if (parseInt(q[1]).toString() == 'NaN')
+      throw new HTTP400Error(1111, 'the value of ' + q[0] + ' should be a number');
+  if (q[0] == 'sort') {
+    let fields = q[1].split(',');
+    fields.forEach((f: any) => {
+      f = f.trim()
+      if (type[f] == undefined) throw new HTTP400Error(1111, 'sort containts a ' + f + ' which is not accepted');
+    });
+  }
+  if (q[0] == 'order')
+    if (q[1] != 'ASC' && q[1] != 'DESC')
+      throw new HTTP400Error(1111, 'the order value should be ethier ASC or DESC');
 }

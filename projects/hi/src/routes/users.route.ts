@@ -1,5 +1,5 @@
 import { getAllUsers, getUser, createUser, updateUser, deleteUser, } from "../controllers/users.controller";
-import { checkQuery, verifyToken, checkBody, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";
+import { checkQuery1, verifyToken, checkBody1, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";
 
 let userType: UserModel = {
   userID: '',
@@ -15,9 +15,13 @@ export default [
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
-        let accepted = ['userID', 'name', 'password', 'date', 'avatar'];
-        let data = await getAllUsers(query, accepted);
+        let queryAccept = ['limit', 'page', 'sort', 'order'];
+        let accept = ['userID', 'name', 'password', 'date', 'avatar'];
+        let query = filterByAccept([...queryAccept, ...accept], req.query);
+        checkValues(query, userType);
+
+        let returnedFields = ['userID', 'date', 'avatar']
+        let data = await getAllUsers(query, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -27,7 +31,7 @@ export default [
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
+        let query = { ...req.params, ...checkQuery1(req.query, userType) };
         let accepted = ['userID', 'name', 'password', 'date', 'avatar'];
         let data = await getUser(query, accepted);
         res.status(200).send(JSON.stringify(data));
@@ -55,9 +59,9 @@ export default [
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, userType) };
+        let query = { ...req.params, ...checkQuery1(req.query, userType) };
         let accepted: string[] = []
-        let body = acceptedBody(accepted, await checkBody(req.body, userType, req.params));
+        let body = acceptedBody(accepted, await checkBody1(req.body, userType, req.params));
 
         await updateUser(query, body);
         res.status(200).send();

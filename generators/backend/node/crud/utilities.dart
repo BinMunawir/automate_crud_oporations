@@ -2,11 +2,12 @@ import '../../../../src/endpoint.dart';
 
 class Utilities {
   String getEndpointParams(Endpoint e) {
-    e.params = e.params.map<String>((p) {
-      return "'" + p + "'";
-    }).toList();
-
-    return e.params.toString();
+    return e.params
+        .map<String>((p) {
+          return "'" + p + "'";
+        })
+        .toList()
+        .toString();
   }
 
   String getEndpointFunction(Endpoint e) {
@@ -41,5 +42,4 @@ class Utilities {
 
     return func;
   }
-
 }

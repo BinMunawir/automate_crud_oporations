@@ -27,7 +27,7 @@ class CrudRoute {
     content += '} from "../controllers/' +
         this._model.pluralName +
         '.controller";\n' +
-        'import { checkQuery, verifyToken, checkBody, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";\n\n';
+        'import { checkQuery1, verifyToken, checkBody1, acceptedBody, filterByAccept, filterByPrevent, checkValues, storeFile } from "../utilities";\n\n';
     this._content += content;
   }
 
@@ -78,15 +78,21 @@ class CrudRoute {
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, ''' +
+        let queryAccept = ['limit', 'page', 'sort', 'order'];
+        let accept: string[] = ''' +
+        this._utilities.getEndpointParams(e) +
+        ''';
+        let query = filterByAccept([...queryAccept, ...accept], req.query);
+        checkValues(query, ''' +
         this._model.singlarName +
-        '''Type) };
-        let accepted = ''' +
+        '''Type);
+
+        let returnedFields: string[] = ''' +
         this._utilities.getEndpointParams(e) +
         ''';
         let data = await ''' +
         this._utilities.getEndpointFunction(e) +
-        '''(query, accepted);
+        '''(query, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -133,11 +139,11 @@ class CrudRoute {
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery(req.query, ''' +
+        let query = { ...req.params, ...checkQuery1(req.query, ''' +
         this._model.singlarName +
         '''Type) };
         let accepted: string[] = []
-        let body = acceptedBody(accepted, await checkBody(req.body, ''' +
+        let body = acceptedBody(accepted, await checkBody1(req.body, ''' +
         this._model.singlarName +
         '''Type, req.params));
         

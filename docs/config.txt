@@ -4,5 +4,6 @@ port=3030,
 secretKey=abdullahInnosoft123,
 dbHost=localhost,
 dbUser=root,
+dbName=test11,
 dbPassword=123456789,
 storageHost=localhost:3030

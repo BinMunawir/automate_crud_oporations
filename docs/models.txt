@@ -4,3 +4,9 @@ password,,;
 date, BIGINT,;
 avatar, profile_avatars: png-jpeg,;
 
+_____
+
+notes-note > users;
+title,,;
+image1, noteImages: png,;
+image2, noteImages: png,;

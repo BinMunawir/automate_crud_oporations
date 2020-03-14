@@ -1,4 +1,5 @@
+import notes from "./notes.route";
 import users from "./users.route";
 
 
-export default [  ...users,];
+export default [  ...users, ...notes,];
