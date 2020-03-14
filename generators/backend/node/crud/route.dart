@@ -70,6 +70,36 @@ class CrudRoute {
   }
 
   String _getMethod(Endpoint e) {
+    if (this._utilities.getEndpointFunction(e).contains('All'))
+      return '''
+  {
+    path: "''' +
+          e.path +
+          '''",
+    method: "get",
+    handler: [
+      async (req: any, res: any) => {
+        let queryAccept = ['limit', 'page', 'sort', 'order'];
+        let accept: string[] = ''' +
+          this._utilities.getEndpointParams(e) +
+          ''';
+        let query = filterByAccept([...queryAccept, ...accept], req.query);
+        checkValues(query, ''' +
+          this._model.singlarName +
+          '''Type);
+        query = { ...req.params, ...query }
+
+        let returnedFields: string[] = ''' +
+          this._utilities.getEndpointParams(e) +
+          ''';
+        let data = await ''' +
+          this._utilities.getEndpointFunction(e) +
+          '''(query, returnedFields);
+        res.status(200).send(JSON.stringify(data));
+      }
+    ]
+  }
+''';
     return '''
   {
     path: "''' +
@@ -78,21 +108,16 @@ class CrudRoute {
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let queryAccept = ['limit', 'page', 'sort', 'order'];
-        let accept: string[] = ''' +
-        this._utilities.getEndpointParams(e) +
-        ''';
-        let query = filterByAccept([...queryAccept, ...accept], req.query);
-        checkValues(query, ''' +
-        this._model.singlarName +
-        '''Type);
-
         let returnedFields: string[] = ''' +
         this._utilities.getEndpointParams(e) +
         ''';
         let data = await ''' +
         this._utilities.getEndpointFunction(e) +
-        '''(query, returnedFields);
+        '''({ ''' +
+        this._model.singlarName +
+        '''ID: req.params.''' +
+        this._model.singlarName +
+        '''ID }, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -109,17 +134,18 @@ class CrudRoute {
     method: "post",
     handler: [
       async (req: any, res: any) => {
+        let body = { ...req.params, ...req.body };
         let acceptList: string[] = ''' +
         this._utilities.getEndpointParams(e) +
         '''
-        
-        let body = filterByAccept(acceptList, req.body);
+
+        body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
-        // body = filterByPrevent(acceptList, req.body);
+        // body = filterByPrevent(acceptList, body);
         checkValues(body, ''' +
         this._model.singlarName +
         '''Type)
-        body = { ...req.params, ...body };
+
         await ''' +
         this._utilities.getEndpointFunction(e) +
         '''(body);
@@ -139,17 +165,25 @@ class CrudRoute {
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery1(req.query, ''' +
+        let body = { ...req.params, ...req.body };
+        let acceptList: string[] = ''' +
+        this._utilities.getEndpointParams(e) +
+        '''
+
+        body = filterByAccept(acceptList, body);
+        // let preventList: string[] = []
+        // body = filterByPrevent(acceptList, body);
+        checkValues(body, ''' +
         this._model.singlarName +
-        '''Type) };
-        let accepted: string[] = []
-        let body = acceptedBody(accepted, await checkBody1(req.body, ''' +
-        this._model.singlarName +
-        '''Type, req.params));
+        '''Type)
         
         await ''' +
         this._utilities.getEndpointFunction(e) +
-        '''(query, body);
+        '''({ ''' +
+        this._model.singlarName +
+        '''ID: req.params.''' +
+        this._model.singlarName +
+        '''ID }, body);
         res.status(200).send();
       }
     ]
@@ -166,10 +200,13 @@ class CrudRoute {
     method: "delete",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params};
         await ''' +
         this._utilities.getEndpointFunction(e) +
-        '''(query);
+        '''({ ''' +
+        this._model.singlarName +
+        '''ID: req.params.''' +
+        this._model.singlarName +
+        '''ID });
         res.status(200).send();
       }
     ]

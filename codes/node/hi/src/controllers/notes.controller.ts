@@ -51,6 +51,13 @@ if(data.image2)
         
                 export async function updateNoteFilteredByUserID(query: any, data: any) {
             try {
+              
+if(data.image1)
+	data.image1 = await utilities.storeFile(data.image1, 'noteImages/'+ data.noteID + '-image1');
+
+if(data.image2)
+	data.image2 = await utilities.storeFile(data.image2, 'noteImages/'+ data.noteID + '-image2');
+
                 return await facade.sqlStorage.sqlUpdate('Notes', query, data)
             } catch (e) {
                 throw e;

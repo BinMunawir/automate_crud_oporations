@@ -39,6 +39,10 @@ if(data.avatar)
         
                 export async function updateUser(query: any, data: any) {
             try {
+              
+if(data.avatar)
+	data.avatar = await utilities.storeFile(data.avatar, 'profile_avatars/'+ data.userID + '-avatar');
+
                 return await facade.sqlStorage.sqlUpdate('Users', query, data)
             } catch (e) {
                 throw e;

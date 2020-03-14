@@ -116,6 +116,10 @@ export async function """ +
         this._utilities.getEndpointFunction(e) +
         """(query: any, data: any) {
             try {
+              """ +
+        this.handleFilesUpload() +
+        """
+
                 return await facade.sqlStorage.sqlUpdate('""" +
         this._model.pluralName[0].toUpperCase() +
         this._model.pluralName.substring(1) +

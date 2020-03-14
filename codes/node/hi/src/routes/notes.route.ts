@@ -18,6 +18,7 @@ export default [  {
         let accept: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
         let query = filterByAccept([...queryAccept, ...accept], req.query);
         checkValues(query, noteType);
+        query = { ...req.params, ...query }
 
         let returnedFields: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
         let data = await getAllNotes(query, returnedFields);
@@ -34,6 +35,7 @@ export default [  {
         let accept: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
         let query = filterByAccept([...queryAccept, ...accept], req.query);
         checkValues(query, noteType);
+        query = { ...req.params, ...query }
 
         let returnedFields: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
         let data = await getAllNotesFilteredByUserID(query, returnedFields);
@@ -46,13 +48,8 @@ export default [  {
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let queryAccept = ['limit', 'page', 'sort', 'order'];
-        let accept: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
-        let query = filterByAccept([...queryAccept, ...accept], req.query);
-        checkValues(query, noteType);
-
         let returnedFields: string[] = ['userID', 'noteID', 'title', 'image1', 'image2'];
-        let data = await getNoteFilteredByUserID(query, returnedFields);
+        let data = await getNoteFilteredByUserID({ noteID: req.params.noteID }, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
@@ -62,12 +59,13 @@ export default [  {
     method: "post",
     handler: [
       async (req: any, res: any) => {
-        let acceptList: string[] = ['userID', 'noteID', 'title', 'image1', 'image2']        
-        let body = filterByAccept(acceptList, req.body);
+        let body = { ...req.params, ...req.body };
+        let acceptList: string[] = ['userID', 'noteID', 'title', 'image1', 'image2']
+        body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
-        // body = filterByPrevent(acceptList, req.body);
+        // body = filterByPrevent(acceptList, body);
         checkValues(body, noteType)
-        body = { ...req.params, ...body };
+
         await createNoteFilteredByUserID(body);
         res.status(200).send();
       }
@@ -78,11 +76,14 @@ export default [  {
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params, ...checkQuery1(req.query, noteType) };
-        let accepted: string[] = []
-        let body = acceptedBody(accepted, await checkBody1(req.body, noteType, req.params));
+        let body = { ...req.params, ...req.body };
+        let acceptList: string[] = ['userID', 'noteID', 'title', 'image1', 'image2']
+        body = filterByAccept(acceptList, body);
+        // let preventList: string[] = []
+        // body = filterByPrevent(acceptList, body);
+        checkValues(body, noteType)
         
-        await updateNoteFilteredByUserID(query, body);
+        await updateNoteFilteredByUserID({ noteID: req.params.noteID }, body);
         res.status(200).send();
       }
     ]
@@ -92,8 +93,7 @@ export default [  {
     method: "delete",
     handler: [
       async (req: any, res: any) => {
-        let query = { ...req.params};
-        await deleteNoteFilteredByUserID(query);
+        await deleteNoteFilteredByUserID({ noteID: req.params.noteID });
         res.status(200).send();
       }
     ]

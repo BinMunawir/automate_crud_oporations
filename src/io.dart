@@ -5,7 +5,7 @@ import 'field.dart';
 import 'model.dart';
 
 class IO {
-  String srcCodePath = './projects/hi',
+  String srcCodePath = './projects/test00',
       docsPath = './docs',
       projectsPath = './projects';
 

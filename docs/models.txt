@@ -2,7 +2,7 @@ users-user;
 name,,u;
 password,,;
 date, BIGINT,;
-avatar, profile_avatars: png-jpeg,;
+avatar, profile_avatars: png-jpeg-jpg,;
 
 _____
 
