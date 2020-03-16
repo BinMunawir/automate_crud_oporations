@@ -1,10 +1,77 @@
+organizations;
+GET# 			/api/organizations;
+organizationID;
+createdDate;
+arTitle;
+enTitle;
+code;
+email;
+domain;
+type;
+
+
+_____
+
+organizations;
+GET# 			/api/organizations/:organizationID;
+organizationID;
+createdDate;
+arTitle;
+enTitle;
+code;
+email;
+domain;
+type;
+
+
+_____
+
+organizations;
+POST# 			/api/organizations;
+organizationID;
+createdDate;
+arTitle;
+enTitle;
+code;
+email;
+domain;
+type;
+
+
+_____
+
+organizations;
+PUT# 			/api/organizations/:organizationID;
+organizationID;
+createdDate;
+arTitle;
+enTitle;
+code;
+email;
+domain;
+type;
+
+
+_____
+
+organizations;
+DELETE# 			/api/organizations/:organizationID;
+
+
+_____
+
 users;
 GET# 			/api/users;
 userID;
-name;
+createdDate;
+modifiedDate;
+organizationID;
 password;
-date;
-avatar;
+name;
+email;
+phone;
+status;
+type;
 
 
 _____
@@ -12,10 +79,15 @@ _____
 users;
 GET# 			/api/users/:userID;
 userID;
-name;
+createdDate;
+modifiedDate;
+organizationID;
 password;
-date;
-avatar;
+name;
+email;
+phone;
+status;
+type;
 
 
 _____
@@ -23,10 +95,15 @@ _____
 users;
 POST# 			/api/users;
 userID;
-name;
+createdDate;
+modifiedDate;
+organizationID;
 password;
-date;
-avatar;
+name;
+email;
+phone;
+status;
+type;
 
 
 _____
@@ -34,10 +111,15 @@ _____
 users;
 PUT# 			/api/users/:userID;
 userID;
-name;
+createdDate;
+modifiedDate;
+organizationID;
 password;
-date;
-avatar;
+name;
+email;
+phone;
+status;
+type;
 
 
 _____
@@ -48,62 +130,737 @@ DELETE# 			/api/users/:userID;
 
 _____
 
-notes;
-GET# 			/api/notes;
-userID;
-noteID;
-title;
-image1;
-image2;
+admins;
+GET# 			/api/admins;
+adminID;
+createdDate;
+modifiedDate;
+name;
+password;
+role;
+email;
+status;
 
 
 _____
 
-notes;
-GET# 			/api/users/:userID/notes;
-userID;
-noteID;
-title;
-image1;
-image2;
+admins;
+GET# 			/api/admins/:adminID;
+adminID;
+createdDate;
+modifiedDate;
+name;
+password;
+role;
+email;
+status;
 
 
 _____
 
-notes;
-GET# 			/api/users/:userID/notes/:noteID;
-userID;
-noteID;
-title;
-image1;
-image2;
+admins;
+POST# 			/api/admins;
+adminID;
+createdDate;
+modifiedDate;
+name;
+password;
+role;
+email;
+status;
 
 
 _____
 
-notes;
-POST# 			/api/users/:userID/notes;
-userID;
-noteID;
-title;
-image1;
-image2;
+admins;
+PUT# 			/api/admins/:adminID;
+adminID;
+createdDate;
+modifiedDate;
+name;
+password;
+role;
+email;
+status;
 
 
 _____
 
-notes;
-PUT# 			/api/users/:userID/notes/:noteID;
-userID;
-noteID;
-title;
-image1;
-image2;
+admins;
+DELETE# 			/api/admins/:adminID;
 
 
 _____
 
-notes;
-DELETE# 			/api/users/:userID/notes/:noteID;
+books;
+GET# 			/api/books;
+bookID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+video;
+
+
+_____
+
+books;
+GET# 			/api/books/:bookID;
+bookID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+video;
+
+
+_____
+
+books;
+POST# 			/api/books;
+bookID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+video;
+
+
+_____
+
+books;
+PUT# 			/api/books/:bookID;
+bookID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+video;
+
+
+_____
+
+books;
+DELETE# 			/api/books/:bookID;
+
+
+_____
+
+volumes;
+GET# 			/api/books/:bookID/volumes;
+bookID;
+volumeID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+versionNumber;
+
+
+_____
+
+volumes;
+GET# 			/api/books/:bookID/volumes/:volumeID;
+bookID;
+volumeID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+versionNumber;
+
+
+_____
+
+volumes;
+POST# 			/api/books/:bookID/volumes;
+bookID;
+volumeID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+versionNumber;
+
+
+_____
+
+volumes;
+PUT# 			/api/books/:bookID/volumes/:volumeID;
+bookID;
+volumeID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+versionNumber;
+
+
+_____
+
+volumes;
+DELETE# 			/api/books/:bookID/volumes/:volumeID;
+
+
+_____
+
+chapters;
+GET# 			/api/books/:bookID/volumes/:volumeID/chapters;
+bookID;
+volumeID;
+chapterID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+numberOfViews;
+chapter;
+
+
+_____
+
+chapters;
+GET# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID;
+bookID;
+volumeID;
+chapterID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+numberOfViews;
+chapter;
+
+
+_____
+
+chapters;
+POST# 			/api/books/:bookID/volumes/:volumeID/chapters;
+bookID;
+volumeID;
+chapterID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+numberOfViews;
+chapter;
+
+
+_____
+
+chapters;
+PUT# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID;
+bookID;
+volumeID;
+chapterID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+numberOfViews;
+chapter;
+
+
+_____
+
+chapters;
+DELETE# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID;
+
+
+_____
+
+documents;
+GET# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents;
+bookID;
+volumeID;
+chapterID;
+documentID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+link;
+numberOfDownloads;
+document;
+
+
+_____
+
+documents;
+GET# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+link;
+numberOfDownloads;
+document;
+
+
+_____
+
+documents;
+POST# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents;
+bookID;
+volumeID;
+chapterID;
+documentID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+link;
+numberOfDownloads;
+document;
+
+
+_____
+
+documents;
+PUT# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+createdDate;
+createdBy;
+modifiedDate;
+modifiedBy;
+arTitle;
+enTitle;
+code;
+versionNumber;
+versionDate;
+link;
+numberOfDownloads;
+document;
+
+
+_____
+
+documents;
+DELETE# 			/api/books/:bookID/volumes/:volumeID/chapters/:chapterID/documents/:documentID;
+
+
+_____
+
+documentHistories;
+GET# 			/api/users/:userID/documentHistories;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+GET# 			/api/documents/:documentID/documentHistories;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+GET# 			/api/users/:userID/documents/:documentID/documentHistories;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+GET# 			/api/users/:userID/documents/:documentID/documentHistories/:documentHistorieID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+POST# 			/api/users/:userID/documents/:documentID/documentHistories;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+PUT# 			/api/users/:userID/documents/:documentID/documentHistories/:documentHistorieID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+documentHistories;
+DELETE# 			/api/users/:userID/documents/:documentID/documentHistories/:documentHistorieID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+documentHistorieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+ipAddress;
+
+
+_____
+
+histories;
+GET# 			/api/users/:userID/histories;
+userID;
+historieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+bookID;
+volumeID;
+chapterID;
+
+
+_____
+
+histories;
+GET# 			/api/users/:userID/histories/:historieID;
+userID;
+historieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+bookID;
+volumeID;
+chapterID;
+
+
+_____
+
+histories;
+POST# 			/api/users/:userID/histories;
+userID;
+historieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+bookID;
+volumeID;
+chapterID;
+
+
+_____
+
+histories;
+PUT# 			/api/users/:userID/histories/:historieID;
+userID;
+historieID;
+createdDate;
+modifiedDate;
+actionType;
+actionDate;
+bookID;
+volumeID;
+chapterID;
+
+
+_____
+
+histories;
+DELETE# 			/api/users/:userID/histories/:historieID;
+
+
+_____
+
+glossaries;
+GET# 			/api/glossaries;
+glossaryID;
+createdDate;
+createdBy;
+modifiedDate;
+term;
+definition;
+
+
+_____
+
+glossaries;
+GET# 			/api/glossaries/:glossaryID;
+glossaryID;
+createdDate;
+createdBy;
+modifiedDate;
+term;
+definition;
+
+
+_____
+
+glossaries;
+POST# 			/api/glossaries;
+glossaryID;
+createdDate;
+createdBy;
+modifiedDate;
+term;
+definition;
+
+
+_____
+
+glossaries;
+PUT# 			/api/glossaries/:glossaryID;
+glossaryID;
+createdDate;
+createdBy;
+modifiedDate;
+term;
+definition;
+
+
+_____
+
+glossaries;
+DELETE# 			/api/glossaries/:glossaryID;
+
+
+_____
+
+inquiries;
+GET# 			/api/users/:userID/inquiries;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+GET# 			/api/documents/:documentID/inquiries;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+GET# 			/api/users/:userID/documents/:documentID/inquiries;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+GET# 			/api/users/:userID/documents/:documentID/inquiries/:inquiryID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+POST# 			/api/users/:userID/documents/:documentID/inquiries;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+PUT# 			/api/users/:userID/documents/:documentID/inquiries/:inquiryID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
+
+
+_____
+
+inquiries;
+DELETE# 			/api/users/:userID/documents/:documentID/inquiries/:inquiryID;
+userID;
+bookID;
+volumeID;
+chapterID;
+documentID;
+inquiryID;
+createdDate;
+modifiedDate;
+inquiry;
+response;
+status;
 
 

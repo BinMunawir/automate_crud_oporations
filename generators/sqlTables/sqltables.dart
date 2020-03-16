@@ -21,7 +21,7 @@ class SqlTables {
         model.pluralName[0].toUpperCase() +
         model.pluralName.substring(1) +
         ' (\n';
-    model.fields.forEach((f) => content += '\t'+this._getField(f) + '\n');
+    model.fields.forEach((f) => content += '\t' + this._getField(f) + '\n');
     content += 'PRIMARY KEY (' + model.singlarName + 'ID)\n);';
 
     return content;
@@ -34,7 +34,8 @@ class SqlTables {
     content += field.type.contains('INT') || field.type.contains('CHAR')
         ? field.type
         : 'VARCHAR(255)';
-    if (field.info == 'u') content += '\t\tNOT NULL UNIQUE';
+    if (field.info.length < 3 && field.info == 'u') content += '\t\tUNIQUE';
+    if (field.info.length < 3 && field.info == 'r') content += '\t\tNOT NULL';
     content += ',';
 
     return content;

@@ -68,10 +68,13 @@ export async function """ +
         this._utilities.getEndpointFunction(e) +
         """(query: any, requestedData: any[]) {
     try {
-        return (await facade.sqlStorage.sqlRead('""" +
+        let data = await facade.sqlStorage.sqlRead('""" +
         this._model.pluralName[0].toUpperCase() +
         this._model.pluralName.substring(1) +
-        """', query, requestedData))[0];
+        """', query, requestedData);
+        if(data.length == 0) 
+          throw new HTTP400Error(1111, 'there is no data by that ID')
+        return data[0];
     } catch (e) {
         throw e;
     }
@@ -94,7 +97,8 @@ export async function """ +
         """ID = shortid.generate();
 
         """ +
-        this.handleFilesUpload() +
+        this._utilities.handleFilesUpload(this._model) +
+        this._utilities.handleRequiredFields(this._model) +
         """
         
                 return await facade.sqlStorage.sqlCreate('""" +
@@ -117,7 +121,7 @@ export async function """ +
         """(query: any, data: any) {
             try {
               """ +
-        this.handleFilesUpload() +
+        this._utilities.handleFilesUpload(this._model) +
         """
 
                 return await facade.sqlStorage.sqlUpdate('""" +
@@ -164,30 +168,5 @@ export async function """ +
     this._io.writeToFile(
         controllersPath + this._model.pluralName + '.controller.ts',
         this._content);
-  }
-
-  String handleFilesUpload() {
-    String content = '';
-
-    this._model.fields.forEach((f) {
-      if (f.type.length == 0 ||
-          f.type.contains('INT') ||
-          f.type.contains('CHAR')) return;
-      content += "\nif(data." +
-          f.name +
-          ")\n\tdata." +
-          f.name +
-          " = await utilities.storeFile(data." +
-          f.name +
-          ", '" +
-          f.type.split(':')[0].trim() +
-          "/'+ data." +
-          this._model.singlarName +
-          "ID + '-" +
-          f.name +
-          "');\n";
-    });
-
-    return content;
   }
 }

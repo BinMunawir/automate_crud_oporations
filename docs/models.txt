@@ -1,12 +1,127 @@
-users-user;
-name,,u;
-password,,;
-date, BIGINT,;
-avatar, profile_avatars: png-jpeg-jpg,;
+organizations-organization;
+createdDate, BIGINT,;
+arTitle,,;
+enTitle,,;
+code,,;
+email,,;
+domain,,;
+type,,;
 
 _____
 
-notes-note > users;
-title,,;
-image1, noteImages: png,;
-image2, noteImages: png,;
+users-user;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+organizationID,,r;
+password,,;
+name,,;
+email,,ur;
+phone,,;
+status,INT,;
+type,,;
+
+_____
+
+admins-admin;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+name,,;
+password,,;
+role,,;
+email,,ur;
+status, INT,;
+
+_____
+
+books-book;
+createdDate, BIGINT,;
+createdBy,,r;
+modifiedDate, BIGINT,;
+modifiedBy,,;
+arTitle,,;
+enTitle,,;
+code,,;
+versionNumber, INT,;
+video, videos: mp4,;
+
+_____
+
+volumes-volume > books;
+createdDate, BIGINT,;
+createdBy,,r;
+modifiedDate, BIGINT,;
+modifiedBy,,;
+arTitle,,;
+enTitle,,;
+versionNumber,INT,;
+
+_____
+
+chapters-chapter > volumes;
+createdDate, BIGINT,;
+createdBy,,r;
+modifiedDate, BIGINT,;
+modifiedBy,,;
+arTitle,,;
+enTitle,,;
+code,,;
+versionNumber, INT,;
+versionDate, BIGINT,;
+numberOfViews, INT,;
+chapter, chapters: docx,;
+
+_____
+
+documents-document > chapters;
+createdDate, BIGINT,;
+createdBy,,r;
+modifiedDate, BIGINT,;
+modifiedBy,,;
+arTitle,,;
+enTitle,,;
+code,,;
+versionNumber, INT,;
+versionDate, BIGINT,;
+link,,;
+numberOfDownloads, BIGINT,;
+document, documents: docx-pdf,;
+
+_____
+
+documentHistories-documentHistorie > users,documents;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+actionType, INT,;
+actionDate, BIGINT,;
+ipAddress,,;
+
+_____
+
+histories-historie > users;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+actionType, INT,;
+actionDate, BIGINT,;
+bookID,,;
+volumeID,,;
+chapterID,,;
+_____
+
+glossaries-glossary;
+createdDate, BIGINT,;
+createdBy,,r;
+modifiedDate, BIGINT,;
+term,,;
+definition,,;
+
+
+_____
+
+inquiries-inquiry > users,documents;
+createdDate,BIGINT,;
+modifiedDate,BIGINT,;
+inquiry,,;
+response,,;
+status, INT,;
+
+

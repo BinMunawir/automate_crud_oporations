@@ -28,37 +28,118 @@ class Endpoints {
     String instans = this._path(model);
     String collection = instans.substring(0, instans.lastIndexOf(':') - 1);
 
-    _endpoints.addAll(this._getEndpoints(model));
-    _endpoints.add(Endpoint(model, 'POST', collection,
-        model.fields.map<String>((f) => f.name).toList()));
-    _endpoints.add(Endpoint(model, 'PUT', instans,
-        model.fields.map<String>((f) => f.name).toList()));
-    _endpoints.add(Endpoint(model, 'DELETE', instans, []));
+    if (model.depends.length == 2) {
+      collection = '/' + model.pluralName;
+      instans = collection + '/:' + model.singlarName + 'ID';
 
-    return _endpoints;
-  }
-
-  List<Endpoint> _getEndpoints(Model model) {
-    List<Endpoint> _endpoints = [];
-
-    String instans = this._path(model);
-    String collection = instans.substring(0, instans.lastIndexOf(':') - 1);
-
-    if (model.depends.length > 0)
-      _endpoints.add(Endpoint(model, 'GET', '/' + model.pluralName,
+      _endpoints.add(Endpoint(
+          model,
+          'GET',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              collection,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'GET',
+          '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              collection,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'GET',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              collection,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'GET',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              instans,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'POST',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              collection,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'PUT',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              instans,
+          model.fields.map<String>((f) => f.name).toList()));
+      _endpoints.add(Endpoint(
+          model,
+          'DELETE',
+          '/' +
+              model.depends[0].pluralName +
+              '/:' +
+              model.depends[0].singlarName +
+              'ID' +
+              '/' +
+              model.depends[1].pluralName +
+              '/:' +
+              model.depends[1].singlarName +
+              'ID' +
+              instans,
           model.fields.map<String>((f) => f.name).toList()));
 
-    model.depends.forEach((m) {
-      String path = this._path(m) + '/' + model.pluralName;
-      if (path == collection) return;
-      _endpoints.add(Endpoint(model, "GET", path,
-          model.fields.map<String>((f) => f.name).toList()));
-    });
+      return _endpoints;
+    }
 
     _endpoints.add(Endpoint(model, 'GET', collection,
         model.fields.map<String>((f) => f.name).toList()));
     _endpoints.add(Endpoint(model, 'GET', instans,
         model.fields.map<String>((f) => f.name).toList()));
+    _endpoints.add(Endpoint(model, 'POST', collection,
+        model.fields.map<String>((f) => f.name).toList()));
+    _endpoints.add(Endpoint(model, 'PUT', instans,
+        model.fields.map<String>((f) => f.name).toList()));
+    _endpoints.add(Endpoint(model, 'DELETE', instans, []));
 
     return _endpoints;
   }

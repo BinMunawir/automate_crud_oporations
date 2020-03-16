@@ -1,0 +1,39 @@
+
+users-user;
+name,,u;
+password,,;
+date, BIGINT,;
+avatar, avatars: png-jpeg-jpg,;
+
+_____
+
+admins-admin;
+email,,u;
+phone,CHAR(12),u;
+image, images: png-jpeg-jpg,;
+
+_____
+
+notes-note > users;
+title,,;
+content, contents: txt-pdf,;
+date, INT,;
+
+_____
+
+noteImages-noteImage > notes;
+image, images: png-jpeg-jpg,;
+
+_____
+
+books-book;
+title,VARCHAR(50),u;
+cover, images: png-jpeg-jpg,;
+pages, INT,;
+
+_____
+
+downloads-download > users,books;
+date, BIGINT,;
+
+

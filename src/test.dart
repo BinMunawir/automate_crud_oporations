@@ -26,6 +26,7 @@ main(List<String> args) {
     'dbUser',
     'dbPassword',
     'dbName',
+    'storageHost'
   ]).run();
   Crud().run();
 }

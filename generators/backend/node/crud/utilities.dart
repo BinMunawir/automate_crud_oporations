@@ -1,4 +1,5 @@
 import '../../../../src/endpoint.dart';
+import '../../../../src/model.dart';
 
 class Utilities {
   String getEndpointParams(Endpoint e) {
@@ -30,16 +31,72 @@ class Utilities {
           e.model.pluralName[0].toUpperCase() +
           e.model.pluralName.substring(1);
 
-    e.model.depends.asMap().forEach((i, m) {
-      if (!e.path.contains(m.singlarName + 'ID')) return;
-      if (!func.contains('FilteredBy'))
-        func += 'FilteredBy';
-      else
-        func += 'And';
-      func +=
-          m.singlarName[0].toUpperCase() + m.singlarName.substring(1) + "ID";
+    if (e.model.depends.length != 0 && e.method == 'GET') {
+      if (e.model.depends.length == 2 &&
+          e.path.contains(e.model.depends[0].singlarName + 'ID') &&
+          e.path.contains(e.model.depends[1].singlarName + 'ID'))
+        func += 'FilteredBy' +
+            e.model.depends[0].singlarName[0].toUpperCase() +
+            e.model.depends[0].singlarName.substring(1) +
+            'IDAnd' +
+            e.model.depends[1].singlarName[0].toUpperCase() +
+            e.model.depends[1].singlarName.substring(1) +
+            'ID';
+      else if (e.path.contains(e.model.depends[0].singlarName + 'ID'))
+        func += 'FilteredBy' +
+            e.model.depends[0].singlarName[0].toUpperCase() +
+            e.model.depends[0].singlarName.substring(1) +
+            'ID';
+      else if (e.model.depends.length == 2 &&
+          e.path.contains(e.model.depends[1].singlarName + 'ID'))
+        func += 'FilteredBy' +
+            e.model.depends[1].singlarName[0].toUpperCase() +
+            e.model.depends[1].singlarName.substring(1) +
+            'ID';
+    }
+    return func;
+  }
+
+  String handleFilesUpload(Model model) {
+    String content = '';
+
+    model.fields.forEach((f) {
+      if (f.type.length == 0 ||
+          f.type.contains('INT') ||
+          f.type.contains('CHAR')) return;
+      content += "\nif(data." +
+          f.name +
+          ")\n\tdata." +
+          f.name +
+          " = await utilities.storeFile(data." +
+          f.name +
+          ", '" +
+          f.type.split(':')[0].trim() +
+          "/" +
+          model.pluralName +
+          "-'+ data." +
+          model.singlarName +
+          "ID + '-" +
+          f.name +
+          "');\n";
     });
 
-    return func;
+    return content;
+  }
+
+  String handleRequiredFields(Model model) {
+    String content = '';
+
+    model.fields.forEach((f) {
+      if (f.info.length < 3 && f.info == 'r') {
+        content += "\nif (!data." +
+            f.name +
+            ") throw new HTTP400Error(1111, '" +
+            f.name +
+            " is required')\n";
+      }
+    });
+
+    return content;
   }
 }

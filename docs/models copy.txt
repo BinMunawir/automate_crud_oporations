@@ -1,0 +1,164 @@
+Organizations:
+organizationID,INT,p;
+createdDate, BIGINT,;
+arabicTitle,,;
+englishTitle,,;
+code,,;
+email,,;
+domain,,;
+type,,
+
+_____
+
+Users:
+userID,INT,p;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+password,,;
+name,,;
+email,,u;
+phone,,;
+status,INT,;
+type,,;                                                                                                                  
+organizationID,,Organizations
+
+_____
+
+Admins:
+adminID,INT,p;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+name,,;
+password,,;
+role,,;
+email,,;
+status, INT,
+
+_____
+
+Books:
+bookID,INT,p;
+createdDate, BIGINT,;
+createdBy, BIGINT,;
+modifiedDate, BIGINT,;
+modifiedBy, INT,;
+adminID,,Admins;
+arabicTitle,,;
+englishTitle,,;
+code,,;
+versionNumber, INT,;
+video, video,
+
+_____
+
+Volumes:
+volumeID,INT,p;
+createdDate, BIGINT,;
+createdBy, BIGINT,;
+modifiedDate, BIGINT,;
+modifiedBy, INT,;
+adminID,,Admins;
+bookID,,Books;
+arabicTitle,,;
+englishTitle,,;
+versionNumber,INT,
+
+_____
+
+Chapters:
+chapterID,INT,p;
+createdDate, BIGINT,;
+createdBy, BIGINT,;
+modifiedDate, BIGINT,;
+modifiedBy, INT,;
+adminID,,Admins;
+bookID,,Books;
+volumeID,,Volumes;
+arabicTitle,,;
+englishTitle,,;
+code,,;
+versionNumber, INT,;
+versionDate, BIGINT,;
+numberOfViews, INT,;
+chapter, docx,
+
+_____
+
+Documents:
+documentID,INT,p;
+createdDate, BIGINT,;
+createdBy, BIGINT,;
+modifiedDate, BIGINT,;
+modifiedBy, BIGINT,;
+adminID,,Admins;
+bookID,,Books;
+volumeID,,Volumes;
+chapterID,,Chapters;
+arabicTitle,,;
+englishTitle,,;
+code,,;
+versionNumber, INT,;
+versionDate, BIGINT,;
+link,,;
+numberOfDownloads, BIGINT,;
+document, docx,
+
+_____
+
+DocumentHistories:
+documentHistoryID,INT,p;
+documentID,,Documents;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+userID,,Users;
+actionType, INT,;
+actionDate, BIGINT,;
+ipAddress,,
+
+_____
+
+UserHistories:
+userHistoryID,INT,p;
+bookID,,Books;
+volumeID,,Volumes;
+chapterID,,Chapters;
+documentID,,Documents;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+userID,,Users;
+actionType, INT,;
+actionDate, BIGINT,
+
+_____
+
+OrganizationHistories:
+organizationHistoryID,INT,p;
+organizationID,,Organizations;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+userID,,Users;
+actionType, INT,;
+actionDate, BIGINT,;
+ipAddress,,
+_____
+
+Glossaries:
+glossaryID,INT,p;
+createdDate, BIGINT,;
+modifiedDate, BIGINT,;
+adminID,,Admins;
+term,,;
+definition,,
+
+_____
+
+Inquiries:
+inquiryID,INT,p;
+createdDate,BIGINT,;
+modifiedDate,BIGINT,;
+organizationID,,Organizations;
+userID,,Users;
+documentID,,Documents;
+inquiry,,;
+response,,;
+status, INT,
