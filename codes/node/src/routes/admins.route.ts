@@ -2,22 +2,23 @@ import { getAllAdmins, getAdmin, createAdmin, updateAdmin, deleteAdmin, } from "
 import { verifyToken, acceptedBody, filterByAccept, filterByPrevent, checkValues } from "../utilities";
 
 let adminType: AdminModel = {
-adminID: '',
-createdDate: 0,
-modifiedDate: 0,
-name: '',
-password: '',
-role: '',
-email: '',
-status: 0,
+  adminID: '',
+  createdDate: 0,
+  modifiedDate: 0,
+  name: '',
+  password: '',
+  role: '',
+  email: '',
+  status: 0,
 }
 
-export default [  {
+export default [
+  {
     path: "/api/admins",
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let query = {...req.query, ...req.params}
+        let query = { ...req.query, ...req.params }
         let queryAccept = ['limit', 'page', 'sort', 'order'];
         let accept: string[] = ['adminID', 'createdDate', 'modifiedDate', 'name', 'password', 'role', 'email', 'status'];
         query = filterByAccept([...queryAccept, ...accept], query);
@@ -29,7 +30,7 @@ export default [  {
       }
     ]
   }
-,   {
+  , {
     path: "/api/admins/:adminID",
     method: "get",
     handler: [
@@ -40,12 +41,12 @@ export default [  {
       }
     ]
   }
-,   {
+  , {
     path: "/api/admins",
     method: "post",
     handler: [
       async (req: any, res: any) => {
-        let body = {...req.body, ...req.params};
+        let body = { ...req.body, ...req.params };
         let acceptList: string[] = ['adminID', 'createdDate', 'modifiedDate', 'name', 'password', 'role', 'email', 'status']
         body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
@@ -57,24 +58,24 @@ export default [  {
       }
     ]
   }
-,   {
+  , {
     path: "/api/admins/:adminID",
     method: "put",
     handler: [
       async (req: any, res: any) => {
-        let body = {...req.body, ...req.params};
+        let body = { ...req.body, ...req.params };
         let acceptList: string[] = ['adminID', 'createdDate', 'modifiedDate', 'name', 'password', 'role', 'email', 'status']
         body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
         // body = filterByPrevent(acceptList, body);
         checkValues(body, adminType)
-        
+
         await updateAdmin({ adminID: req.params.adminID }, body);
         res.status(200).send();
       }
     ]
   }
-,   {
+  , {
     path: "/api/admins/:adminID",
     method: "delete",
     handler: [

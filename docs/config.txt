@@ -1,10 +1,9 @@
-
-projectName=mashroat_api,
+projectName=test99,
 hostname=localhost,
 port=3000,
-secretKey=tvGKJpkDIdOfnW2dbWoPUz7Lp1kuSIsORUeAYGY,
+secretKey=innosoft,
 dbHost=localhost,
 dbUser=root,
-dbPassword=123456789,
-dbName=mashroat_cms,
+dbPassword=123,
+dbName=test99DB,
 storageHost=localhost:3000

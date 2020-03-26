@@ -1,4 +1,6 @@
-CREATE TABLE Users (
+export const tables = `
+
+ CREATE TABLE Users (
 	userID		VARCHAR(255),
 	avatar		VARCHAR(255),
 PRIMARY KEY (userID)
@@ -10,3 +12,6 @@ CREATE TABLE Notes (
 PRIMARY KEY (noteID)
 );
 
+ 
+
+`;

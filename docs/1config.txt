@@ -1,0 +1,10 @@
+
+projectName=mashroat_api,
+hostname=localhost,
+port=3000,
+secretKey=tvGKJpkDIdOfnW2dbWoPUz7Lp1kuSIsORUeAYGY,
+dbHost=localhost,
+dbUser=root,
+dbPassword=123456789,
+dbName=mashroat_cms,
+storageHost=localhost:3000
