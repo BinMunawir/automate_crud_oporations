@@ -1,9 +1,9 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import os
 
 # globals
-filePath = '/home/bu3abed/myprojects/automate_crud_oporations/docs/config.txt'
+filePath = os.environ['projectPath']+'/docs/config.txt'
 variables = {
     "projectName": "",
     "hostname": "",

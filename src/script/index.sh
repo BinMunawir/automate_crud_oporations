@@ -1,17 +1,17 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 set -e
 clear
 
 
-projectPath='/home/bu3abed/myprojects/automate_crud_oporations'
+export projectPath='/home/bu3abed/myprojects/automate_crud_oporations'
 
-echo "==============================="
-echo "Welcome to CRUD automation tool"
-echo "==============================="
 echo ""
-echo "this is a simple script to guide
-you through creation of crud backend"
+echo "=============================================================="
+echo "            Welcome to CRUD automation tool"
+echo "=============================================================="
+echo ""
+echo "this is a simple script to guide you through generatign"
 echo ""
 echo ""
 
@@ -34,17 +34,104 @@ if [ $doSkip == 0 ]; then
     echo ""
 fi
 
-echo "===== you are ready ====="
-echo "great so far, now it's time to generate the crud system"
+echo "==================== CRUD automation tool ===================="
+echo "CRUD automation tool has many options of generators. depending"
+echo "on whichyou choose, it will let you know how to use it."
+echo ""
 read -p "press [Enter] to continue.."
-dart "$projectPath/generators/sqlTables/index.dart"
-dart "$projectPath/generators/endpoints/index.dart"
-dart "$projectPath/generators/backend/node/setup/index.dart"
-dart "$projectPath/generators/backend/node/crud/index.dart"
 
 echo ""
-echo "Great you are done"
-echo "you can find your generated code at "
-echo "$projectPath/projects"
-echo "Bye"
+echo ""
+
+while [ true ]; do
+    echo "Choose one of the options bellow [1..6]: "
+    echo "1) Generate \"full\" CRUD node"
+    echo "2) Generate sql tables"
+    echo "3) Generate REST-API endpoints"
+    echo "4) Setup node project"
+    echo "5) Add models CRUD node"
+    echo "6) Add Auth component to node (comming soon..)"
+    echo ""
+    echo "Or press [q] to Quit"
+    read choice
+    
+    case $choice in
+        1)
+            projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
+            dart "$projectPath/generators/sqlTables/index.dart"
+            dart "$projectPath/generators/endpoints/index.dart"
+            dart "$projectPath/generators/backend/node/setup/index.dart"
+            dart "$projectPath/generators/backend/node/crud/index.dart"
+            echo ""
+            echo "models crud code generated successfully"
+            echo "the project folder's path: $projectPath/projects/$projectName"
+            echo ""
+            read -p "you are done. Press [Enter] to go back to the main menu.."
+            echo "_________________________________________________-"
+            echo ""
+            echo ""
+        ;;
+        2)
+            dart "$projectPath/generators/sqlTables/index.dart"
+            echo ""
+            echo "sql tables generated successfully"
+            echo "the file's path: $projectPath/docs/sqlTables.txt"
+            echo ""
+            read -p "do you want to edit the file? [y/ default n]: " doEdit
+            if [ "$doEdit" == "y" ]; then
+                nano -l "$projectPath/docs/sqlTables.txt"
+            fi
+            read -p "you are done. Press [Enter] to go back to the main menu.."
+            echo "_________________________________________________-"
+            echo ""
+            echo ""
+        ;;
+        3)
+            dart "$projectPath/generators/endpoints/index.dart"
+            echo ""
+            echo "endpoints generated successfully"
+            echo "the file's path: $projectPath/docs/endpoints.txt"
+            echo ""
+            read -p "do you want to edit the file? [y/ default n]: " doEdit
+            if [ "$doEdit" == "y" ]; then
+                nano -l "$projectPath/docs/endpoints.txt"
+            fi
+            read -p "you are done. Press [Enter] to go back to the main menu.."
+            echo "_________________________________________________-"
+            echo ""
+            echo ""
+        ;;
+        4)
+            projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
+            dart "$projectPath/generators/backend/node/setup/index.dart"
+            echo ""
+            echo "setup code generated successfully"
+            echo "the project folder's path: $projectPath/projects/$projectName"
+            echo ""
+            read -p "you are done. Press [Enter] to go back to the main menu.."
+            echo "_________________________________________________-"
+            echo ""
+            echo ""
+        ;;
+        5)
+            projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
+            dart "$projectPath/generators/backend/node/crud/index.dart"
+            echo ""
+            echo "models crud code generated successfully"
+            echo "the project folder's path: $projectPath/projects/$projectName"
+            echo ""
+            read -p "you are done. Press [Enter] to go back to the main menu.."
+            echo "_________________________________________________-"
+            echo ""
+            echo ""
+        ;;
+        q)
+            echo "Bye"
+            exit 0
+        ;;
+        *) continue ;;
+    esac
+done
+
+
 

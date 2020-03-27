@@ -1,10 +1,11 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 import os
 
 
 # globals
-filePath = '/home/bu3abed/myprojects/automate_crud_oporations/docs/models.txt'
+# the projectPath should be in the evnirnment variables
+filePath = os.environ['projectPath']+'/docs/models.txt'
 models = {}
 
 
@@ -189,4 +190,3 @@ print()
 configure = input('do you want to edite the file manualy? [y/default n] ')
 if configure == 'y':
     os.system('nano -l '+filePath)
-
