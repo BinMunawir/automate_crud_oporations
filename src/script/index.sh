@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -e
+clear
+
+
 projectPath='/home/bu3abed/myprojects/automate_crud_oporations'
 
 echo "==============================="
@@ -11,17 +15,25 @@ you through creation of crud backend"
 echo ""
 echo ""
 
-if [ ! "$1" == "skip" ]; then
+doSkip=0
+for p in $@; do
+    if [ $p == "--skip" ]; then
+        doSkip=1
+    fi
+done
+
+
+if [ $doSkip == 0 ]; then
     echo "====== Generating config.txt file ======"
     "$projectPath/src/script/config_script.py"
     echo ""
     echo ""
     echo "====== Generating models.txt file ======"
     "$projectPath/src/script/models_script.py"
+    echo ""
+    echo ""
 fi
 
-echo ""
-echo ""
 echo "===== you are ready ====="
 echo "great so far, now it's time to generate the crud system"
 read -p "press [Enter] to continue.."
