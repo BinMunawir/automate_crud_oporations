@@ -1,9 +1,12 @@
+
 users-user;
-avatar, avatars: png, ;
+email, , ur;
+phone, , u;
 
 
 _____
 
 notes-note > users;
+title, titles: mp4, r;
 
 

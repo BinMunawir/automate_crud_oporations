@@ -1,4 +1,5 @@
 interface UserModel {
 userID?: string | null;
-avatar?: string | null;
+email?: string | null;
+phone?: string | null;
 }

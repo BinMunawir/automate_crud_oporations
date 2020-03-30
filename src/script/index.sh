@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 set -e
 clear
@@ -11,7 +11,7 @@ echo "=============================================================="
 echo "            Welcome to CRUD automation tool"
 echo "=============================================================="
 echo ""
-echo "this is a simple script to guide you through generatign"
+echo "this is a simple script to guide you through generation"
 echo ""
 echo ""
 
@@ -43,6 +43,17 @@ read -p "press [Enter] to continue.."
 echo ""
 echo ""
 
+
+# log config/models files
+cat "$projectPath/docs/config.txt" > "$projectPath/src/script/logs/files.txt" &&
+echo "#################################" >> "$projectPath/src/script/logs/files.txt" &&
+cat "$projectPath/docs/models.txt" >> "$projectPath/src/script/logs/files.txt" &&
+echo "" > "$projectPath/src/script/logs/sqlTables.txt" &&
+echo "" > "$projectPath/src/script/logs/endpoints.txt" &&
+echo "" > "$projectPath/src/script/logs/setup.txt" &&
+echo "" > "$projectPath/src/script/logs/crud.txt"
+
+
 while [ true ]; do
     echo "Choose one of the options bellow [1..6]: "
     echo "1) Generate \"full\" CRUD node"
@@ -58,10 +69,10 @@ while [ true ]; do
     case $choice in
         1)
             projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
-            dart "$projectPath/generators/sqlTables/index.dart"
-            dart "$projectPath/generators/endpoints/index.dart"
-            dart "$projectPath/generators/backend/node/setup/index.dart"
-            dart "$projectPath/generators/backend/node/crud/index.dart"
+            dart "$projectPath/generators/sqlTables/index.dart" 2> "$projectPath/src/script/logs/sqlTables.txt"
+            dart "$projectPath/generators/endpoints/index.dart" 2> "$projectPath/src/script/logs/endpoints.txt"
+            dart "$projectPath/generators/backend/node/setup/index.dart" 2> "$projectPath/src/script/logs/setup.txt"
+            dart "$projectPath/generators/backend/node/crud/index.dart" 2> "$projectPath/src/script/logs/crud.txt"
             echo ""
             echo "models crud code generated successfully"
             echo "the project folder's path: $projectPath/projects/$projectName"
@@ -72,7 +83,7 @@ while [ true ]; do
             echo ""
         ;;
         2)
-            dart "$projectPath/generators/sqlTables/index.dart"
+            dart "$projectPath/generators/sqlTables/index.dart" 2> "$projectPath/src/script/logs/sqlTables.txt"
             echo ""
             echo "sql tables generated successfully"
             echo "the file's path: $projectPath/docs/sqlTables.txt"
@@ -87,7 +98,7 @@ while [ true ]; do
             echo ""
         ;;
         3)
-            dart "$projectPath/generators/endpoints/index.dart"
+            dart "$projectPath/generators/endpoints/index.dart" 2> "$projectPath/src/script/logs/endpoints.txt"
             echo ""
             echo "endpoints generated successfully"
             echo "the file's path: $projectPath/docs/endpoints.txt"
@@ -103,7 +114,7 @@ while [ true ]; do
         ;;
         4)
             projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
-            dart "$projectPath/generators/backend/node/setup/index.dart"
+            dart "$projectPath/generators/backend/node/setup/index.dart" 2> "$projectPath/src/script/logs/setup.txt"
             echo ""
             echo "setup code generated successfully"
             echo "the project folder's path: $projectPath/projects/$projectName"
@@ -115,7 +126,7 @@ while [ true ]; do
         ;;
         5)
             projectName=`cat "$projectPath/docs/config.txt" | grep projectName | cut -d'=' -f 2 | cut -d',' -f 1`
-            dart "$projectPath/generators/backend/node/crud/index.dart"
+            dart "$projectPath/generators/backend/node/crud/index.dart" 2> "$projectPath/src/script/logs/crud.txt"
             echo ""
             echo "models crud code generated successfully"
             echo "the project folder's path: $projectPath/projects/$projectName"

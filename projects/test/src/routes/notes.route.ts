@@ -1,79 +1,80 @@
-import { getAllUsers, getUser, createUser, updateUser, deleteUser, } from "../controllers/users.controller";
+import { getAllNotesFilteredByUserID, getNoteFilteredByUserID, createNote, updateNote, deleteNote, } from "../controllers/notes.controller";
 import { verifyToken, acceptedBody, filterByAccept, filterByPrevent, checkValues } from "../utilities";
 
-let userType: UserModel = {
+let noteType: NoteModel = {
 userID: '',
-avatar: 'avatars: png',
+noteID: '',
+title: 'titles: mp4',
 }
 
 export default [  {
-    path: "/api/users",
+    path: "/api/users/:userID/notes",
     method: "get",
     handler: [
       async (req: any, res: any) => {
         let query = {...req.query, ...req.params}
         let queryAccept = ['limit', 'page', 'sort', 'order'];
-        let accept: string[] = ['userID', 'avatar'];
+        let accept: string[] = ['userID', 'noteID', 'title'];
         query = filterByAccept([...queryAccept, ...accept], query);
-        checkValues(query, userType);
+        checkValues(query, noteType);
 
-        let returnedFields: string[] = ['userID', 'avatar'];
-        let data = await getAllUsers(query, returnedFields);
+        let returnedFields: string[] = ['userID', 'noteID', 'title'];
+        let data = await getAllNotesFilteredByUserID(query, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
   }
 ,   {
-    path: "/api/users/:userID",
+    path: "/api/users/:userID/notes/:noteID",
     method: "get",
     handler: [
       async (req: any, res: any) => {
-        let returnedFields: string[] = ['userID', 'avatar'];
-        let data = await getUser({ userID: req.params.userID }, returnedFields);
+        let returnedFields: string[] = ['userID', 'noteID', 'title'];
+        let data = await getNoteFilteredByUserID({ noteID: req.params.noteID }, returnedFields);
         res.status(200).send(JSON.stringify(data));
       }
     ]
   }
 ,   {
-    path: "/api/users",
+    path: "/api/users/:userID/notes",
     method: "post",
     handler: [
       async (req: any, res: any) => {
         let body = {...req.body, ...req.params};
-        let acceptList: string[] = ['userID', 'avatar']
+        let acceptList: string[] = ['userID', 'noteID', 'title']
         body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
         // body = filterByPrevent(acceptList, body);
-        checkValues(body, userType)
+        checkValues(body, noteType)
 
-        await createUser(body);
+        await createNote(body);
         res.status(200).send();
       }
     ]
   }
 ,   {
-    path: "/api/users/:userID",
+    path: "/api/users/:userID/notes/:noteID",
     method: "put",
     handler: [
       async (req: any, res: any) => {
         let body = {...req.body, ...req.params};
-        let acceptList: string[] = ['userID', 'avatar']
+        let acceptList: string[] = ['userID', 'noteID', 'title']
         body = filterByAccept(acceptList, body);
         // let preventList: string[] = []
         // body = filterByPrevent(acceptList, body);
-        checkValues(body, userType)
+        checkValues(body, noteType)
         
-        await updateUser({ userID: req.params.userID }, body);
+        await updateNote({ noteID: req.params.noteID }, body);
         res.status(200).send();
       }
     ]
   }
 ,   {
-    path: "/api/users/:userID",
+    path: "/api/users/:userID/notes/:noteID",
     method: "delete",
     handler: [
       async (req: any, res: any) => {
-        await deleteUser({ userID: req.params.userID });
+        await deleteNote({ noteID: req.params.noteID });
         res.status(200).send();
       }
     ]

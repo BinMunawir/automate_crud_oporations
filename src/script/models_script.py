@@ -155,7 +155,10 @@ print()
 
 while True:
     print()
-    addModel = input('do you want to add a model? (y/n): ').strip()
+    if len(models) == 0:
+        addModel = 'y'
+    else:
+        addModel = input('do you want to add a model? (y/n): ').strip()
     if addModel == 'n':
         break
     if addModel == 'y':

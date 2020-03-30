@@ -29,7 +29,12 @@ export async function createNote(data: any) {
     try {
         if (!data.noteID) data.noteID = shortid.generate();
 
-                
+        
+if(data.title)
+	data.title = await utilities.storeFile(data.title, 'titles/notes-'+ data.noteID + '-title');
+
+if (!data.title) throw new HTTP400Error(1111, 'title is required')
+        
                 return await facade.sqlStorage.sqlCreate('Notes', data)
             } catch (e) {
                 throw e;
@@ -40,6 +45,9 @@ export async function createNote(data: any) {
                 export async function updateNote(query: any, data: any) {
             try {
               
+if(data.title)
+	data.title = await utilities.storeFile(data.title, 'titles/notes-'+ data.noteID + '-title');
+
                 return await facade.sqlStorage.sqlUpdate('Notes', query, data)
             } catch (e) {
                 throw e;
